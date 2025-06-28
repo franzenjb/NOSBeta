@@ -349,25 +349,20 @@
             // Hardcoded page map from your config.json (simplified for relevant pages)
             // This object maps button text/data-search-term to page IDs and URLs from config.json
             const pageMap = {
-                "National": {id: "page_84"}, // No URL means it's an internal EB page
-                "Heat Risk": {url: "https://www.wpc.ncep.noaa.gov/heatrisk/"}, // External website, will be loaded in same window
-                "FY23 Incidents and DROs": {url: "https://www.arcgis.com/apps/dashboards/21a7f226e058473e9be008505be61e26"}, 
+                // Internal Experience Builder Pages (navigate by page ID within the EB app)
+                "National": {id: "page_84"}, 
                 "DCS 5YR Plan": {id: "page_97"}, 
                 "DCS Narrative": {id: "page_98"},
                 "Global Trends": {id: "page_99"},
+                // ArcGIS Dashboards/WebApps/MapSeries/Hubs (should open within EB app if possible)
+                "FY23 Incidents and DROs": {url: "https://www.arcgis.com/apps/dashboards/21a7f226e058473e9be008505be61e26"}, 
                 "DOCC Portal": {url: "https://apps.powerapps.com/play/e/0a52f298-38c2-4f5d-8c45-b3436caf8649/a/22598684-b075-4c5f-be99-1aba7948b791?tenantId=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771&hidenavbar=true"}, 
                 "Current OPS Rep": {url: "https://www.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657"},
-                "Power Outages": {url: "https://poweroutage.us/"}, // External
-                "Storm Prediction Ctr": {url: "https://www.spc.noaa.gov"},
-                "Precipitation": {url: "https://www.wpc.ncep.noaa.gov/qpf/qpf2.shtml"},
-                "Flood Prediction": {url: "https://water.weather.gov/ahps/"},
-                "Natl Hurricane Ctr": {url: "https://www.nhc.noaa.gov/"},
-                "7 Day Fire Risk": {url: "https://fsapps.nwcg.gov/psp/npsg/forecast/#/outlooks?state=map"},
+                "7 Day Fire Risk": {url: "https://fsapps.nwcg.gov/psp/npsg/forecast/#/outlooks?state=map"}, // This might be external, review if it breaks header
                 "California EMS": {url: "https://calprep-calema.hub.arcgis.com/"},
                 "Natl Interagency Fire": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=eef9de0158c440a896955c4fb2dc639c"}, 
                 "Weather - General": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=eef9de0158c440a896955c4fb2dc639c"}, 
                 "Tropical Hazards": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=b1449dc63d154cc9b13bcfe3b0d93cc9"}, 
-                "Fire Weather": {url: "https://www.nifc.gov/fire-information"}, 
                 "National Sheltering": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/0540322bacee4fa39e5b512bffc5f901"},
                 "Current Open": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/0540322bacee4fa39e5b512bffc5f901"}, 
                 "Shelter Intake": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/651c6d08e4874210ade0af696ba82f07"},
@@ -387,8 +382,8 @@
                 "NIC Teams DRO Leadership": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/136120d9a7ef4d8195b21197e9847047"},
                 "Active DROs": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/6cbd1e41a9e7495c92cedcd834228043"},
                 "Natl Activation Levels": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=dd3d5bf14fac4f4fa47778075d996bdc"}, 
-                "DRO Call Agenda": {url: "https://intranet.redcross.org/content/dam/redcross/documents/our_services/DisasterCycleServices/dcs-management/disaster-cycle-service-operations/DROSyncCallAgenda.pdf"},
-                "Dist Partner Hub": {url: "https://www.disasterpartners.org/pages/home"},
+                "DRO Call Agenda": {url: "https://intranet.redcross.org/content/dam/redcross/documents/our_services/DisasterCycleServices/dcs-management/disaster-cycle-service-operations/DROSyncCallAgenda.pdf"}, // This might be external/force new tab, review
+                "Dist Partner Hub": {url: "https://www.disasterpartners.org/pages/home"}, // This might be external/force new tab, review
                 "Hurricane Advance Planning": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/instant/portfolio/index.html?appid=dd3d5bf14fac4f4fa47778075d996bdc"}, 
                 "DR 503-25 South Texas": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=6edff10fb7184a2cbe9e34ffa29cf049"},
                 "DR 535-25 Missouri/Ark": {url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=1a2ce887cdef4623a1a7f51691bfacc8"},
@@ -418,6 +413,31 @@
             const EB_APP_ID = "2ab560cd143d4e3292020ab22644be21";
             // Base URL for constructing internal EB page links
             const BASE_EB_PAGE_URL_PREFIX = `https://experience.arcgis.com/experience/${EB_APP_ID}/page/`;
+
+            // Function to check if a URL belongs to a domain that might cause header loss or is truly external
+            function isHeaderBreakingExternalSite(url) {
+                const externalDomainsThatBreakHeader = [
+                    "wpc.ncep.noaa.gov", 
+                    "nhc.noaa.gov", 
+                    "spc.noaa.gov", 
+                    "water.weather.gov", 
+                    "nifc.gov", 
+                    "poweroutage.us",
+                    "intranet.redcross.org", // Intranet sites often behave like external when embedded
+                    "www.disasterpartners.org", // Another external site
+                    "forms.office.com", // Microsoft forms, can also break out
+                    "americanredcross.sharepoint.com" // SharePoint also often breaks out of iframes
+                ];
+                
+                try {
+                    const parsedUrl = new URL(url);
+                    const hostname = parsedUrl.hostname;
+                    return externalDomainsThatBreakHeader.some(domain => hostname.includes(domain));
+                } catch (e) {
+                    console.error("Invalid URL in isHeaderBreakingExternalSite check:", url, e);
+                    return false; // Assume not breaking if URL is invalid
+                }
+            }
 
 
             function filterMenu() {
@@ -470,11 +490,17 @@
 
                     if (matchingPage) {
                         let finalTargetUrl;
+                        let shouldOpenInNewTab = false; // Default to false
 
                         if (matchingPage.id) { // If it has a page ID, it's an internal EB page
                             finalTargetUrl = BASE_EB_PAGE_URL_PREFIX + matchingPage.id;
-                        } else if (matchingPage.url) { // Otherwise, use the provided full URL
+                            // Internal EB pages always load in the current top window
+                        } else if (matchingPage.url) { 
                             finalTargetUrl = matchingPage.url;
+                            // Check if this URL is one of the problematic external domains
+                            if (isHeaderBreakingExternalSite(finalTargetUrl)) {
+                                shouldOpenInNewTab = true;
+                            }
                         } else {
                             finalTargetUrl = "#"; 
                             console.warn(`No valid URL or ID found for: ${buttonText}. Link will be '#'.`);
@@ -487,19 +513,23 @@
                         button.addEventListener('click', function(e) {
                             e.preventDefault(); // Prevent default anchor link navigation
 
-                            // Attempt to navigate the top-level window directly for ALL links.
-                            // This is the only way to ensure they open "in the app page" and not new tabs,
-                            // but be aware it will navigate the main EB app away for external sites.
-                            console.log("Attempting top-level navigation for ALL links:", finalTargetUrl);
-                            try {
-                                window.top.location.href = finalTargetUrl;
-                            } catch (error) {
-                                console.error("Error attempting top-level navigation for:", finalTargetUrl, error);
-                                // Fallback: If top-level navigation is explicitly blocked by browser/security,
-                                // open in the current window (might break out of iframe or fail).
-                                // This is a last resort if window.top.location.href is restricted.
-                                console.warn("Top-level navigation blocked. Attempting window.location.href as fallback.");
-                                window.location.href = finalTargetUrl;
+                            if (shouldOpenInNewTab) {
+                                // For explicitly identified external sites that break the header, open in new tab
+                                console.log("Opening external site in new tab to preserve EB context:", finalTargetUrl);
+                                window.open(finalTargetUrl, '_blank');
+                            } else {
+                                // For all other links (internal EB pages, ArcGIS dashboards, PowerBI/Apps that behave well)
+                                // try to navigate the top-level window.
+                                console.log("Attempting top-level navigation within EB context:", finalTargetUrl);
+                                try {
+                                    window.top.location.href = finalTargetUrl;
+                                } catch (error) {
+                                    console.error("Error attempting top-level navigation for:", finalTargetUrl, error);
+                                    // Fallback: if even window.top.location.href is blocked (rare),
+                                    // try to open in a new tab as a last resort to at least show the content.
+                                    console.warn("Top-level navigation blocked. Opening in new tab as fallback.");
+                                    window.open(finalTargetUrl, '_blank');
+                                }
                             }
                         });
                     } else {
