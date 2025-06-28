@@ -349,15 +349,15 @@
             // Hardcoded page map from your config.json (simplified for relevant pages)
             // This object maps button text/data-search-term to page IDs and URLs from config.json
             const pageMap = {
-                "National": {id: "page_84", url: "https://experience.arcgis.com/experience/84dbd2ab506d4fddb683ffd6c5501180"},
+                "National": {id: "page_84", isInternalEBPage: true}, // Explicitly mark as internal EB page
                 "Heat Risk": {id: "page_95", url: "https://www.wpc.ncep.noaa.gov/heatrisk/"},
                 "FY23 Incidents and DROs": {id: "page_96", url: "https://www.arcgis.com/apps/dashboards/21a7f226e058473e9be008505be61e26"}, 
-                "DCS 5YR Plan": {id: "page_97", page_id: "page_97"}, // Use page_id for internal navigation
-                "DCS Narrative": {id: "page_98", page_id: "page_98"},
-                "Global Trends": {id: "page_99", page_id: "page_99"},
-                "DOCC Portal": {id: "page_100", url: "https://apps.powerapps.com/play/e/0a52f298-38c2-4f5d-8c45-b3436caf8649/a/22598684-b075-4c5f-be99-1aba7948b791?tenantId=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771&hidenavbar=true"},
+                "DCS 5YR Plan": {id: "page_97", isInternalEBPage: true}, 
+                "DCS Narrative": {id: "page_98", isInternalEBPage: true},
+                "Global Trends": {id: "page_99", isInternalEBPage: true},
+                "DOCC Portal": {id: "page_100", url: "https://apps.powerapps.com/play/e/0a52f298-38c2-4f5d-8c45-b3436caf8649/a/22598684-b075-4c5f-be99-1aba7948b791?tenantId=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771&hidenavbar=true"}, // PowerApp, keep URL
                 "Current OPS Rep": {id: "page_101", url: "https://www.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657"},
-                "Power Outages": {id: "page_102", url: "https://poweroutage.us/"}, 
+                "Power Outages": {id: "page_102", url: "https://poweroutage.us/"}, // External
                 "Storm Prediction Ctr": {id: "page_104", url: "https://www.spc.noaa.gov"},
                 "Precipitation": {id: "page_106", url: "https://www.wpc.ncep.noaa.gov/qpf/qpf2.shtml"},
                 "Flood Prediction": {id: "page_107", url: "https://water.weather.gov/ahps/"},
@@ -378,7 +378,7 @@
                 "EBV - Event Volunteers": {id: "page_124", url: "https://app.powerbi.com/reportEmbed?reportId=0cd807f2-d988-4cf7-9425-f043cd70c981&appId=6ae92fb9-56ad-4b06-b535-855949e47dec&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
                 "DST - Disaster Serv Tech": {id: "page_125", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b1cd7d0b382c4fa3bacea57448102200"},
                 "IKD - In Kind Donations": {id: "page_126", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/45bc895fd18a4cafb0486d04d7e35f82"},
-                "Trailer & Assets": {id: "page_127", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4cda594568144ba3ba5837afe3777646"},
+                "Trailer & Assets": {id: "page_127", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4cda594568144ba3ba5837afe3777646"}, // Explicitly this URL from config
                 "ERV - Emergency Vehicles": {id: "page_128", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b70a992090c841d2be494e2dfd847646"},
                 "Resourcing": {id: "page_150", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/162311dcc7d645ea97b9a63afda6c80c"},
                 "Speed to Scale": {id: "page_169", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/158256c4c4b549d0b809632c6cdcf872"}, 
@@ -414,9 +414,10 @@
                 "Contact with any Questions": {id: "contact_page", url: "https://forms.office.com/Pages/ResponsePage.aspx?id=Ql1b3dPA0kq18WDts68nccEZ0rG-i_FEnQ7UpIuUp3hUMFZLTEpEWFJQMFJXUUtaUVBDUk1ENEpESyQlQCN0PWcu"} 
             };
 
-            // Main app ID from config.json (used for constructing internal page links)
-            const APP_ID = "2ab560cd143d4e3292020ab22644be21";
-            const BASE_EXPERIENCE_URL = "https://experience.arcgis.com/experience/" + APP_ID + "/page/"; // Base URL for internal Experience Builder pages
+            // Main Experience Builder App ID from config.json
+            const EB_APP_ID = "2ab560cd143d4e3292020ab22644be21";
+            // Base URL for constructing internal EB page links
+            const BASE_EB_PAGE_URL = `https://experience.arcgis.com/experience/${EB_APP_ID}/page/`;
 
             function filterMenu() {
                 const searchTerm = searchInput.value.toLowerCase();
@@ -467,64 +468,62 @@
                     }
 
                     if (matchingPage) {
-                        let targetUrl = matchingPage.url;
-                        let targetPageId = matchingPage.id; // Get page ID if available
+                        // Determine the final URL and if it's an internal EB page navigation
+                        let finalTargetUrl;
+                        let isInternalEBPageNavigation = false;
 
-                        // Determine if it's an internal Experience Builder page or an external one
-                        // A link is considered internal if it has a page_id or starts with specific ArcGIS domains.
-                        const isInternalExperienceBuilderPage = (targetPageId !== undefined) || 
-                                                               (targetUrl && (
-                                                                  targetUrl.startsWith("https://experience.arcgis.com/experience/") || 
-                                                                  targetUrl.startsWith("https://arc-nhq-gis.maps.arcgis.com/") ||
-                                                                  targetUrl.startsWith("https://apps.powerapps.com/") || 
-                                                                  targetUrl.startsWith("https://app.powerbi.com/")
-                                                               ));
-                        
-                        // Set the href for accessibility (right-click, copy link address)
-                        // For internal pages, set it to the hash URL for consistent browser history behavior
-                        if (targetPageId && isInternalExperienceBuilderPage) {
-                            button.href = `#page/${targetPageId}`;
+                        if (matchingPage.isInternalEBPage && matchingPage.id) {
+                            // If explicitly marked as internal EB page and has an ID, construct the full EB page URL
+                            finalTargetUrl = BASE_EB_PAGE_URL + matchingPage.id;
+                            isInternalEBPageNavigation = true;
+                        } else if (matchingPage.url) {
+                            // If a full URL is provided, use it directly
+                            finalTargetUrl = matchingPage.url;
+                            // Check if this URL is still within the ESRI/PowerApps/PowerBI ecosystem
+                            if (finalTargetUrl.startsWith("https://experience.arcgis.com/experience/") || 
+                                finalTargetUrl.startsWith("https://arc-nhq-gis.maps.arcgis.com/") ||
+                                finalTargetUrl.startsWith("https://apps.powerapps.com/") || 
+                                finalTargetUrl.startsWith("https://app.powerbi.com/")) {
+                                isInternalEBPageNavigation = true; // Treat these as internal for same-frame loading
+                            }
                         } else {
-                            button.href = targetUrl;
+                            // Fallback if no URL or ID for internal EB page is properly set
+                            finalTargetUrl = "#"; 
+                            console.warn(`No valid URL or ID found for: ${buttonText}. Link will be '#'.`);
                         }
 
-                        // Attach the click listener
+                        // Set the href for accessibility (right-click -> copy link address)
+                        button.href = finalTargetUrl;
+                        
+                        // Add click listener for custom navigation logic
                         button.addEventListener('click', function(e) {
-                            e.preventDefault(); // Always prevent default anchor link navigation when handled by JS
+                            e.preventDefault(); // Prevent default anchor link navigation
 
-                            if (isInternalExperienceBuilderPage) {
-                                // For internal Experience Builder pages, force top-level navigation
-                                // This is the most reliable method for published EB apps
-                                const fullInternalUrl = `${window.top.location.origin}${window.top.location.pathname}#page/${targetPageId}`;
-                                console.log("Attempting top-level internal EB navigation:", fullInternalUrl);
+                            if (isInternalEBPageNavigation) {
+                                // For internal Experience Builder pages or related ArcGIS apps,
+                                // try to navigate the top-level window. This is the most reliable
+                                // way to prevent losing the header and keep within the EB app.
+                                console.log("Attempting top-level navigation to:", finalTargetUrl);
                                 try {
-                                    window.top.location.href = fullInternalUrl;
+                                    window.top.location.href = finalTargetUrl;
                                 } catch (error) {
-                                    console.error("Error attempting top-level navigation:", error);
-                                    // Fallback if window.top.location.href is also blocked (unlikely but possible in extreme cases)
-                                    // Try postMessage as a final fallback, though less reliable if basic hash change fails
-                                    if (window.parent) {
-                                        console.warn("Top-level navigation blocked. Trying postMessage as fallback.");
-                                        window.parent.postMessage({ 
-                                            type: 'page-navigation', 
-                                            pageId: targetPageId, 
-                                            hash: `#page/${targetPageId}` 
-                                        }, '*');
-                                    } else {
-                                        console.warn("Neither top-level navigation nor postMessage available. Link may not work.");
-                                    }
+                                    console.error("Error with window.top.location.href:", error);
+                                    // Fallback if top-level navigation is also blocked (e.g., extreme security sandbox)
+                                    // In this very rare case, try opening in current window (might break out of iframe)
+                                    // or as a last resort, opening a new tab.
+                                    console.warn("Top-level navigation blocked. Attempting window.location.href (may break iframe or redirect).");
+                                    window.location.href = finalTargetUrl;
                                 }
                             } else {
-                                // For truly external links, open in a new tab
-                                console.log("Opening external link in new tab:", targetUrl);
-                                window.open(targetUrl, '_blank');
+                                // For truly external links (e.g., direct external websites, SharePoint, etc.)
+                                // open in a new tab to avoid breaking the EB experience.
+                                console.log("Opening external link in new tab:", finalTargetUrl);
+                                window.open(finalTargetUrl, '_blank');
                             }
                         });
                     } else {
                         console.warn("No matching page found in pageMap for button:", buttonText);
                         button.href = "#"; // Keep placeholder if no link found
-                        // Optionally disable button or indicate it's not clickable
-                        // button.style.pointerEvents = 'none'; 
                     }
                 });
             }
