@@ -1,202 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regional Operating Dashboard</title>
-  <style>
-    body {
-      font-family: Verdana, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    .wrapper {
-      max-width: 1600px;
-      margin: auto;
-    }
-    .search-bar {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    #searchBox {
-      width: 80%;
-      max-width: 450px;
-      padding: 12px 20px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-    }
-    .grid {
-      column-count: 4;
-      column-gap: 25px;
-    }
-    .section {
-      display: inline-block;
-      width: 100%;
-      background: #fff;
-      border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 25px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      break-inside: avoid;
-    }
-    .section h3 {
-      margin-top: 0;
-      font-size: 18px;
-      text-align: center;
-      color: #333;
-      background: #000;
-      color: #fff;
-      border-radius: 5px;
-      padding: 6px 0;
-    }
-    .section a {
-      display: block;
-      text-align: center;
-      padding: 10px;
-      margin: 6px 0;
-      text-decoration: none;
-      color: #fff;
-      border-radius: 20px;
-      font-size: 15px;
-    }
-    .contact {
-      text-align: center;
-      margin-top: 40px;
-    }
-    .contact a {
-      display: inline-block;
-      padding: 12px 30px;
-      background: #b91c1c;
-      color: #fff;
-      border-radius: 25px;
-      text-decoration: none;
-      font-size: 16px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florida Regional Operating Summary</title>
+    <!-- Tailwind CSS CDN for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Using Inter font as recommended for better readability -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+        }
+        .menu-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .category-grid {
+            display: grid;
+            /* Responsive grid: 1 column on small screens, adjusts to more on larger screens */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .category-card {
+            background-color: #f7f9fc;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            display: flex; /* Use flex for column layout within the card */
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3498db; /* A distinct underline for titles */
+            width: 100%;
+        }
+        .category-subtitle { /* For "Readiness Metric" and similar subheadings */
+            color: #555;
+            text-align: center;
+            margin: 0.5rem 0 0.4rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .menu-button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.6rem; /* Spacing between buttons */
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            color: white; /* Default text color for all buttons */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .menu-button:hover {
+            transform: translateY(-2px); /* Slight lift effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+        }
+
+        /* Button Color Themes (mapped from your inline styles to Tailwind-friendly classes) */
+        .btn-purple { background-color: #6b46c1; }
+        .btn-purple:hover { background-color: #7c5bcc; }
+
+        .btn-green-light { background-color: #22c55e; }
+        .btn-green-light:hover { background-color: #2dc962; }
+
+        .btn-blue-light { background-color: #3b82f6; }
+        .btn-blue-light:hover { background-color: #5497ff; }
+
+        .btn-blue-dark { background-color: #1e40af; }
+        .btn-blue-dark:hover { background-color: #284da0; }
+
+        .btn-orange { background-color: #c2410c; }
+        .btn-orange:hover { background-color: #d14a16; }
+
+        .btn-green-dark { background-color: #059669; }
+        .btn-green-dark:hover { background-color: #06a473; }
+
+        .btn-dark-blue { background-color: #1e3a8a; } /* Renamed from red-dark to better reflect color */
+        .btn-dark-blue:hover { background-color: #2c499c; }
+
+        .btn-red-medium { background-color: #dc2626; }
+        .btn-red-medium:hover { background-color: #e53935; }
+
+        .btn-red-contact { background-color: #7f1d1d; }
+        .btn-red-contact:hover { background-color: #8c2f2f; }
+
+        .btn-blue-operations { background-color: #2563eb; } /* Named to reflect usage */
+        .btn-blue-operations:hover { background-color: #3f79ff; }
+
+        .btn-red-hfc { background-color: #b91c1c; } /* Named to reflect usage */
+        .btn-red-hfc:hover { background-color: #c02d2d; }
+
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid #dcdfe6;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .menu-container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            .category-grid {
+                grid-template-columns: 1fr; /* Stack categories on small screens */
+            }
+        }
+    </style>
 </head>
-<body>
-<div class="wrapper">
-  <div class="search-bar">
-    <input type="text" id="searchBox" placeholder="Search Options..." onkeyup="searchOptions()">
-  </div>
+<body class="bg-gray-100 p-4">
 
-  <div class="grid">
-    <div class="section">
-      <h3>1 Situation Summary</h3>
-      <a href="#" style="background:#6b46c1">National</a>
-      <a href="#" style="background:#6b46c1">Heat Risk</a>
-      <a href="#" style="background:#6b46c1">FY25 Incidents and DROs</a>
-      <a href="#" style="background:#6b46c1">DCS 5 YR Plan</a>
-      <a href="#" style="background:#6b46c1">DCS Narrative</a>
-      <a href="#" style="background:#6b46c1">Global Trends</a>
-      <a href="#" style="background:#6b46c1">DOCC Portal</a>
-      <a href="#" style="background:#6b46c1">Current OPS Rep</a>
-      <a href="#" style="background:#6b46c1">Power Outages</a>
-    </div>
-    <div class="section">
-      <h3>2 Weather</h3>
-      <a href="#" style="background:#3b82f6">Storm Prediction Ctr</a>
-      <a href="#" style="background:#3b82f6">Precipitation</a>
-      <a href="#" style="background:#3b82f6">Flood Prediction</a>
-      <a href="#" style="background:#3b82f6">Natl Hurricane Ctr</a>
-      <a href="#" style="background:#3b82f6">7 Day Fire Risk</a>
-      <a href="#" style="background:#3b82f6">Hurricane</a>
-      <a href="#" style="background:#3b82f6">California EMS</a>
-      <a href="#" style="background:#3b82f6">Natl Interagency Fire</a>
-      <a href="#" style="background:#3b82f6">Weather - General</a>
-      <a href="#" style="background:#3b82f6">Tropical Hazards</a>
-      <a href="#" style="background:#3b82f6">Fire Weather</a>
-    </div>
-    <div class="section">
-      <h3>3 Sheltering</h3>
-      <a href="#" style="background:#2563eb">National Sheltering</a>
-      <a href="#" style="background:#2563eb">Current Open</a>
-      <a href="#" style="background:#2563eb">Shelter Intake</a>
-      <a href="#" style="background:#2563eb">SCIA Operational Dashboard</a>
-      <a href="#" style="background:#2563eb">Restricted SCIA Access Request</a>
-    </div>
-    <div class="section">
-      <h3>4 Logistics</h3>
-      <a href="#" style="background:#22c55e">Staffing</a>
-      <a href="#" style="background:#22c55e">Staff Capacity Building</a>
-      <a href="#" style="background:#22c55e">EBV - Event Volunteers</a>
-      <a href="#" style="background:#22c55e">DST - Disaster Serv Tech</a>
-      <a href="#" style="background:#22c55e">IKD - In Kind Donations</a>
-      <a href="#" style="background:#22c55e">Trailer & Assets</a>
-      <a href="#" style="background:#22c55e">ERV - Emergency Vehicles</a>
-      <a href="#" style="background:#22c55e">Resourcing</a>
-      <a href="#" style="background:#22c55e">Speed to Scale</a>
-    </div>
-    <div class="section">
-      <h3>5 Call Center</h3>
-      <a href="#" style="background:#000">1 800 Red Cross</a>
-    </div>
-    <div class="section">
-      <h3>6 SADS & DRO</h3>
-      <a href="#" style="background:#ea580c">DOCC Current OPS</a>
-      <a href="#" style="background:#ea580c">NIC Teams DRO Leadership</a>
-      <a href="#" style="background:#ea580c">Active DROs</a>
-      <a href="#" style="background:#ea580c">Natl Activation Levels</a>
-      <a href="#" style="background:#ea580c">DRO Call Agenda</a>
-      <a href="#" style="background:#ea580c">Dist Partner Hub</a>
-      <a href="#" style="background:#ea580c">Hurricane Advance Planning</a>
-      <a href="#" style="background:#ea580c">DR 503-25 South Texas</a>
-      <a href="#" style="background:#ea580c">DR 535-25 Missouri/Ark</a>
-      <a href="#" style="background:#ea580c">DR 539-25 Kentucky</a>
-      <a href="#" style="background:#ea580c">DR 540-25 Tennessee</a>
-      <a href="#" style="background:#ea580c">DR 548-25 Indiana</a>
-      <a href="#" style="background:#ea580c">DR 550-25 Illinois</a>
-      <a href="#" style="background:#ea580c">DR 515-25 Harney, Oregon</a>
-      <a href="#" style="background:#ea580c">DR 497-25 Oklahoma</a>
-      <a href="#" style="background:#ea580c">DRO Comp BETA Tool</a>
-    </div>
-    <div class="section">
-      <h3>7 Financial Assist DAT</h3>
-      <a href="#" style="background:#dc2626">Client Assistance</a>
-      <a href="#" style="background:#dc2626">Level 1-2 Casework FA</a>
-      <a href="#" style="background:#dc2626">IDC Financial</a>
-      <a href="#" style="background:#dc2626">Bridge</a>
-      <a href="#" style="background:#dc2626">DAT</a>
-      <a href="#" style="background:#dc2626">Request Access</a>
-      <a href="#" style="background:#dc2626">Current Ops</a>
-      <a href="#" style="background:#dc2626">Disaster Current OPs Dashboard</a>
-      <a href="#" style="background:#dc2626">Nat'l Operations - Client Assistance</a>
-      <a href="#" style="background:#dc2626">Bridge Dashboard Historical Info</a>
-    </div>
-    <div class="section">
-      <h3>8 Regional Risk Tool</h3>
-      <a href="#" style="background:#7f1d1d">Reg'l Risk Tool</a>
-    </div>
-    <div class="section">
-      <h3>9 CAP - Comm Adaptation</h3>
-      <a href="#" style="background:#16a34a">Community Adaptation</a>
-      <a href="#" style="background:#16a34a">Housing Resources</a>
-    </div>
-  </div>
+    <div class="menu-container">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-6">Florida Regional Operating Summary</h1>
 
-  <div class="contact">
-    <a href="#">Contact with any Questions</a>
-  </div>
-</div>
+        <div class="mb-8">
+            <input type="text" id="menuSearch" class="search-input" placeholder="Search menu items...">
+        </div>
 
-<script>
-function searchOptions() {
-  const query = document.getElementById('searchBox').value.toLowerCase();
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(section => {
-    const links = section.querySelectorAll('a');
-    let match = false;
-    links.forEach(link => {
-      const text = link.textContent.toLowerCase();
-      const found = text.includes(query);
-      link.style.display = found || query === '' ? '' : 'none';
-      if (found) match = true;
-    });
-    section.style.display = match || query === '' ? 'inline-block' : 'none';
-  });
-}
-</script>
+        <div id="menuContent" class="category-grid">
+            <!-- Category: Situational Awareness -->
+            <div class="category-card">
+                <h2 class="category-title">Situational Awareness</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/1-Situational-Awareness?views=Operating-Picture-" target="_self" class="menu-button btn-purple" data-search-term="Operating Picture">Operating Picture</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/1-Situational-Awareness?views=Situational-Awareness" target="_self" class="menu-button btn-purple" data-search-term="Situational Awareness">Situational Awareness</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/1-Situational-Awareness?draft=true&views=Weather" target="_self" class="menu-button btn-purple" data-search-term="Weather Maps">Weather Maps</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/1-Situational-Awareness?views=National-Hurricane-Center" target="_self" class="menu-button btn-purple" data-search-term="Natl Hurricane Center">Natl Hurricane Center</a>
+            </div>
+            
+            <!-- Category: Level 1-2 DAT -->
+            <div class="category-card">
+                <h2 class="category-title">Level 1-2 DAT</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDoor%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="Level 1-2 Dashboard">Level 1-2 Dashboard</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDAT-Response-Frequency%2CDoor%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="DAT Response Frequency">DAT Response Frequency</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDoor%2CRC-Respond-%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="RC Respond">RC Respond</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDoor%2CHome-Fire-Reg-Dashboard--%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="HF Regional Dashboard">HF Regional Dashboard</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDoor%2CHome-Fire-Trend-Report%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="Home Fire Trend Report">Home Fire Trend Report</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/6-Level-1-2-Response-DAT-?draft=true&views=CARTA%2CDoor%2CFD-Engage-Dashboard%2CSECAR-SitAware" target="_self" class="menu-button btn-green-light" data-search-term="FD Engage Dashboard">FD Engage Dashboard</a>
+            </div>
+            
+            <!-- Category: Preparedness -->
+            <div class="category-card">
+                <h2 class="category-title">Preparedness</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/2-Preparedness" target="_self" class="menu-button btn-blue-light" data-search-term="NF Community Prep">NF Community Prep</a>
+                <h4 class="category-subtitle">Readiness Metric</h4>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/7-Readiness-%26-Metrics-?views=FY-Metric-Report-%2CNational-Readiness--" target="_self" class="menu-button btn-blue-dark" data-search-term="National Readiness">National Readiness</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/7-Readiness-%26-Metrics-?views=FY-Metric-Report-%2CFY-Metric-Report--%2CNF-Metric" target="_self" class="menu-button btn-blue-dark" data-search-term="FY Metric Report">FY Metric Report</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/7-Readiness-%26-Metrics-?views=FY-Metric-Report-%2CHurricane-Planning--%2CSF-Metric" target="_self" class="menu-button btn-blue-dark" data-search-term="Hurricane Planning">Hurricane Planning</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/7-Readiness-%26-Metrics-?views=FY-Metric-Report-%2CFlorida-Response--%2CSF-Metric" target="_self" class="menu-button btn-blue-dark" data-search-term="Florida Response">Florida Response</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/7-Readiness-%26-Metrics-?views=FY-Metric-Report-%2CLOI-Commitments%2CSF-Metric" target="_self" class="menu-button btn-blue-dark" data-search-term="LOI Shelter Map">LOI Shelter Map</a>
+            </div>
+            
+            <!-- Category: Trailer Warehouse -->
+            <div class="category-card">
+                <h2 class="category-title">Trailer Warehouse</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/3-Trailer-Warehouse-Locations-?views=Regional-Inventory-Management" target="_self" class="menu-button btn-orange" data-search-term="RIM Inventory Mgmt">RIM Inventory Mgmt</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/3-Trailer-Warehouse-Locations-?views=Emergency-Response-Vehicles" target="_self" class="menu-button btn-orange" data-search-term="ERV">ERV</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/3-Trailer-Warehouse-Locations-?views=Trailers" target="_self" class="menu-button btn-orange" data-search-term="Trailers">Trailers</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/3-Trailer-Warehouse-Locations-?views=Feeding-Logistics" target="_self" class="menu-button btn-orange" data-search-term="Feeding Logistics">Feeding Logistics</a>
+            </div>
+            
+            <!-- Category: Weather -->
+            <div class="category-card">
+                <h2 class="category-title">Weather</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/8-Weather-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CHurricane-Center-" target="_self" class="menu-button btn-green-dark" data-search-term="Hurricane Center">Hurricane Center</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/8-Weather-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CNational-Weather-" target="_self" class="menu-button btn-green-dark" data-search-term="National Weather">National Weather</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/8-Weather-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CStorm-Prediction-" target="_self" class="menu-button btn-green-dark" data-search-term="Storm Prediction">Storm Prediction</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/8-Weather-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CUSGS-Flood-Inundation" target="_self" class="menu-button btn-green-dark" data-search-term="River Gauges">River Gauges</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/8-Weather-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-green-dark" data-search-term="USGS Flood">USGS Flood</a>
+            </div>
+            
+            <!-- Category: Workforce & Training -->
+            <div class="category-card">
+                <h2 class="category-title">Workforce & Training</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/4-Workforce-%26-Training-?draft=true&views=SECAR-SitAware" target="_self" class="menu-button btn-dark-blue" data-search-term="DOOR">DOOR</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/4-Workforce-%26-Training-?draft=true&views=SECAR-SitAware%2CWorkforce" target="_self" class="menu-button btn-dark-blue" data-search-term="Workforce Readiness">Workforce Readiness</a>
+            </div>
+            
+            <!-- Category: Community Data -->
+            <div class="category-card">
+                <h2 class="category-title">Community Data</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/9-Community-Data-Analysis-?views=Demographics-%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-medium" data-search-term="Demographics">Demographics</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/9-Community-Data-Analysis-?views=HF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CMilitary-and-Veterans%2CRiver-Gauges-" target="_self" class="menu-button btn-red-medium" data-search-term="Military and Veterans">Military and Veterans</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/9-Community-Data-Analysis-?views=FEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-medium" data-search-term="FEMA RAPT">FEMA RAPT</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/9-Community-Data-Analysis-?views=FEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-medium" data-search-term="FEMA RAPT Beta">FEMA RAPT Beta</a>
+            </div>
+            
+            <!-- Category: Partnerships -->
+            <div class="category-card">
+                <h2 class="category-title">Partnerships</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/5-Partnerships-?draft=true&views=Door%2CSECAR-SitAware" target="_self" class="menu-button btn-red-contact" data-search-term="Partner Service Delivery">Partner Service Delivery</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/5-Partnerships-?draft=true&views=Door%2CLatino-Engagement%2CSECAR-SitAware" target="_self" class="menu-button btn-red-contact" data-search-term="Latino Engagement">Latino Engagement</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/5-Partnerships-?draft=true&views=CARTA%2CDoor%2CSECAR-SitAware" target="_self" class="menu-button btn-red-contact" data-search-term="Partnerships">Partnerships</a>
+            </div>
+            
+            <!-- Category: Operations -->
+            <div class="category-card">
+                <h2 class="category-title">Operations</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/10-Operations-?views=Disaster-Service-Tech-%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-blue-operations" data-search-term="Disaster Service Tech">Disaster Service Tech</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/10-Operations-?views=FEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-%2CShelter-Intake-" target="_self" class="menu-button btn-blue-operations" data-search-term="Shelter Intake">Shelter Intake</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/10-Operations-?views=Call-Center-%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-blue-operations" data-search-term="Call Center">Call Center</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/10-Operations-?views=Current-OPS-%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-blue-operations" data-search-term="Current Ops Report">Current Ops Report</a>
+            </div>
+            
+            <!-- Category: HFC -->
+            <div class="category-card">
+                <h2 class="category-title">HFC</h2>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/11-HFC?views=Current-OPS-%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-%2CSECAR-HFC" target="_self" class="menu-button btn-red-hfc" data-search-term="SECAR HFC">SECAR HFC</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/11-HFC?views=Current-OPS-%2CDAT-Response-App%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-hfc" data-search-term="DAT Response App">DAT Response App</a>
+                <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/11-HFC?views=Current-OPS-%2CDAT-Planning-Tool%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-hfc" data-search-term="DAT Planning Tool">DAT Planning Tool</a>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/Contact-Us?views=Current-OPS-%2CDAT-Response-App%2CFEMA-County-SVI-Beta%2CHF-Regional-Dashboard-%2CHome-Fire-Reg-Dashboard--%2CRiver-Gauges-" target="_self" class="menu-button btn-red-contact inline-block w-auto px-6 py-3 rounded-full text-lg" data-search-term="Questions Comments">Questions Comments</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('menuSearch');
+            const menuContent = document.getElementById('menuContent');
+            const menuButtons = menuContent.querySelectorAll('.menu-button');
+            const categoryCards = menuContent.querySelectorAll('.category-card');
+
+            function filterMenu() {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                menuButtons.forEach(button => {
+                    const buttonText = button.textContent.toLowerCase();
+                    const dataSearchTerm = button.dataset.searchTerm ? button.dataset.searchTerm.toLowerCase() : '';
+
+                    // Check if either the button's visible text or its data-search-term matches the filter
+                    if (buttonText.includes(searchTerm) || dataSearchTerm.includes(searchTerm)) {
+                        button.style.display = 'block'; // Show the button
+                    } else {
+                        button.style.display = 'none'; // Hide the button
+                    }
+                });
+
+                // Iterate through each category to determine if it should be visible
+                categoryCards.forEach(card => {
+                    // Check if any child menu button within this category is currently visible
+                    const visibleButtonsInCard = card.querySelectorAll('.menu-button[style*="display: block"]');
+                    
+                    if (visibleButtonsInCard.length === 0 && searchTerm !== '') {
+                        // If no buttons are visible in this category AND a search term is active, hide the category
+                        card.style.display = 'none';
+                    } else {
+                        // Otherwise (if buttons are visible, or if the search term is empty), show the category
+                        card.style.display = 'flex'; // Use flex to maintain column layout
+                    }
+                });
+            }
+
+            // Attach event listeners for search input
+            searchInput.addEventListener('keyup', filterMenu);
+            searchInput.addEventListener('change', filterMenu); // Handles cases like browser autofill or clear button
+        });
+
+        // Function to dynamically update links from a JSON configuration if needed in the future.
+        // This function is currently not called as your HTML already contains direct links.
+        // If you had a JSON file mapping page IDs to URLs, you would implement the logic here
+        // to iterate through that JSON and update the 'href' attributes of the buttons.
+        function updateLinksFromJson(jsonData) {
+            console.log("JSON data received for link updates (placeholder function):", jsonData);
+            // Example of how you might use jsonData:
+            // if (jsonData && jsonData.pages) {
+            //     const pageMap = {};
+            //     for (const pageId in jsonData.pages) {
+            //         if (jsonData.pages[pageId].url) { // Assuming 'url' property exists in your JSON for each page
+            //             pageMap[jsonData.pages[pageId].label] = jsonData.pages[pageId].url;
+            //         }
+            //     }
+            //     document.querySelectorAll('.menu-button').forEach(button => {
+            //         const buttonText = button.textContent.trim();
+            //         if (pageMap[buttonText]) {
+            //             button.href = pageMap[buttonText];
+            //         }
+            //     });
+            // }
+        }
+
+        // Example of calling updateLinksFromJson if you were to use the config.json data
+        // For instance, if you loaded config.json using a fetch request:
+        /*
+        fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                updateLinksFromJson(data);
+            })
+            .catch(error => console.error('Error loading config.json:', error));
+        */
+    </script>
 </body>
 </html>
