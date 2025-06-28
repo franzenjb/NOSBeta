@@ -416,7 +416,8 @@
 
             // Main app ID from config.json (used for constructing internal page links)
             const APP_ID = "2ab560cd143d4e3292020ab22644be21";
-            const BASE_INTERNAL_URL = "https://experience.arcgis.com/experience/" + APP_ID + "/page/"; // Base URL for internal Experience Builder pages
+            const BASE_EXPERIENCE_URL = "https://experience.arcgis.com/experience/" + APP_ID + "/page/"; // Base URL for internal Experience Builder pages
+            const ARC_GIS_MAPS_URL_PREFIX = "https://arc-nhq-gis.maps.arcgis.com/"; // ArcGIS maps prefix
 
             function filterMenu() {
                 const searchTerm = searchInput.value.toLowerCase();
@@ -468,14 +469,21 @@
 
                     if (matchingPage) {
                         // Store the target URL on the button's dataset for the click handler
-                        button.dataset.targetUrl = matchingPage.url || (matchingPage.id ? BASE_INTERNAL_URL + matchingPage.id : '');
+                        button.dataset.targetUrl = matchingPage.url || (matchingPage.id ? BASE_EXPERIENCE_URL + matchingPage.id : '');
                         
-                        // Determine if it's an internal Experience Builder page
+                        // Determine if it's an internal Experience Builder page or an external one
+                        // A link is considered internal if it's explicitly an ID, or if its URL
+                        // starts with the Experience Builder domain or the ArcGIS Maps domain.
                         let isInternalPage = false;
-                        if (matchingPage.url && (matchingPage.url.startsWith("https://experience.arcgis.com/experience/") || matchingPage.url.startsWith("https://arc-nhq-gis.maps.arcgis.com/"))) {
+                        if (matchingPage.id) { // If a page ID exists, it's definitely an internal page
                             isInternalPage = true;
-                        } else if (matchingPage.id) {
-                            isInternalPage = true; // Assume page ID implies internal
+                        } else if (matchingPage.url && 
+                                   (matchingPage.url.startsWith("https://experience.arcgis.com/experience/") || 
+                                    matchingPage.url.startsWith(ARC_GIS_MAPS_URL_PREFIX) || 
+                                    matchingPage.url.startsWith("https://apps.powerapps.com/") || 
+                                    matchingPage.url.startsWith("https://app.powerbi.com/"))) {
+                            // Also consider PowerApps and PowerBI links from your config as "internal" if they are meant to stay within the EB ecosystem
+                            isInternalPage = true;
                         }
 
                         // Attach the click listener
@@ -491,37 +499,45 @@
 
                             if (isInternalPage) {
                                 // For internal Experience Builder pages, send a postMessage
-                                // The hash part is crucial for Experience Builder's internal routing
-                                const pageIdFromMap = matchingPage.id;
-                                console.log("Attempting internal navigation via postMessage:", { 
-                                    type: 'page-navigation', 
-                                    pageId: pageIdFromMap, 
-                                    // Use hash format for postMessage when navigating to internal pages
-                                    hash: `#page/${pageIdFromMap}` 
-                                });
-
-                                if (window.parent) {
-                                    window.parent.postMessage({ 
+                                // Ensure a pageId is always present for 'page-navigation' type
+                                const targetPageId = matchingPage.id;
+                                if (targetPageId) {
+                                    console.log("Sending postMessage for internal navigation:", { 
                                         type: 'page-navigation', 
-                                        pageId: pageIdFromMap, 
-                                        hash: `#page/${pageIdFromMap}` 
-                                    }, '*'); // Use '*' for targetOrigin to avoid cross-origin issues, though specific origin is safer if known.
+                                        pageId: targetPageId, 
+                                        hash: `#page/${targetPageId}` // Construct hash for EB's internal routing
+                                    });
+
+                                    if (window.parent) {
+                                        window.parent.postMessage({ 
+                                            type: 'page-navigation', 
+                                            pageId: targetPageId, 
+                                            hash: `#page/${targetPageId}` 
+                                        }, '*'); // Use '*' for targetOrigin to avoid cross-origin issues, though specific origin is safer if known.
+                                    } else {
+                                        console.warn("No parent window found for postMessage. Attempting direct hash change (may not work).");
+                                        // Fallback for direct testing outside of iframe, may or may not work in some EB setups
+                                        window.location.hash = `#page/${targetPageId}`;
+                                    }
                                 } else {
-                                    console.warn("No parent window found for postMessage. Attempting direct hash change (may not work).");
-                                    // Fallback for direct testing outside of iframe, may or may not work in some EB setups
-                                    window.location.hash = `#page/${pageIdFromMap}`;
+                                    // If no pageId but classified as internal, try navigating directly within the iframe
+                                    console.warn("Internal link without pageId. Attempting direct iframe navigation:", clickTargetUrl);
+                                    window.location.href = clickTargetUrl; 
                                 }
+
                             } else {
-                                // For external links, open in a new tab
+                                // For truly external links, open in a new tab
+                                console.log("Opening external link in new tab:", clickTargetUrl);
                                 window.open(clickTargetUrl, '_blank');
                             }
                         });
                         
                         // Set href for accessibility (right-click -> copy link)
-                        if (matchingPage.url) {
+                        // For internal pages, set href to the hash URL for consistent behavior in browser history
+                        if (isInternalPage && matchingPage.id) {
+                            button.href = `#page/${matchingPage.id}`;
+                        } else if (matchingPage.url) {
                             button.href = matchingPage.url;
-                        } else if (matchingPage.id) {
-                            button.href = BASE_INTERNAL_URL + matchingPage.id;
                         }
                     } else {
                         console.warn("No matching page found in pageMap for button:", buttonText);
