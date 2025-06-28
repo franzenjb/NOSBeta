@@ -346,6 +346,77 @@
             const allCategoryCards = menuContent.querySelectorAll('.category-card'); 
             const allMenuButtons = menuContent.querySelectorAll('.menu-button'); 
 
+            // Hardcoded page map from your config.json (simplified for relevant pages)
+            const pageMap = {
+                "National": {id: "page_84", url: "https://experience.arcgis.com/experience/84dbd2ab506d4fddb683ffd6c5501180"},
+                "Heat Risk": {id: "page_95", url: "https://www.wpc.ncep.noaa.gov/heatrisk/"},
+                "FY 25 Incidents": {id: "page_96", url: "https://www.arcgis.com/apps/dashboards/21a7f226e058473e9be008505be61e26"}, // Mapped from FY25 Incidents and DROs
+                "DCS 5 Year Plan": {id: "page_97", url: "https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/DCS-5-Year-Plan"}, // Assuming a clean URL format is desired for internal pages
+                "DCS Narrative": {id: "page_98", url: "https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/DCS-Narrative"},
+                "Global Trends": {id: "page_99", url: "https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/Global-Trends"},
+                "DOCC Portal": {id: "page_100", url: "https://apps.powerapps.com/play/e/0a52f298-38c2-4f5d-8c45-b3436caf8649/a/22598684-b075-4c5f-be99-1aba7948b791?tenantId=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771&hidenavbar=true"},
+                "Current OPS Report": {id: "page_101", url: "https://www.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657"},
+                "Power Outages": {id: "page_102", url: "https://poweroutage.us/"}, // Note: External link from your config
+                "Storm Prediction Ctr": {id: "page_104", url: "https://www.spc.noaa.gov"},
+                "Precipitation": {id: "page_106", url: "https://www.wpc.ncep.noaa.gov/qpf/qpf2.shtml"},
+                "Flood Prediction": {id: "page_107", url: "https://water.weather.gov/ahps/"},
+                "Natl Hurricane Ctr": {id: "page_108", url: "https://www.nhc.noaa.gov/"},
+                "7 Day Fire Risk": {id: "page_109", url: "https://fsapps.nwcg.gov/psp/npsg/forecast/#/outlooks?state=map"},
+                "California EMS": {id: "page_111", url: "https://calprep-calema.hub.arcgis.com/"},
+                "Natl Interagency Fire": {id: "page_112", url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=eef9de0158c440a896955c4fb2dc639c"}, // From your config widget_3242/3247/3248
+                "Weather - General": {id: "page_173", url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=eef9de0158c440a896955c4fb2dc639c"}, // Assuming page_173 from config
+                "Tropical Hazards": {id: "page_174", url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=b1449dc63d154cc9b13bcfe3b0d93cc9"}, // Assuming page_174 from config
+                "Fire Weather": {id: "page_175", url: "https://www.nifc.gov/fire-information"}, // Assuming page_175 from config
+                "National Sheltering": {id: "page_114", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/0540322bacee4fa39e5b512bffc5f901"},
+                "Current Open": {id: "page_122", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/0540322bacee4fa39e5b512bffc5f901"}, // Mapped to the same as National Sheltering as per context from config
+                "Shelter Intake": {id: "page_123", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/651c6d08e4874210ade0af696ba82f07"},
+                "SCIA Operational Dashboard": {id: "page_176", url: "https://app.powerbi.com/reportEmbed?reportId=fa29be8f-7b6f-4090-b316-cf960419dd16&appId=6ae92fb9-56ad-4b06-b535-855949e47dec&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
+                "Restricted SCIA Access Request": {id: "page_177", url: "https://forms.office.com/pages/responsepage.aspx?id=Ql1b3dPA0kq18WDts68nccEZ0rG-i_FEnQ7UpIuUp3hUODVHV0c4V0NCQlRCQzlVVE5MQ0VURTdaViQlQCN0PWcu&route=shorturl"},
+                "Staffing": {id: "page_116", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/f25117c3cd2149ca9634801803ed5393"},
+                "Staff Capacity Building": {id: "page_168", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/158256c4c4b549d0b809632c6cdcf872"}, // From widget_3218 (Resourcing 6)
+                "EBV - Event Volunteers": {id: "page_124", url: "https://app.powerbi.com/reportEmbed?reportId=0cd807f2-d988-4cf7-9425-f043cd70c981&appId=6ae92fb9-56ad-4b06-b535-855949e47dec&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
+                "DST - Disaster Serv Tech": {id: "page_125", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b1cd7d0b382c4fa3bacea57448102200"},
+                "IKD - In Kind Donations": {id: "page_126", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/45bc895fd18a4cafb0486d04d7e35f82"},
+                "Trailer & Assets": {id: "page_127", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/4cda594568144ba3ba5837afe3777646"},
+                "ERV - Emergency Vehicles": {id: "page_128", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/b70a992090c841d2be494e2dfd847646"},
+                "Resourcing": {id: "page_150", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/162311dcc7d645ea97b9a63afda6c80c"},
+                "Speed to Scale": {id: "page_169", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/158256c4c4b549d0b809632c6cdcf872"}, // Mapped to Resourcing link as per config
+                "1 800 Red Cross": {id: "page_117", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/ab58d70b8ae74e7da6c5f9ea9d6dd143"},
+                "DOCC Current OPS": {id: "page_119", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/84b1d8a1ff6b4f7c892b2f8da31b3657"},
+                "NIC Teams DRO Leadership": {id: "page_132", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/136120d9a7ef4d8195b21197e9847047"},
+                "Active DROs": {id: "page_133", url: "https://arc-nhq-gis.maps.arcgis.com/apps/dashboards/6cbd1e41a9e7495c92cedcd834228043"},
+                "Natl Activation Levels": {id: "page_134", url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=dd3d5bf14fac4f4fa47778075d996bdc"}, // Mapped from widget_3221 (Dist Partner Hub 6)
+                "DRO Call Agenda": {id: "page_135", url: "https://intranet.redcross.org/content/dam/redcross/documents/our_services/DisasterCycleServices/dcs-management/disaster-cycle-service-operations/DROSyncCallAgenda.pdf"},
+                "Dist Partner Hub": {id: "page_136", url: "https://www.disasterpartners.org/pages/home"},
+                "Hurricane Advance Planning": {id: "page_170", url: "https://arc-nhq-gis.maps.arcgis.com/apps/instant/portfolio/index.html?appid=dd3d5bf14fac4f4fa47778075d996bdc"}, // From widget_3221
+                "DR 503-25 South Texas": {id: "page_139", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=6edff10fb7184a2cbe9e34ffa29cf049"},
+                "DR 535-25 Missouri/Ark": {id: "page_140", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=1a2ce887cdef4623a1a7f51691bfacc8"},
+                "DR 539-25 Kentucky": {id: "page_141", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=aea55ad1cb2843da84de16ea62f49682"},
+                "DR 540-25 Tennessee": {id: "page_155", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=aea55ad1cb2843da84de16ea62f49682"}, // Mapped to same as KY from config
+                "DR 548-25 Indiana": {id: "page_156", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=aea55ad1cb2843da84de16ea62f49682"}, // Mapped to same as KY from config
+                "DR 550-25 Illinois": {id: "page_157", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=359ecff2d08b4e46bfc7c33e3893c0ab"},
+                "DR 515-25 Harney, Oregon": {id: "page_158", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=c05c1638c5a6457aa752c95dcbbb0913"},
+                "DR 497-25 Oklahoma": {id: "page_159", url: "https://arc-nhq-gis.maps.arcgis.com/apps/webappviewer/index.html?id=dd2877d2555f4fcabc219a179f428432"},
+                "DRO Comp BETA Tool": {id: "page_172", url: "https://experience.arcgis.com/experience/23ac6e42fdf64f41bb928fe24531ac45"}, // From widget_3225 (DR 497-25 Oklahoma 4)
+                "Client Assistance": {id: "page_118", url: "https://app.powerbi.com/reportEmbed?reportId=144a7b38-21b1-42b1-b759-307956421e28&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
+                "Level 1-2 Casework FA": {id: "page_163", url: "https://app.powerbi.com/reportEmbed?reportId=bc5748b1-7087-435f-a898-de4819745f89&appId=8d4ab11d-bfcf-4724-8879-11782d14ba1c&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
+                "IDC Financial": {id: "page_142", url: "https://app.powerbi.com/reportEmbed?reportId=535766e8-58f8-4a99-81e2-d4ba956f1c9e&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"},
+                "Bridge": {id: "page_162", url: "https://app.powerbi.com/reportEmbed?reportId=51e0a811-4037-4744-88cd-b9355811094a&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"}, // From widget_2961 (Bridge)
+                "DAT": {id: "page_171", url: "https://app.powerbi.com/reportEmbed?reportId=7b80587c-3bac-4bef-8dfb-225bd9e619b4&appId=8d4ab11d-bfcf-4724-8879-11782d14ba1c&autoAuth=true&ctid=dd5b5d42-c0d3-4ad2-b5f1-60edb3af2771"}, // From widget_3224 (Bridge 2 - DAT)
+                "Request Access": {id: "page_164", url: "https://forms.office.com/Pages/ResponsePage.aspx?id=Ql1b3dPA0kq18WDts68nccEZ0rG-i_FEnQ7UpIuUp3hUMFZLTEpEWFJQMFJXUUtaUVBDUk1ENEpESyQlQCN0PWcu"},
+                "Disaster Current OPs Dashboard": {id: "page_165", url: "https://app.powerbi.com/groups/me/apps/6ae92fb9-56ad-4b06-b535-855949e47dec/reports/3d94cfa9-91ac-4a68-af83-6be93371f344/ReportSection?experience=power-bi"},
+                "Natl Operations - Client Assistance": {id: "page_166", url: "https://app.powerbi.com/groups/me/apps/6ae92fb9-56ad-4b06-b535-855949e47dec/reports/3d94cfa9-91ac-4a68-af83-6be93371f344/ReportSection?experience=power-bi"}, // Mapped to same as Disaster Current OPs Dashboard
+                "Bridge Dashboard Historical Info": {id: "page_167", url: "https://arc-nhq-gis.maps.arcgis.com/apps/instant/portfolio/index.html?appid=bbd835c463af4a53bd7c1a328c6018ad"},
+                "Regl Risk Tool": {id: "page_120", url: "https://arc-nhq-gis.maps.arcgis.com/apps/MapSeries/index.html?appid=ba9341e8cb7847d885fd6843a4a7ca3e"},
+                "Community Adaptation": {id: "page_121", url: "https://community-adaptation-program-arc-nhq-gis.hub.arcgis.com"},
+                "Housing Resources": {id: "page_149", url: "https://americanredcross.sharepoint.com/sites/HousingResourceInfo"}, // Note: Sharepoint link
+                "Contact with any Questions": {id: "contact_page", url: "https://forms.office.com/Pages/ResponsePage.aspx?id=Ql1b3dPA0kq18WDts68nccEZ0rG-i_FEnQ7UpIuUp3hUMFZLTEpEWFJQMFJXUUtaUVBDUk1ENEpESyQlQCN0PWcu"} // Re-used Request Access form
+            };
+
+            // Main app ID from config.json (used for constructing internal page links)
+            const APP_ID = "2ab560cd143d4e3292020ab22644be21";
+            const BASE_URL = "https://experience.arcgis.com/experience/" + APP_ID + "/page/";
+
             function filterMenu() {
                 const searchTerm = searchInput.value.toLowerCase();
 
@@ -380,10 +451,50 @@
                 });
             }
 
+            function applyLinks() {
+                allMenuButtons.forEach(button => {
+                    const buttonText = button.textContent.trim();
+                    const dataSearchTerm = button.dataset.searchTerm; // Use data-search-term first
+
+                    let matchingPage = null;
+
+                    // Prioritize data-search-term for lookup if present and has a match
+                    if (dataSearchTerm && pageMap[dataSearchTerm]) {
+                        matchingPage = pageMap[dataSearchTerm];
+                    } 
+                    // Fallback to buttonText if data-search-term isn't set or doesn't match
+                    else if (pageMap[buttonText]) {
+                        matchingPage = pageMap[buttonText];
+                    }
+
+                    if (matchingPage && matchingPage.url) {
+                        // Use the provided 'url' if it's a full URL
+                        button.href = matchingPage.url;
+                        // For internal Experience Builder pages, you might need to adjust target
+                        // if the URL is like page/page_ID
+                        if (matchingPage.url.startsWith("https://experience.arcgis.com/experience/") || matchingPage.url.startsWith("https://arc-nhq-gis.maps.arcgis.com/")) {
+                             button.target = "_self"; // Stay within the same iframe/tab for internal pages
+                        } else {
+                            button.target = "_blank"; // Open external links in a new tab
+                        }
+                    } else if (matchingPage && matchingPage.id) {
+                        // Construct URL if only page ID is available
+                        button.href = BASE_URL + matchingPage.id;
+                        button.target = "_self"; // Assume internal link
+                    }
+                    // If no link found, keep href="#" but might want to disable the button or show a message
+                });
+            }
+
+            // Call applyLinks after DOM is loaded and before filterMenu runs
+            applyLinks();
+            
             searchInput.addEventListener('keyup', filterMenu);
             searchInput.addEventListener('change', filterMenu); 
         });
 
+        // The updateLinksFromJson function is now merged directly into applyLinks for immediate execution.
+        // It's kept here as a placeholder for clarity but won't be used externally.
         function updateLinksFromJson(jsonData) {
             console.log("JSON data received for link updates (placeholder function):", jsonData);
         }
