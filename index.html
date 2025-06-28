@@ -3,209 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regional Operating Summary</title>
+    <title>Regional Operating Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #e8e8e8;
+            padding: 25px;
+            background-color: #f0f0f0;
         }
-        .container {
-            max-width: 1400px;
+        .wrapper {
+            max-width: 1500px;
             margin: 0 auto;
         }
-        .search-container {
+        .search-bar {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        #searchInput {
-            padding: 10px 20px;
-            width: 80%;
-            max-width: 400px;
-            border: 2px solid #ccc;
-            border-radius: 25px;
-            font-size: 16px;
+        #searchBox {
+            padding: 12px 25px;
+            width: 85%;
+            max-width: 450px;
+            border: 2px solid #bbb;
+            border-radius: 30px;
+            font-size: 17px;
         }
-        .grid {
+        .layout {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
         }
-        .category {
-            background: #fff;
-            border-radius: 10px;
-            padding: 15px;
+        .section {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
         }
-        .category h3 {
-            color: #333;
+        .section h3 {
+            color: #444;
             font-weight: bold;
             text-align: center;
-            margin: 0 0 10px;
+            margin: 0 0 15px;
         }
-        .category h4 {
-            color: #333;
+        .section h4 {
+            color: #444;
             text-align: center;
-            margin: 10px 0 8px;
-            font-size: 14px;
+            margin: 15px 0 10px;
+            font-size: 15px;
         }
-        .category a {
+        .section a {
             display: block;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 12px;
+            margin: 8px 0;
             text-align: center;
-            text-decoration: none;
-            border-radius: 20px;
-            color: #fff;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-        .category a:hover {
-            opacity: 0.8;
-        }
-        .questions {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .questions a {
-            display: inline-block;
-            background: #7f1d1d;
-            color: #fff;
-            padding: 12px 30px;
             text-decoration: none;
             border-radius: 25px;
-            cursor: pointer;
+            color: #ffffff;
+            font-size: 16px;
+            transition: opacity 0.4s;
+        }
+        .section a:hover {
+            opacity: 0.7;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .contact a {
+            display: inline-block;
+            background-color: #7f1d1d;
+            color: #ffffff;
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterMenu()">
+<div class="wrapper">
+    <div class="search-bar">
+        <input type="text" id="searchBox" placeholder="Search Options..." onkeyup="searchOptions()">
     </div>
     
-    <div class="grid">
-        <div class="category">
-            <h3>National</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/84" target="_self" style="background:#6b46c1">National</a>
+    <div class="layout">
+        <div class="section">
+            <h3>National Overview</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/84" target="_self" style="background:#6b46c1">National</a>
         </div>
         
-        <div class="category">
-            <h3>Situation</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/86" target="_self" style="background:#6b46c1">1 Situation</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/95" target="_self" style="background:#6b46c1">Heat Risk</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/96" target="_self" style="background:#6b46c1">FY 25 Incidents</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/97" target="_self" style="background:#6b46c1">DCS 5 Year Plan</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/98" target="_self" style="background:#6b46c1">DCS Narrative</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/99" target="_self" style="background:#6b46c1">Global Trends</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/100" target="_self" style="background:#6b46c1">DOCC Portal</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/101" target="_self" style="background:#6b46c1">Current OPS Report</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/102" target="_self" style="background:#6b46c1">Power Outages</a>
+        <div class="section">
+            <h3>Situational Updates</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/86" target="_self" style="background:#6b46c1">1 Situation</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/95" target="_self" style="background:#6b46c1">Heat Risk</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/96" target="_self" style="background:#6b46c1">FY 25 Incidents</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/97" target="_self" style="background:#6b46c1">DCS 5 Year Plan</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/98" target="_self" style="background:#6b46c1">DCS Narrative</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/99" target="_self" style="background:#6b46c1">Global Trends</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/100" target="_self" style="background:#6b46c1">DOCC Portal</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/101" target="_self" style="background:#6b46c1">Current OPS Report</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/102" target="_self" style="background:#6b46c1">Power Outages</a>
         </div>
         
-        <div class="category">
-            <h3>Weather</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/87" target="_self" style="background:#059669">2 Weather</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/104" target="_self" style="background:#059669">Storm Prediction Center</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/106" target="_self" style="background:#059669">Precipitation</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/107" target="_self" style="background:#059669">Flood Prediction</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/108" target="_self" style="background:#059669">Natl Hurricane Center</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/109" target="_self" style="background:#059669">7 DAY Fire Risk</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/111" target="_self" style="background:#059669">California EMS</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/112" target="_self" style="background:#059669">Natl Interagency FIRE</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/173" target="_self" style="background:#059669">Weather - General</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/174" target="_self" style="background:#059669">Tropical Hazards</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/175" target="_self" style="background:#059669">Fire Weather</a>
+        <div class="section">
+            <h3>Weather Conditions</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/87" target="_self" style="background:#059669">2 Weather</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/104" target="_self" style="background:#059669">Storm Prediction Center</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/106" target="_self" style="background:#059669">Precipitation</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/107" target="_self" style="background:#059669">Flood Prediction</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/108" target="_self" style="background:#059669">Natl Hurricane Center</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/109" target="_self" style="background:#059669">7 DAY Fire Risk</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/111" target="_self" style="background:#059669">California EMS</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/112" target="_self" style="background:#059669">Natl Interagency FIRE</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/173" target="_self" style="background:#059669">Weather - General</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/174" target="_self" style="background:#059669">Tropical Hazards</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/175" target="_self" style="background:#059669">Fire Weather</a>
         </div>
         
-        <div class="category">
-            <h3>Sheltering</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/88" target="_self" style="background:#22c55e">3 Sheltering</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/114" target="_self" style="background:#22c55e">National Sheltering</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/122" target="_self" style="background:#22c55e">Current Open Shelters</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/123" target="_self" style="background:#22c55e">Shelter Intake</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/176" target="_self" style="background:#22c55e">SCIA Operational Dashboard</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/177" target="_self" style="background:#22c55e">Restricted SCIA Access Request</a>
+        <div class="section">
+            <h3>Shelter Management</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/88" target="_self" style="background:#22c55e">3 Sheltering</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/114" target="_self" style="background:#22c55e">National Sheltering</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/122" target="_self" style="background:#22c55e">Current Open Shelters</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/123" target="_self" style="background:#22c55e">Shelter Intake</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/176" target="_self" style="background:#22c55e">SCIA Operational Dashboard</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/177" target="_self" style="background:#22c55e">Restricted SCIA Access Request</a>
         </div>
         
-        <div class="category">
-            <h3>Logistics</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/89" target="_self" style="background:#c2410c">4 Logisitics</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/116" target="_self" style="background:#c2410c">Staffing</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/124" target="_self" style="background:#c2410c">EBV - Event Volunteers</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/125" target="_self" style="background:#c2410c">DST - Disaster Tech</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/126" target="_self" style="background:#c2410c">IKD - InKind Donations</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/127" target="_self" style="background:#c2410c">Trailers & Assets</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/128" target="_self" style="background:#c2410c">ERV - Emergency vehicles</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/150" target="_self" style="background:#c2410c">Resourcing</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/168" target="_self" style="background:#c2410c">Staff Capacity Building</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/169" target="_self" style="background:#c2410c">Speed to Scale</a>
+        <div class="section">
+            <h3>Logistics Operations</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/89" target="_self" style="background:#c2410c">4 Logisitics</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/116" target="_self" style="background:#c2410c">Staffing</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/124" target="_self" style="background:#c2410c">EBV - Event Volunteers</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/125" target="_self" style="background:#c2410c">DST - Disaster Tech</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/126" target="_self" style="background:#c2410c">IKD - InKind Donations</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/127" target="_self" style="background:#c2410c">Trailers & Assets</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/128" target="_self" style="background:#c2410c">ERV - Emergency vehicles</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/150" target="_self" style="background:#c2410c">Resourcing</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/168" target="_self" style="background:#c2410c">Staff Capacity Building</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/169" target="_self" style="background:#c2410c">Speed to Scale</a>
         </div>
         
-        <div class="category">
-            <h3>Call Center</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/90" target="_self" style="background:#3b82f6">5 Call Center</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/117" target="_self" style="background:#3b82f6">1 800 Red Cross</a>
+        <div class="section">
+            <h3>Call Center Services</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/90" target="_self" style="background:#3b82f6">5 Call Center</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/117" target="_self" style="background:#3b82f6">1 800 Red Cross</a>
         </div>
         
-        <div class="category">
-            <h3>SADS and DROs</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/91" target="_self" style="background:#1e40af">6 SADS and DROs</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/119" target="_self" style="background:#1e40af">DOCC Current OPS</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/129" target="_self" style="background:#1e40af">DAT Dispatch</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/130" target="_self" style="background:#1e40af">DRO Call Center</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/132" target="_self" style="background:#1e40af">NIC Teams DRO Leadership</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/133" target="_self" style="background:#1e40af">Active DROs</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/134" target="_self" style="background:#1e40af">Natl Activation Levels</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/135" target="_self" style="background:#1e40af">DRO Call Agenda</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/136" target="_self" style="background:#1e40af">Dist Partner Hub</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/139" target="_self" style="background:#1e40af">DR 503-25 South Texas</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/140" target="_self" style="background:#1e40af">DR 535-25 Missouri/Ark</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/141" target="_self" style="background:#1e40af">DR 539-25 Kentucky</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/155" target="_self" style="background:#1e40af">DR 540-25 Tennessee</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/156" target="_self" style="background:#1e40af">DR 548-25 Indiana</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/157" target="_self" style="background:#1e40af">DR 550-25 Illinois</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/158" target="_self" style="background:#1e40af">DR 515-25 Harney, Oregon</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/159" target="_self" style="background:#1e40af">DR 497-25 Oklahoma</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/161" target="_self" style="background:#1e40af">Air Reconnaisance</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/170" target="_self" style="background:#1e40af">Hurricane Advance Planning</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/171" target="_self" style="background:#1e40af">DAT</a>
+        <div class="section">
+            <h3>SADS and DRO Operations</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/91" target="_self" style="background:#1e40af">6 SADS and DROs</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/119" target="_self" style="background:#1e40af">DOCC Current OPS</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/129" target="_self" style="background:#1e40af">DAT Dispatch</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/130" target="_self" style="background:#1e40af">DRO Call Center</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/132" target="_self" style="background:#1e40af">NIC Teams DRO Leadership</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/133" target="_self" style="background:#1e40af">Active DROs</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/134" target="_self" style="background:#1e40af">Natl Activation Levels</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/135" target="_self" style="background:#1e40af">DRO Call Agenda</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/136" target="_self" style="background:#1e40af">Dist Partner Hub</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/139" target="_self" style="background:#1e40af">DR 503-25 South Texas</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/140" target="_self" style="background:#1e40af">DR 535-25 Missouri/Ark</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/141" target="_self" style="background:#1e40af">DR 539-25 Kentucky</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/155" target="_self" style="background:#1e40af">DR 540-25 Tennessee</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/156" target="_self" style="background:#1e40af">DR 548-25 Indiana</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/157" target="_self" style="background:#1e40af">DR 550-25 Illinois</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/158" target="_self" style="background:#1e40af">DR 515-25 Harney, Oregon</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/159" target="_self" style="background:#1e40af">DR 497-25 Oklahoma</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/161" target="_self" style="background:#1e40af">Air Reconnaisance</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/170" target="_self" style="background:#1e40af">Hurricane Advance Planning</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/171" target="_self" style="background:#1e40af">DAT</a>
         </div>
         
-        <div class="category">
-            <h3>Financial Assistance DAT</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/92" target="_self" style="background:#dc2626">7 Financial Asst DAT</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/118" target="_self" style="background:#dc2626">Client Assistance</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/142" target="_self" style="background:#dc2626">IDC Financial</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/162" target="_self" style="background:#dc2626">Bridge</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/163" target="_self" style="background:#dc2626">Level 1-2 Casework FA</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/164" target="_self" style="background:#dc2626">Request Access</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/165" target="_self" style="background:#dc2626">Disaster Current OPs Dashboard</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/166" target="_self" style="background:#dc2626">Nat'l Operations - Client Assistance</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/167" target="_self" style="background:#dc2626">Bridge Dashboard Historical Info</a>
+        <div class="section">
+            <h3>Financial Assistance</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/92" target="_self" style="background:#dc2626">7 Financial Asst DAT</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/118" target="_self" style="background:#dc2626">Client Assistance</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/142" target="_self" style="background:#dc2626">IDC Financial</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/162" target="_self" style="background:#dc2626">Bridge</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/163" target="_self" style="background:#dc2626">Level 1-2 Casework FA</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/164" target="_self" style="background:#dc2626">Request Access</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/165" target="_self" style="background:#dc2626">Disaster Current OPs Dashboard</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/166" target="_self" style="background:#dc2626">Nat'l Operations - Client Assistance</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/167" target="_self" style="background:#dc2626">Bridge Dashboard Historical Info</a>
         </div>
         
-        <div class="category">
-            <h3>Regional Risk Tool</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/93" target="_self" style="background:#7f1d1d">8 Regional Risk Tool</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/120" target="_self" style="background:#7f1d1d">Regional Risk Tool</a>
+        <div class="section">
+            <h3>Risk Assessment</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/93" target="_self" style="background:#7f1d1d">8 Regional Risk Tool</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/120" target="_self" style="background:#7f1d1d">Regional Risk Tool</a>
         </div>
         
-        <div class="category">
-            <h3>Community Adaptation CAP</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/94" target="_self" style="background:#2563eb">9 Community Adaptation CAP</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/121" target="_self" style="background:#2563eb">CAP Website</a>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/149" target="_self" style="background:#2563eb">Housing Resources</a>
+        <div class="section">
+            <h3>Community Adaptation</h3>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/94" target="_self" style="background:#2563eb">9 Community Adaptation CAP</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/121" target="_self" style="background:#2563eb">CAP Website</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/149" target="_self" style="background:#2563eb">Housing Resources</a>
         </div>
         
-        <div class="category">
+        <div class="section">
             <h3>Table of Contents</h3>
-            <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/154" target="_self" style="background:#b91c1c">Table of Contents</a>
+            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/154" target="_self" style="background:#b91c1c">Table of Contents</a>
         </div>
     </div>
     
-    <div class="questions">
-        <a href="https://experience.arcgis.com/experience/2ab560cd143d4e3292020ab22644be21/page/154" target="_self">Questions Comments</a>
+    <div class="contact">
+        <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/154" target="_self">Contact Support</a>
     </div>
 </div>
 
@@ -224,7 +224,7 @@ function navigateToPage(pageId) {
             if (window.parent && window.parent.location) {
                 window.parent.location.hash = hash;
             }
-        }, 100);
+        }, 150);
         if (window.parent) {
             window.parent.postMessage({
                 action: 'navigate',
@@ -236,35 +236,35 @@ function navigateToPage(pageId) {
             }, '*');
         }
     } catch (error) {
-        console.log('Navigation failed:', error);
+        console.log('Navigation error:', error);
     }
 }
 
-function filterMenu() {
-    var input = document.getElementById('searchInput');
-    var filter = input.value.toLowerCase();
-    var categories = document.getElementsByClassName('category');
-    var links = document.querySelectorAll('a');
+function searchOptions() {
+    let input = document.getElementById('searchBox');
+    let query = input.value.toLowerCase();
+    let sections = document.getElementsByClassName('section');
+    let links = document.querySelectorAll('a');
     
-    if (!filter) {
-        for (var i = 0; i < categories.length; i++) {
-            categories[i].style.display = '';
+    if (!query) {
+        for (let i = 0; i < sections.length; i++) {
+            sections[i].style.display = '';
         }
-        for (var i = 0; i < links.length; i++) {
+        for (let i = 0; i < links.length; i++) {
             links[i].style.display = '';
         }
         return;
     }
     
-    for (var i = 0; i < categories.length; i++) {
-        categories[i].style.display = 'none';
+    for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = 'none';
     }
     
-    for (var i = 0; i < links.length; i++) {
-        if (links[i].textContent.toLowerCase().indexOf(filter) > -1) {
+    for (let i = 0; i < links.length; i++) {
+        if (links[i].textContent.toLowerCase().indexOf(query) > -1) {
             links[i].style.display = '';
-            var parent = links[i].parentElement;
-            if (parent.className === 'category') {
+            let parent = links[i].parentElement;
+            if (parent.className === 'section') {
                 parent.style.display = '';
             }
         } else {
