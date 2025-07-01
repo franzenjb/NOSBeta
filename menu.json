@@ -1,109 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Menu Editor</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background: #f7f9fc;
-    }
-    input, select {
-      padding: 0.4rem;
-      margin: 0.3rem 0;
-      width: 100%;
-      max-width: 500px;
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
-    }
-    .entry-preview {
-      background: #ffffff;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      margin-top: 2rem;
-      max-width: 600px;
-    }
-  </style>
-</head>
-<body>
-
-  <h2>Experience Builder Menu Editor</h2>
-
-  <label>Category Title:</label>
-  <input id="category" placeholder="e.g., 2 Weather">
-
-  <label>Button Label:</label>
-  <input id="label" placeholder="e.g., Storm Prediction Center">
-
-  <label>Page URL:</label>
-  <input id="href" placeholder="Full URL to Experience Builder page">
-
-  <label>Search Term (optional):</label>
-  <input id="term" placeholder="e.g., SPC, severe weather">
-
-  <label>Button Color:</label>
-  <select id="color">
-    <option value="btn-purple">Purple</option>
-    <option value="btn-blue">Blue</option>
-    <option value="btn-green">Green</option>
-    <option value="btn-orange">Orange</option>
-    <option value="btn-red">Red</option>
-    <option value="btn-black">Black</option>
-  </select>
-
-  <button onclick="addMenuItem()">Add Menu Item</button>
-  <button onclick="downloadJSON()">Download JSON</button>
-
-  <div class="entry-preview">
-    <h3>Current Menu JSON</h3>
-    <pre id="output" style="white-space: pre-wrap;"></pre>
-  </div>
-
-  <script>
-    let menu = [];
-
-    function addMenuItem() {
-      const category = document.getElementById("category").value.trim();
-      const label = document.getElementById("label").value.trim();
-      const href = document.getElementById("href").value.trim();
-      const term = document.getElementById("term").value.trim();
-      const color = document.getElementById("color").value;
-
-      if (!category || !label || !href) {
-        alert("Category, label, and URL are required.");
-        return;
+[
+  {
+    "category": "2 Weather",
+    "color": "btn-blue",
+    "links": [
+      {
+        "label": "Storm Prediction Center",
+        "href": "https://experience.arcgis.com/...",
+        "term": "SPC"
       }
-
-      let existing = menu.find(cat => cat.category === category);
-      if (!existing) {
-        existing = { category: category, color: color, links: [] };
-        menu.push(existing);
-      }
-
-      existing.links.push({
-        label: label,
-        href: href,
-        term: term
-      });
-
-      renderMenu();
-    }
-
-    function renderMenu() {
-      document.getElementById("output").textContent = JSON.stringify(menu, null, 2);
-    }
-
-    function downloadJSON() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menu, null, 2));
-      const dlAnchor = document.createElement('a');
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", "menu.json");
-      dlAnchor.click();
-    }
-  </script>
-
-</body>
-</html>
+    ]
+  }
+]
