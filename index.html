@@ -1,0 +1,96 @@
+// Add this JavaScript to your main Experience Builder app
+// (Settings → Advanced → Custom Code)
+
+<script>
+// Listen for messages from the left menu
+window.addEventListener('message', function(event) {
+    console.log('Received message:', event.data);
+    
+    // Security check - only accept messages from your GitHub domain
+    if (event.origin !== 'https://franzenjb.github.io') {
+        return;
+    }
+    
+    if (event.data && event.data.type === 'NAVIGATE_TO_CONTENT') {
+        const targetUrl = event.data.url;
+        const title = event.data.title;
+        
+        console.log('Navigating right iframe to:', targetUrl);
+        
+        // Find the right iframe (Experience Builder iframe)
+        const rightIframe = document.querySelector('iframe[src*="experience.arcgis.com"]');
+        
+        if (rightIframe) {
+            // Update the iframe source
+            rightIframe.src = targetUrl;
+            
+            console.log('Updated iframe src to:', targetUrl);
+            
+            // Optional: Update any title display
+            const titleElement = document.getElementById('contentTitle');
+            if (titleElement) {
+                titleElement.textContent = title;
+            }
+        } else {
+            console.error('Right iframe not found');
+        }
+    }
+});
+
+// Alternative approach: Find iframe by more specific criteria
+function updateRightContent(url, title) {
+    // Try multiple methods to find the right iframe
+    let rightIframe = null;
+    
+    // Method 1: Find by Experience Builder URL
+    rightIframe = document.querySelector('iframe[src*="experience.arcgis.com"]');
+    
+    // Method 2: Find by widget class (if you know the widget class)
+    if (!rightIframe) {
+        rightIframe = document.querySelector('.embed-widget iframe');
+    }
+    
+    // Method 3: Find by position/index (right side)
+    if (!rightIframe) {
+        const allIframes = document.querySelectorAll('iframe');
+        rightIframe = allIframes[1]; // Assuming left=0, right=1
+    }
+    
+    if (rightIframe) {
+        rightIframe.src = url;
+        console.log('Successfully updated right iframe:', url);
+        return true;
+    }
+    
+    console.error('Could not find right iframe to update');
+    return false;
+}
+
+console.log('Experience Builder message handler loaded');
+</script>
+
+// Alternative: If the above doesn't work, try this more direct approach:
+<script>
+window.addEventListener('message', function(event) {
+    if (event.origin === 'https://franzenjb.github.io' && 
+        event.data && 
+        event.data.type === 'NAVIGATE_TO_CONTENT') {
+        
+        // Direct navigation approach
+        const url = event.data.url;
+        
+        // Try to navigate the entire right section
+        setTimeout(() => {
+            const allIframes = document.querySelectorAll('iframe');
+            
+            // Find the right iframe (not the menu iframe)
+            allIframes.forEach((iframe, index) => {
+                if (iframe.src && !iframe.src.includes('franzenjb.github.io')) {
+                    console.log('Updating iframe', index, 'to:', url);
+                    iframe.src = url;
+                }
+            });
+        }, 100);
+    }
+});
+</script>
