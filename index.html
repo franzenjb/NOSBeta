@@ -666,9 +666,16 @@
                     const columnButtons = sortedButtons.slice(startIndex, endIndex);
                     
                     if (columnButtons.length > 0) {
+                        // Get first and last characters of this column
+                        const firstChar = columnButtons[0].text.charAt(0).toUpperCase();
+                        const lastChar = columnButtons[columnButtons.length - 1].text.charAt(0).toUpperCase();
+                        
+                        // Create range label
+                        const rangeLabel = firstChar === lastChar ? firstChar : `${firstChar}-${lastChar}`;
+                        
                         newHTML += `
                             <div class="category-card">
-                                <h2 class="category-title">A-Z Menu (${String.fromCharCode(65 + col)})</h2>
+                                <h2 class="category-title">${rangeLabel} Menu</h2>
                                 ${columnButtons.map(btn => btn.outerHTML).join('')}
                             </div>
                         `;
