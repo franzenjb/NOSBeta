@@ -17,6 +17,10 @@
         textarea { width: 100%; min-height: 60px; margin-top: 0.5rem; }
         #adminModal { display: flex; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center; }
         #adminModalInner { background:#fff; border-radius:8px; padding:2rem; max-width:350px; width:90vw; box-shadow:0 4px 32px rgba(0,0,0,0.2); text-align:center; }
+        .info-box { background: #f5f6fa; border-left: 4px solid #c8102e; padding: 24px 32px; margin-bottom: 32px; border-radius: 8px; font-family: 'Georgia', 'Times New Roman', serif; color: #222; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .info-box strong { color: #c8102e; font-weight: 700; }
+        .info-box ul { margin: 16px 0 0 24px; padding: 0; list-style: disc; }
+        .info-box code { background: #ececec; border-radius: 4px; padding: 2px 6px; font-family: 'Menlo', 'Monaco', monospace; font-size: 0.95em; color: #c8102e; }
     </style>
 </head>
 <body>
@@ -30,14 +34,15 @@
       </div>
     </div>
     <div class="editor-container" id="editorContainer" style="display:none;">
-        <div style="background:#fef9c3; border:1px solid #fde047; border-radius:6px; padding:1rem; margin-bottom:1.5rem; font-size:1rem;">
-            <b>Important:</b> After adding a new menu item here, you must also add the corresponding page to your ESRI Experience Builder project.<br>
-            <ul style="margin-left:1.2em; margin-top:0.5em;">
-                <li>To link a menu item to a page, copy only the part of the ESRI page URL <b>after</b> the main domain (e.g., <code>/experience/abc123/page1</code> or just <code>trucks_trailers</code> if your Experience Builder uses page names).</li>
-                <li>Paste this path into the <b>URL</b> field for the menu item.</li>
-                <li>Example: If your ESRI page URL is <code>https://experience.arcgis.com/experience/1234567890abcdef/trucks_trailers</code>, use <code>trucks_trailers</code> as the menu item's URL.</li>
-            </ul>
-            <b>Note:</b> Menu changes here are live for all users, but new pages must be created in ESRI Experience Builder separately.
+        <div class="info-box">
+          <strong>Menu Setup Guidance</strong><br>
+          When you add a new menu item, remember to also create the corresponding page in your ESRI Experience Builder project.
+          <ul>
+            <li>To link a menu item, use only the part of the ESRI page URL after the main domain. For example, use <code>/experience/abc123/page1</code> or simply the page name, such as <code>trucks_trailers</code>.</li>
+            <li>Enter this path in the menu item’s URL field.</li>
+            <li><strong>Example:</strong> If your ESRI page URL is <code>https://experience.arcgis.com/experience/1234567890abcdef/trucks_trailers</code>, then use <code>trucks_trailers</code> as the menu item’s URL.</li>
+          </ul>
+          <p><strong>Note:</strong> Menu changes here are instantly live for all users. However, new pages must be created separately in ESRI Experience Builder.</p>
         </div>
         <div style="display: flex; font-weight: bold; margin-bottom: 0.5em;">
             <div style="flex:1; text-align:center;">Menu Item Title</div>
