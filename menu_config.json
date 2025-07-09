@@ -1,0 +1,158 @@
+{
+  "title": "National Operations Summary",
+  "baseUrl": "https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/",
+  "categories": [
+    {
+      "id": "sit-summary",
+      "title": "1 Situation Summary",
+      "color": "purple",
+      "items": [
+        {
+          "title": "National",
+          "url": "National",
+          "searchTerms": ["National"]
+        },
+        {
+          "title": "Heat Risk",
+          "url": "Heat-Risk",
+          "searchTerms": ["Heat Risk"]
+        },
+        {
+          "title": "FY 25 Incidents",
+          "url": "FY-25-Incidents",
+          "searchTerms": ["FY25 Incidents and DROs"]
+        },
+        {
+          "title": "DCS 5 Year Plan",
+          "url": "DCS-5-Year-Plan",
+          "searchTerms": ["DCS 5YR Plan"]
+        },
+        {
+          "title": "DCS Narrative",
+          "url": "DCS-Narrative",
+          "searchTerms": ["DCS Narrative"]
+        },
+        {
+          "title": "Global Trends",
+          "url": "Global-Trends",
+          "searchTerms": ["Global Trends"]
+        },
+        {
+          "title": "DOCC Portal",
+          "url": "DOCC-Portal",
+          "searchTerms": ["DOCC Portal"]
+        },
+        {
+          "title": "Current OPS Report",
+          "url": "Current-OPS-Report",
+          "searchTerms": ["Current OPS Rep"]
+        },
+        {
+          "title": "Power Outages",
+          "url": "Power-Outages",
+          "searchTerms": ["Power Outages"]
+        }
+      ]
+    },
+    {
+      "id": "weather",
+      "title": "2 Weather",
+      "color": "blue",
+      "items": [
+        {
+          "title": "Storm Prediction Center",
+          "url": "Storm-Prediction-Center",
+          "searchTerms": ["Storm Prediction Center"]
+        },
+        {
+          "title": "Precipitation",
+          "url": "Precipitation",
+          "searchTerms": ["Precipitation"]
+        },
+        {
+          "title": "Flood Prediction",
+          "url": "Flood-Prediction",
+          "searchTerms": ["Flood Prediction"]
+        },
+        {
+          "title": "Natl Hurricane Center",
+          "url": "Natl-Hurricane-Center",
+          "searchTerms": ["Natl Hurricane Center"]
+        },
+        {
+          "title": "Air Reconnaissance",
+          "url": "Air-Reconnaissance",
+          "searchTerms": ["Air Reconnaissance"]
+        },
+        {
+          "title": "7 DAY Fire Risk",
+          "url": "7-DAY-Fire-Risk",
+          "searchTerms": ["7 Day Fire Risk"]
+        },
+        {
+          "title": "California EMS",
+          "url": "California-EMS",
+          "searchTerms": ["California EMS"]
+        },
+        {
+          "title": "Natl Interagency FIRE",
+          "url": "Natl-Interagency-FIRE",
+          "searchTerms": ["Natl Interagency Fire"]
+        },
+        {
+          "title": "Weather - General",
+          "url": "Weather-General",
+          "searchTerms": ["Weather General"]
+        },
+        {
+          "title": "Tropical Hazards",
+          "url": "Tropical-Hazards",
+          "searchTerms": ["Tropical Hazards"]
+        },
+        {
+          "title": "Fire Weather",
+          "url": "Fire-Weather",
+          "searchTerms": ["Fire Weather"]
+        }
+      ],
+      "subcategories": [
+        {
+          "title": "3 Sheltering",
+          "items": [
+            {
+              "title": "National Sheltering",
+              "url": "National-Sheltering",
+              "searchTerms": ["National Sheltering"]
+            },
+            {
+              "title": "Current Open Shelters",
+              "url": "Current-Open-Shelters",
+              "searchTerms": ["Current Open Shelters"]
+            },
+            {
+              "title": "Shelter Intake",
+              "url": "Shelter-Intake",
+              "searchTerms": ["Shelter Intake"]
+            },
+            {
+              "title": "SCIA Operational Dashboard",
+              "url": "SCIA-Operational-Dashboard",
+              "searchTerms": ["SCIA Operational Dashboard"]
+            },
+            {
+              "title": "Restricted SCIA Access Request",
+              "url": "Restricted-SCIA-Access-Request",
+              "searchTerms": ["Restricted SCIA Access Request"]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "footerButton": {
+    "title": "Contact with any Questions",
+    "url": "Contact-with-any-Questions",
+    "color": "red-dark",
+    "searchTerms": ["Contact with any Questions"]
+  }
+}
