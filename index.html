@@ -386,12 +386,149 @@
             pointer-events: none;
             transition: opacity 0.2s ease;
         }
+    #menuEditorOverlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+    }
+    #menuEditorPanel {
+        background: #fff;
+        border-radius: 8px;
+        padding: 2rem;
+        max-width: 700px;
+        width: 95vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+    }
+    #menuEditorPanel h2 { margin-top: 0; }
+    #menuEditorPanel input, #menuEditorPanel select {
+        margin: 0.2rem 0.5rem 0.2rem 0;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    #menuEditorPanel button {
+        margin: 0.2rem 0.2rem 0.2rem 0;
+        padding: 0.2rem 0.7rem;
+        border-radius: 4px;
+        border: none;
+        background: #3498db;
+        color: #fff;
+        cursor: pointer;
+    }
+    #menuEditorPanel button.danger { background: #e74c3c; }
+    #menuEditorPanel .cat-block { border-bottom: 1px solid #eee; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+    #menuEditorPanel .item-block { margin-left: 1.5rem; }
+    #menuEditorPanel .close-btn { float: right; background: #888; }
+    #menuEditorPanel textarea { width: 100%; min-height: 60px; margin-top: 0.5rem; }
     </style>
+    <script type="application/json" id="menuConfig">
+      {
+        "categories": [
+          { "id": "1-sit-summary", "title": "1 Situation Summary", "color": "purple", "items": [
+            { "title": "National", "url": "National", "searchTerm": "National" },
+            { "title": "Heat Risk", "url": "Heat-Risk", "searchTerm": "Heat Risk" },
+            { "title": "FY 25 Incidents", "url": "FY-25-Incidents", "searchTerm": "FY25 Incidents and DROs" },
+            { "title": "DCS 5 Year Plan", "url": "DCS-5-Year-Plan", "searchTerm": "DCS 5YR Plan" },
+            { "title": "DCS Narrative", "url": "DCS-Narrative", "searchTerm": "DCS Narrative" },
+            { "title": "Global Trends", "url": "Global-Trends", "searchTerm": "Global Trends" },
+            { "title": "DOCC Portal", "url": "DOCC-Portal", "searchTerm": "DOCC Portal" },
+            { "title": "Current OPS Report", "url": "Current-OPS-Report", "searchTerm": "Current OPS Rep" },
+            { "title": "Power Outages", "url": "Power-Outages", "searchTerm": "Power Outages" }
+          ]},
+          { "id": "2-weather", "title": "2 Weather", "color": "blue", "items": [
+            { "title": "Storm Prediction Center", "url": "Storm-Prediction-Center", "searchTerm": "Storm Prediction Center" },
+            { "title": "Precipitation", "url": "Precipitation", "searchTerm": "Precipitation" },
+            { "title": "Flood Prediction", "url": "Flood-Prediction", "searchTerm": "Flood Prediction" },
+            { "title": "Natl Hurricane Center", "url": "Natl-Hurricane-Center", "searchTerm": "Natl Hurricane Center" },
+            { "title": "Air Reconnaissance", "url": "Air-Reconnaissance", "searchTerm": "Air Reconnaissance" },
+            { "title": "7 DAY Fire Risk", "url": "7-DAY-Fire-Risk", "searchTerm": "7 Day Fire Risk" },
+            { "title": "California EMS", "url": "California-EMS", "searchTerm": "California EMS" },
+            { "title": "Natl Interagency FIRE", "url": "Natl-Interagency-FIRE", "searchTerm": "Natl Interagency Fire" },
+            { "title": "Weather - General", "url": "Weather-General", "searchTerm": "Weather General" },
+            { "title": "Tropical Hazards", "url": "Tropical-Hazards", "searchTerm": "Tropical Hazards" },
+            { "title": "Fire Weather", "url": "Fire-Weather", "searchTerm": "Fire Weather" }
+          ], "subcategories": [
+            { "title": "3 Sheltering", "items": [
+              { "title": "National Sheltering", "url": "National-Sheltering", "searchTerm": "National Sheltering" },
+              { "title": "Current Open Shelters", "url": "Current-Open-Shelters", "searchTerm": "Current Open Shelters" },
+              { "title": "Shelter Intake", "url": "Shelter-Intake", "searchTerm": "Shelter Intake" },
+              { "title": "SCIA Operational Dashboard", "url": "SCIA-Operational-Dashboard", "searchTerm": "SCIA Operational Dashboard" },
+              { "title": "Restricted SCIA Access Request", "url": "Restricted-SCIA-Access-Request", "searchTerm": "Restricted SCIA Access Request" }
+            ]}
+          ]},
+          { "id": "4-logistics", "title": "4 Logistics", "color": "green", "items": [
+            { "title": "Staffing", "url": "Staffing", "searchTerm": "Staffing" },
+            { "title": "Staff Capacity Building", "url": "Staff-Capacity-Building", "searchTerm": "Staff Capacity Building" },
+            { "title": "EBV - Event Volunteers", "url": "EBV-Event-Volunteers", "searchTerm": "EBV Event Volunteers" },
+            { "title": "DST - Disaster Tech", "url": "DST-Disaster-Tech", "searchTerm": "DST Disaster Tech" },
+            { "title": "IKD - InKind Donations", "url": "IKD-InKind-Donations", "searchTerm": "IKD InKind Donations" },
+            { "title": "Trailers & Assets", "url": "Trailers-Assets", "searchTerm": "Trailers Assets" },
+            { "title": "ERV - Emergency vehicles", "url": "ERV-Emergency-vehicles", "searchTerm": "ERV Emergency vehicles" },
+            { "title": "Resourcing", "url": "Resourcing", "searchTerm": "Resourcing" },
+            { "title": "Speed to Scale", "url": "Speed-to-Scale", "searchTerm": "Speed to Scale" }
+          ], "subcategories": [
+            { "title": "5 Call Center", "items": [
+              { "title": "1 800 Red Cross", "url": "1-800-Red-Cross", "searchTerm": "1 800 Red Cross" }
+            ]}
+          ]},
+          { "id": "6-sads-dro", "title": "6 SADS & DRO", "color": "orange", "items": [
+            { "title": "DOCC Current OPS", "url": "DOCC-Current-OPS", "searchTerm": "DOCC Current OPS" },
+            { "title": "NIC Teams DRO Leadership", "url": "NIC-Teams-DRO-Leadership", "searchTerm": "NIC Teams DRO Leadership" },
+            { "title": "Active DROs", "url": "Active-DROs", "searchTerm": "Active DROs" },
+            { "title": "Natl Activation Levels", "url": "Natl-Activation-Levels", "searchTerm": "Natl Activation Levels" },
+            { "title": "DRO Call Agenda", "url": "DRO-Call-Agenda", "searchTerm": "DRO Call Agenda" },
+            { "title": "Dist Partner Hub", "url": "Dist-Partner-Hub", "searchTerm": "Dist Partner Hub" },
+            { "title": "Hurricane Advance Planning", "url": "Hurricane-Advance-Planning", "searchTerm": "Hurricane Advance Planning" },
+            { "title": "DR 503-25 South Texas", "url": "DR-503-25-South-Texas", "searchTerm": "DR 503-25 South Texas" },
+            { "title": "DR 535-25 Missouri/Ark", "url": "DR-535-25-Missouri-Ark", "searchTerm": "DR 535-25 Missouri/Ark" },
+            { "title": "DR 539-25 Kentucky", "url": "DR-539-25-Kentucky", "searchTerm": "DR 539-25 Kentucky" },
+            { "title": "DR 540-25 Tennessee", "url": "DR-540-25-Tennessee", "searchTerm": "DR 540-25 Tennessee" },
+            { "title": "DR 548-25 Indiana", "url": "DR-548-25-Indiana", "searchTerm": "DR 548-25 Indiana" },
+            { "title": "DR 550-25 Illinois", "url": "DR-550-25-Illinois", "searchTerm": "DR 550-25 Illinois" },
+            { "title": "DR 515-25 Harney, Oregon", "url": "DR-515-25-Harney-Oregon", "searchTerm": "DR 515-25 Harney, Oregon" },
+            { "title": "DR 497-25 Oklahoma", "url": "DR-497-25-Oklahoma", "searchTerm": "DR 497-25 Oklahoma" },
+            { "title": "DR Comp BETA", "url": "DR-Comp-BETA", "searchTerm": "DR Comp BETA Tool" }
+          ]},
+          { "id": "7-financial-assist", "title": "7 Financial Asst DAT", "color": "red", "items": [
+            { "title": "Client Assistance", "url": "Client-Assistance", "searchTerm": "Client Assistance" },
+            { "title": "IDC Financial", "url": "IDC-Financial", "searchTerm": "IDC Financial" },
+            { "title": "Bridge", "url": "Bridge", "searchTerm": "Bridge" },
+            { "title": "DAT", "url": "DAT", "searchTerm": "DAT" },
+            { "title": "Level 1-2 Casework FA", "url": "Level-1-2-Casework-FA", "searchTerm": "Level 1-2 Casework FA" },
+            { "title": "Request Access", "url": "Request-Access", "searchTerm": "Request Access" },
+            { "title": "Disaster Current OPs Dashboard", "url": "Disaster-Current-OPs-Dashboard", "searchTerm": "Disaster Current OPs Dashboard" },
+            { "title": "Nat'l Operations - Client Assistance", "url": "Natl-Operations-Client-Assistance", "searchTerm": "Natl Operations Client Assistance" },
+            { "title": "Bridge Dashboard Historical Info", "url": "Bridge-Dashboard-Historical-Info", "searchTerm": "Bridge Dashboard Historical Info" }
+          ]},
+          { "id": "8-risk-tool", "title": "8 Regional Risk Tool", "color": "black", "items": [
+            { "title": "Regional Risk Tool", "url": "Regional-Risk-Tool", "searchTerm": "Regional Risk Tool" }
+          ]},
+          { "id": "9-community-cap", "title": "9 Community Adaptation CAP", "color": "black", "items": [
+            { "title": "CAP Website", "url": "CAP-Website", "searchTerm": "CAP Website" },
+            { "title": "Housing Resources", "url": "Housing-Resources", "searchTerm": "Housing Resources" }
+          ]}
+        ],
+        "footerButton": {
+          "title": "Contact with any Questions",
+          "url": "Contact-with-any-Questions",
+          "color": "red-dark",
+          "searchTerm": "Contact with any Questions"
+        }
+      }
+    </script>
 </head>
 <body>
 
     <div class="menu-container">
-        <h1 class="text-center font-bold mb-4">National Operations Summary</h1>
+        <h1 class="text-center font-bold mb-4">National Operations Summary
+            <button id="adminBtn" style="position:absolute;top:10px;right:20px;opacity:0.2;font-size:0.9rem;z-index:10;background:none;border:none;cursor:pointer;">Admin</button>
+        </h1>
 
         <div class="search-controls-container">
             <div class="search-input-wrapper">
@@ -412,153 +549,74 @@
         </div>
 
         <div class="category-grid-wrapper">
-            <div id="menuContent" class="category-grid">
-                <!-- Category: 1 Situation Summary (Purple) -->
-                <div class="category-card card-1-sit-summary">
-                    <h2 class="category-title">1 Situation Summary</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/National" class="menu-button btn-purple" data-search-term="National">National</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Heat-Risk" class="menu-button btn-purple" data-search-term="Heat Risk">Heat Risk</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/FY-25-Incidents" class="menu-button btn-purple" data-search-term="FY25 Incidents and DROs">FY 25 Incidents</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DCS-5-Year-Plan" class="menu-button btn-purple" data-search-term="DCS 5YR Plan">DCS 5 Year Plan</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DCS-Narrative" class="menu-button btn-purple" data-search-term="DCS Narrative">DCS Narrative</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Global-Trends" class="menu-button btn-purple" data-search-term="Global Trends">Global Trends</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DOCC-Portal" class="menu-button btn-purple" data-search-term="DOCC Portal">DOCC Portal</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Current-OPS-Report" class="menu-button btn-purple" data-search-term="Current OPS Rep">Current OPS Report</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Power-Outages" class="menu-button btn-purple" data-search-term="Power Outages">Power Outages</a>
-                </div>
-                
-                <!-- Category: 2 Weather (Blue) -->
-                <div class="category-card card-2-weather">
-                    <h2 class="category-title">2 Weather</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Storm-Prediction-Center" class="menu-button btn-blue" data-search-term="Storm Prediction Center">Storm Prediction Center</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Precipitation" class="menu-button btn-blue" data-search-term="Precipitation">Precipitation</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Flood-Prediction" class="menu-button btn-blue" data-search-term="Flood Prediction">Flood Prediction</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Natl-Hurricane-Center" class="menu-button btn-blue" data-search-term="Natl Hurricane Center">Natl Hurricane Center</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Air-Reconnaissance" class="menu-button btn-blue" data-search-term="Air Reconnaissance">Air Reconnaissance</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/7-DAY-Fire-Risk" class="menu-button btn-blue" data-search-term="7 Day Fire Risk">7 DAY Fire Risk</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/California-EMS" class="menu-button btn-blue" data-search-term="California EMS">California EMS</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Natl-Interagency-FIRE" class="menu-button btn-blue" data-search-term="Natl Interagency Fire">Natl Interagency FIRE</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Weather-General" class="menu-button btn-blue" data-search-term="Weather General">Weather - General</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Tropical-Hazards" class="menu-button btn-blue" data-search-term="Tropical Hazards">Tropical Hazards</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Fire-Weather" class="menu-button btn-blue" data-search-term="Fire Weather">Fire Weather</a>
-                    <h2 class="category-title">3 Sheltering</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/National-Sheltering" class="menu-button btn-blue" data-search-term="National Sheltering">National Sheltering</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Current-Open-Shelters" class="menu-button btn-blue" data-search-term="Current Open Shelters">Current Open Shelters</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Shelter-Intake" class="menu-button btn-blue" data-search-term="Shelter Intake">Shelter Intake</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/SCIA-Operational-Dashboard" class="menu-button btn-blue" data-search-term="SCIA Operational Dashboard">SCIA Operational Dashboard</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Restricted-SCIA-Access-Request" class="menu-button btn-blue" data-search-term="Restricted SCIA Access Request">Restricted SCIA Access Request</a>
-                </div>
-                
-                <!-- Category: 4 Logistics (Green) -->
-                <div class="category-card card-4-logistics">
-                    <h2 class="category-title">4 Logistics</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Staffing" class="menu-button btn-green" data-search-term="Staffing">Staffing</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Staff-Capacity-Building" class="menu-button btn-green" data-search-term="Staff Capacity Building">Staff Capacity Building</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/EBV-Event-Volunteers" class="menu-button btn-green" data-search-term="EBV Event Volunteers">EBV - Event Volunteers</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DST-Disaster-Tech" class="menu-button btn-green" data-search-term="DST Disaster Tech">DST - Disaster Tech</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/IKD-InKind-Donations" class="menu-button btn-green" data-search-term="IKD InKind Donations">IKD - InKind Donations</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Trailers-Assets" class="menu-button btn-green" data-search-term="Trailers Assets">Trailers & Assets</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/ERV-Emergency-vehicles" class="menu-button btn-green" data-search-term="ERV Emergency vehicles">ERV - Emergency vehicles</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Resourcing" class="menu-button btn-green" data-search-term="Resourcing">Resourcing</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Speed-to-Scale" class="menu-button btn-green" data-search-term="Speed to Scale">Speed to Scale</a>
-                    <h2 class="category-title">5 Call Center</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/1-800-Red-Cross" class="menu-button btn-green" data-search-term="1 800 Red Cross">1 800 Red Cross</a>
-                </div>
-
-                <!-- Category: 6 SADS & DRO (Orange) -->
-                <div class="category-card card-6-sads-dro">
-                    <h2 class="category-title">6 SADS & DRO</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DOCC-Current-OPS" class="menu-button btn-orange" data-search-term="DOCC Current OPS">DOCC Current OPS</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/NIC-Teams-DRO-Leadership" class="menu-button btn-orange" data-search-term="NIC Teams DRO Leadership">NIC Teams DRO Leadership</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Active-DROs" class="menu-button btn-orange" data-search-term="Active DROs">Active DROs</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Natl-Activation-Levels" class="menu-button btn-orange" data-search-term="Natl Activation Levels">Natl Activation Levels</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DRO-Call-Agenda" class="menu-button btn-orange" data-search-term="DRO Call Agenda">DRO Call Agenda</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Dist-Partner-Hub" class="menu-button btn-orange" data-search-term="Dist Partner Hub">Dist Partner Hub</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Hurricane-Advance-Planning" class="menu-button btn-orange" data-search-term="Hurricane Advance Planning">Hurricane Advance Planning</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-503-25-South-Texas" class="menu-button btn-orange" data-search-term="DR 503-25 South Texas">DR 503-25 South Texas</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-535-25-Missouri-Ark" class="menu-button btn-orange" data-search-term="DR 535-25 Missouri/Ark">DR 535-25 Missouri/Ark</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-539-25-Kentucky" class="menu-button btn-orange" data-search-term="DR 539-25 Kentucky">DR 539-25 Kentucky</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-540-25-Tennessee" class="menu-button btn-orange" data-search-term="DR 540-25 Tennessee">DR 540-25 Tennessee</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-548-25-Indiana" class="menu-button btn-orange" data-search-term="DR 548-25 Indiana">DR 548-25 Indiana</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-550-25-Illinois" class="menu-button btn-orange" data-search-term="DR 550-25 Illinois">DR 550-25 Illinois</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-515-25-Harney-Oregon" class="menu-button btn-orange" data-search-term="DR 515-25 Harney, Oregon">DR 515-25 Harney, Oregon</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-497-25-Oklahoma" class="menu-button btn-orange" data-search-term="DR 497-25 Oklahoma">DR 497-25 Oklahoma</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DR-Comp-BETA" class="menu-button btn-orange" data-search-term="DR Comp BETA Tool">DR Comp BETA</a>
-                </div>
-
-                <!-- Category: 7 Financial Assist DAT (Red) -->
-                <div class="category-card card-7-financial-assist">
-                    <h2 class="category-title">7 Financial Asst DAT</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Client-Assistance" class="menu-button btn-red" data-search-term="Client Assistance">Client Assistance</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/IDC-Financial" class="menu-button btn-red" data-search-term="IDC Financial">IDC Financial</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Bridge" class="menu-button btn-red" data-search-term="Bridge">Bridge</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/DAT" class="menu-button btn-red" data-search-term="DAT">DAT</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Level-1-2-Casework-FA" class="menu-button btn-red" data-search-term="Level 1-2 Casework FA">Level 1-2 Casework FA</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Request-Access" class="menu-button btn-red" data-search-term="Request Access">Request Access</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Disaster-Current-OPs-Dashboard" class="menu-button btn-red" data-search-term="Disaster Current OPs Dashboard">Disaster Current OPs Dashboard</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Natl-Operations-Client-Assistance" class="menu-button btn-red" data-search-term="Natl Operations Client Assistance">Nat'l Operations - Client Assistance</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Bridge-Dashboard-Historical-Info" class="menu-button btn-red" data-search-term="Bridge Dashboard Historical Info">Bridge Dashboard Historical Info</a>
-                </div>
-
-                <!-- NEW: 8 Regional Risk Tool -->
-                <div class="category-card card-8-risk-tool">
-                    <h2 class="category-title">8 Regional Risk Tool</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Regional-Risk-Tool" class="menu-button btn-black" data-search-term="Regional Risk Tool">Regional Risk Tool</a>
-                </div>
-
-                <!-- NEW: 9 Community Adaptation CAP -->
-                <div class="category-card card-9-community-cap">
-                    <h2 class="category-title">9 Community Adaptation CAP</h2>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/CAP-Website" class="menu-button btn-black" data-search-term="CAP Website">CAP Website</a>
-                    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Housing-Resources" class="menu-button btn-black" data-search-term="Housing Resources">Housing Resources</a>
-                </div>
-            </div>
+            <div id="menuContent" class="category-grid"></div>
         </div>
 
-        <div class="text-center mt-3">
-            <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/Contact-with-any-Questions" class="menu-button btn-red-dark inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="Contact with any Questions">Contact with any Questions</a>
-        </div>
+        <div class="text-center mt-3" id="footerButtonContainer"></div>
+    </div>
+
+    <div id="menuEditorOverlay">
+      <div id="menuEditorPanel">
+        <button class="close-btn" onclick="document.getElementById('menuEditorOverlay').style.display='none'">Close</button>
+        <h2>Menu Editor</h2>
+        <div id="menuEditorContent"></div>
+        <button id="exportMenuJsonBtn">Export JSON</button>
+        <textarea id="exportMenuJsonArea" readonly style="display:none;"></textarea>
+      </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('menuSearch');
+            // --- Load menu data from embedded JSON ---
+            function getMenuData() {
+                const configScript = document.getElementById('menuConfig');
+                if (!configScript) return null;
+                try {
+                    return JSON.parse(configScript.textContent);
+                } catch (e) {
+                    return null;
+                }
+            }
+            const menuData = getMenuData();
             const menuContent = document.getElementById('menuContent');
-            const menuButtons = menuContent.querySelectorAll('.menu-button');
-            const categoryCards = menuContent.querySelectorAll('.category-card');
-            
-            // Toggle elements
+            const footerButtonContainer = document.getElementById('footerButtonContainer');
+            const searchInput = document.getElementById('menuSearch');
             const darkModeToggle = document.getElementById('darkModeToggle');
             const darkModeSwitch = document.getElementById('darkModeSwitch');
             const alphabeticalToggle = document.getElementById('alphabeticalToggle');
             const alphabeticalSwitch = document.getElementById('alphabeticalSwitch');
-            
-            // State variables
             let isDarkMode = false;
             let isAlphabetical = false;
             let originalHTML = '';
             let allButtons = [];
-            
-            // Initialize
-            init();
-            
-            function init() {
-                // Store original HTML and button data
-                originalHTML = menuContent.innerHTML;
-                storeAllButtons();
-                
-                // Check for saved preferences
-                loadPreferences();
-                
-                // Attach event listeners
-                attachEventListeners();
+            // --- Build menu from JSON ---
+            function buildMenu(data) {
+                let html = '';
+                (data.categories || []).forEach(category => {
+                    html += `<div class="category-card card-${category.id}">`;
+                    html += `<h2 class="category-title">${category.title}</h2>`;
+                    (category.items || []).forEach(item => {
+                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                    });
+                    (category.subcategories || []).forEach(subcat => {
+                        html += `<h2 class="category-title">${subcat.title}</h2>`;
+                        (subcat.items || []).forEach(item => {
+                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                        });
+                    });
+                    html += `</div>`;
+                });
+                menuContent.innerHTML = html;
             }
-            
+            function buildFooterButton(footer) {
+                if (!footer) return;
+                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
+            }
+            // --- Feature logic (search, dark mode, alphabetical, etc.) ---
             function storeAllButtons() {
-                menuButtons.forEach(button => {
-                    // Skip the contact button at the bottom
+                allButtons = [];
+                menuContent.querySelectorAll('.menu-button').forEach(button => {
                     if (!button.closest('.category-card')) return;
-                    
                     allButtons.push({
                         text: button.textContent.trim(),
                         href: button.href,
@@ -568,36 +626,20 @@
                     });
                 });
             }
-            
             function loadPreferences() {
-                // Load dark mode preference
                 const savedDarkMode = localStorage.getItem('nosb-dark-mode') === 'true';
-                if (savedDarkMode) {
-                    toggleDarkMode();
-                }
-                
-                // Load alphabetical preference
+                if (savedDarkMode) toggleDarkMode();
                 const savedAlphabetical = localStorage.getItem('nosb-alphabetical') === 'true';
-                if (savedAlphabetical) {
-                    toggleAlphabetical();
-                }
+                if (savedAlphabetical) toggleAlphabetical();
             }
-            
             function attachEventListeners() {
-                // Dark mode toggle
                 darkModeToggle.addEventListener('click', toggleDarkMode);
-                
-                // Alphabetical toggle
                 alphabeticalToggle.addEventListener('click', toggleAlphabetical);
-                
-                // Search functionality
                 searchInput.addEventListener('keyup', filterMenu);
                 searchInput.addEventListener('change', filterMenu);
             }
-            
             function toggleDarkMode() {
                 isDarkMode = !isDarkMode;
-                
                 if (isDarkMode) {
                     document.documentElement.setAttribute('data-theme', 'dark');
                     darkModeSwitch.classList.add('active');
@@ -607,21 +649,13 @@
                     darkModeSwitch.classList.remove('active');
                     darkModeToggle.classList.remove('active');
                 }
-                
-                // Save preference
                 localStorage.setItem('nosb-dark-mode', isDarkMode);
-                
-                // Add fade-in animation to body
                 document.body.classList.add('fade-in');
                 setTimeout(() => document.body.classList.remove('fade-in'), 300);
             }
-            
             function toggleAlphabetical() {
                 isAlphabetical = !isAlphabetical;
-                
-                // Add sorting class for loading state
                 menuContent.classList.add('sorting');
-                
                 setTimeout(() => {
                     if (isAlphabetical) {
                         showAlphabeticalView();
@@ -634,83 +668,48 @@
                         alphabeticalToggle.classList.remove('active');
                         menuContent.classList.remove('alphabetical');
                     }
-                    
-                    // Remove sorting class
                     menuContent.classList.remove('sorting');
-                    
-                    // Save preference
                     localStorage.setItem('nosb-alphabetical', isAlphabetical);
-                    
-                    // Re-apply current search filter
                     filterMenu();
                 }, 200);
             }
-            
             function showAlphabeticalView() {
-                // Sort all buttons alphabetically
-                const sortedButtons = [...allButtons].sort((a, b) => 
-                    a.text.toLowerCase().localeCompare(b.text.toLowerCase())
-                );
-                
-                // Calculate how many buttons per column to fit on screen
+                const sortedButtons = [...allButtons].sort((a, b) => a.text.toLowerCase().localeCompare(b.text.toLowerCase()));
                 const totalButtons = sortedButtons.length;
                 const maxColumns = 5;
                 const buttonsPerColumn = Math.ceil(totalButtons / maxColumns);
-                
-                // Create new HTML structure with all buttons in columns
                 let newHTML = '';
-                
                 for (let col = 0; col < maxColumns; col++) {
                     const startIndex = col * buttonsPerColumn;
                     const endIndex = Math.min(startIndex + buttonsPerColumn, totalButtons);
                     const columnButtons = sortedButtons.slice(startIndex, endIndex);
-                    
                     if (columnButtons.length > 0) {
-                        // Get first and last characters of this column
                         const firstChar = columnButtons[0].text.charAt(0).toUpperCase();
                         const lastChar = columnButtons[columnButtons.length - 1].text.charAt(0).toUpperCase();
-                        
-                        // Create range label
                         const rangeLabel = firstChar === lastChar ? firstChar : `${firstChar}-${lastChar}`;
-                        
-                        newHTML += `
-                            <div class="category-card">
-                                <h2 class="category-title">${rangeLabel} Menu</h2>
-                                ${columnButtons.map(btn => btn.outerHTML).join('')}
-                            </div>
-                        `;
+                        newHTML += `<div class="category-card"><h2 class="category-title">${rangeLabel} Menu</h2>${columnButtons.map(btn => btn.outerHTML).join('')}</div>`;
                     }
                 }
-                
                 menuContent.innerHTML = newHTML;
             }
-            
             function showCategoricalView() {
-                // Restore original HTML
-                menuContent.innerHTML = originalHTML;
+                buildMenu(menuData);
             }
-            
             function filterMenu() {
                 const searchTerm = searchInput.value.toLowerCase();
                 const currentButtons = menuContent.querySelectorAll('.menu-button');
                 const currentCards = menuContent.querySelectorAll('.category-card');
-                
-                // Filter buttons
                 currentButtons.forEach(button => {
                     const buttonText = button.textContent.toLowerCase();
                     const dataSearchTerm = button.dataset.searchTerm ? button.dataset.searchTerm.toLowerCase() : '';
-                    
                     if (buttonText.includes(searchTerm) || dataSearchTerm.includes(searchTerm)) {
                         button.style.display = 'block';
                     } else {
                         button.style.display = 'none';
                     }
                 });
-                
-                // Show/hide category cards based on visible buttons
                 currentCards.forEach(card => {
                     const visibleButtonsInCard = card.querySelectorAll('.menu-button[style*="display: block"], .menu-button:not([style*="display: none"])');
-                    
                     if (visibleButtonsInCard.length === 0 && searchTerm !== '') {
                         card.style.display = 'none';
                     } else {
@@ -718,26 +717,78 @@
                     }
                 });
             }
-            
-            // Add smooth scrolling and focus management
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('menu-button')) {
-                    // Add click animation
-                    e.target.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        e.target.style.transform = '';
-                    }, 100);
+            // --- Initial load ---
+            buildMenu(menuData);
+            buildFooterButton(menuData.footerButton);
+            originalHTML = menuContent.innerHTML;
+            storeAllButtons();
+            loadPreferences();
+            attachEventListeners();
+            // --- Admin/editor logic ---
+            const adminBtn = document.getElementById('adminBtn');
+            const menuEditorOverlay = document.getElementById('menuEditorOverlay');
+            const menuEditorContent = document.getElementById('menuEditorContent');
+            const exportMenuJsonBtn = document.getElementById('exportMenuJsonBtn');
+            const exportMenuJsonArea = document.getElementById('exportMenuJsonArea');
+            let menuEditorData = JSON.parse(JSON.stringify(menuData)); // Deep copy for editing
+            adminBtn.addEventListener('click', function() {
+                const pw = prompt('Enter admin password:');
+                if (pw === 'redcross') {
+                    showMenuEditor();
+                } else if (pw !== null) {
+                    alert('Incorrect password.');
                 }
             });
-            
-            // Keyboard navigation support
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    searchInput.value = '';
-                    filterMenu();
-                    searchInput.focus();
-                }
-            });
+            function showMenuEditor() {
+                menuEditorOverlay.style.display = 'flex';
+                renderMenuEditor();
+            }
+            function renderMenuEditor() {
+                let html = '';
+                menuEditorData.categories.forEach((cat, ci) => {
+                    html += `<div class='cat-block'><b>${cat.title}</b> <button class='danger' onclick='removeCategory(${ci})'>Delete Category</button><br>`;
+                    html += `Color: <input value='${cat.color}' onchange='updateCategoryColor(${ci}, this.value)'>`;
+                    html += `<button onclick='addMenuItem(${ci})'>Add Item</button>`;
+                    (cat.items||[]).forEach((item, ii) => {
+                        html += `<div class='item-block'>
+                            <input value='${item.title}' onchange='updateMenuItem(${ci},${ii},"title",this.value)'>
+                            <input value='${item.url}' onchange='updateMenuItem(${ci},${ii},"url",this.value)'>
+                            <input value='${item.searchTerm||""}' onchange='updateMenuItem(${ci},${ii},"searchTerm",this.value)'>
+                            <button class='danger' onclick='removeMenuItem(${ci},${ii})'>Delete</button>
+                        </div>`;
+                    });
+                    html += `</div>`;
+                });
+                html += `<button onclick='addCategory()'>Add Category</button>`;
+                menuEditorContent.innerHTML = html;
+            }
+            window.addCategory = function() {
+                menuEditorData.categories.push({id:'new-cat-'+Date.now(),title:'New Category',color:'purple',items:[]});
+                renderMenuEditor();
+            }
+            window.removeCategory = function(ci) {
+                if(confirm('Delete this category?')) menuEditorData.categories.splice(ci,1);
+                renderMenuEditor();
+            }
+            window.addMenuItem = function(ci) {
+                menuEditorData.categories[ci].items.push({title:'New Item',url:'',searchTerm:''});
+                renderMenuEditor();
+            }
+            window.removeMenuItem = function(ci,ii) {
+                if(confirm('Delete this item?')) menuEditorData.categories[ci].items.splice(ii,1);
+                renderMenuEditor();
+            }
+            window.updateMenuItem = function(ci,ii,field,val) {
+                menuEditorData.categories[ci].items[ii][field]=val;
+            }
+            window.updateCategoryColor = function(ci,val) {
+                menuEditorData.categories[ci].color=val;
+            }
+            exportMenuJsonBtn.onclick = function() {
+                exportMenuJsonArea.value = JSON.stringify(menuEditorData,null,2);
+                exportMenuJsonArea.style.display = 'block';
+            }
+            // Optionally, you could add a 'Save' button to update the live menu from the editor.
         });
     </script>
 </body>
