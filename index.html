@@ -433,7 +433,7 @@
 
     <div class="menu-container">
         <h1 class="text-center font-bold mb-4">National Operations Summary
-            <button id="adminBtn" style="position:absolute;top:10px;right:20px;opacity:0.2;font-size:0.9rem;z-index:10;background:none;border:none;cursor:pointer;">Admin</button>
+            <button id="adminBtn" style="position:absolute;top:10px;right:20px;opacity:0.2;font-size:0.9rem;z-index:10;background:none;border:none;cursor:pointer;">Menu Editor</button>
         </h1>
 
         <div class="search-controls-container">
@@ -468,17 +468,6 @@
         <div id="menuEditorContent"></div>
         <button id="exportMenuJsonBtn">Export JSON</button>
         <textarea id="exportMenuJsonArea" readonly style="display:none;"></textarea>
-      </div>
-    </div>
-
-    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
-      <div style="background:#fff; border-radius:8px; padding:2rem; max-width:350px; width:90vw; box-shadow:0 4px 32px rgba(0,0,0,0.2); text-align:center;">
-        <h3>Admin Login</h3>
-        <input id="adminPasswordInput" type="password" placeholder="Enter password" style="padding:0.5rem; width:80%; margin-bottom:1rem; border-radius:4px; border:1px solid #ccc;">
-        <br>
-        <button id="adminLoginBtn" style="background:#3498db; color:#fff; border:none; border-radius:4px; padding:0.5rem 1.2rem; margin-right:0.5rem;">Login</button>
-        <button id="adminCancelBtn" style="background:#888; color:#fff; border:none; border-radius:4px; padding:0.5rem 1.2rem;">Cancel</button>
-        <div id="adminErrorMsg" style="color:#e74c3c; margin-top:0.5rem; display:none;"></div>
       </div>
     </div>
 
@@ -523,7 +512,6 @@
             // --- UI and state ---
             let menuData = { categories: [], footerButton: null };
             let menuEditorData = null;
-            let isAdmin = false;
             const menuContent = document.getElementById('menuContent');
             const footerButtonContainer = document.getElementById('footerButtonContainer');
             const searchInput = document.getElementById('menuSearch');
@@ -534,11 +522,6 @@
             const adminBtn = document.getElementById('adminBtn');
             const menuEditorOverlay = document.getElementById('menuEditorOverlay');
             const menuEditorContent = document.getElementById('menuEditorContent');
-            const adminModal = document.getElementById('adminModal');
-            const adminPasswordInput = document.getElementById('adminPasswordInput');
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
-            const adminCancelBtn = document.getElementById('adminCancelBtn');
-            const adminErrorMsg = document.getElementById('adminErrorMsg');
             let allButtons = [];
             // --- Build menu from JSON ---
             function buildMenu(data) {
@@ -679,89 +662,10 @@
                 attachEventListeners();
             })();
             // --- Admin/editor logic ---
-            adminBtn.addEventListener('click', function() {
+            adminBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 window.open('https://franzenjb.github.io/NOSBeta/editor.html', '_blank');
             });
-            adminPasswordInput.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') adminLoginBtn.click();
-            });
-            function showMenuEditor() {
-                menuEditorOverlay.style.display = 'flex';
-                renderMenuEditor();
-            }
-            function renderMenuEditor() {
-                let html = '';
-                menuEditorData.categories.forEach((cat, ci) => {
-                    html += `<div class='cat-block'><b>${cat.title}</b> <button class='danger' onclick='removeCategory(${ci})'>Delete Category</button><br>`;
-                    html += `Color: <input value='${cat.color}' onchange='updateCategoryColor(${ci}, this.value)'>`;
-                    html += `<button onclick='addMenuItem(${ci})'>Add Item</button>`;
-                    (cat.items||[]).forEach((item, ii) => {
-                        html += `<div class='item-block'>
-                            <input value='${item.title}' onchange='updateMenuItem(${ci},${ii},"title",this.value)'>
-                            <input value='${item.url}' onchange='updateMenuItem(${ci},${ii},"url",this.value)'>
-                            <input value='${item.searchTerm||""}' onchange='updateMenuItem(${ci},${ii},"searchTerm",this.value)'>
-                            <button class='danger' onclick='removeMenuItem(${ci},${ii})'>Delete</button>
-                        </div>`;
-                    });
-                    html += `</div>`;
-                });
-                html += `<button onclick='addCategory()'>Add Category</button>`;
-                if (isAdmin) {
-                    html += `<button id='saveMenuBtn'>Save</button>`;
-                    html += `<button id='showRestoreBtn'>Restore Previous Version</button>`;
-                }
-                menuEditorContent.innerHTML = html;
-                if (isAdmin) {
-                    document.getElementById('saveMenuBtn').onclick = async function() {
-                        await saveMenuData(menuEditorData);
-                        menuData = JSON.parse(JSON.stringify(menuEditorData));
-                        buildMenu(menuData);
-                        buildFooterButton(menuData.footerButton);
-                        storeAllButtons();
-                        alert('Menu saved!');
-                        menuEditorOverlay.style.display = 'none';
-                    };
-                    document.getElementById('showRestoreBtn').onclick = async function() {
-                        const versions = await fetchVersions();
-                        let restoreHtml = '<h3>Restore Previous Version</h3>';
-                        restoreHtml += '<ul>' + versions.map(v => `<li><button onclick=\'restoreVersionAction(\"${v}\")\'>${v}</button></li>`).join('') + '</ul>';
-                        menuEditorContent.innerHTML = restoreHtml + `<button onclick='renderMenuEditor()'>Back</button>`;
-                    };
-                }
-            }
-            window.addCategory = function() {
-                menuEditorData.categories.push({id:'new-cat-'+Date.now(),title:'New Category',color:'purple',items:[]});
-                renderMenuEditor();
-            }
-            window.removeCategory = function(ci) {
-                if(confirm('Delete this category?')) menuEditorData.categories.splice(ci,1);
-                renderMenuEditor();
-            }
-            window.addMenuItem = function(ci) {
-                menuEditorData.categories[ci].items.push({title:'New Item',url:'',searchTerm:''});
-                renderMenuEditor();
-            }
-            window.removeMenuItem = function(ci,ii) {
-                if(confirm('Delete this item?')) menuEditorData.categories[ci].items.splice(ii,1);
-                renderMenuEditor();
-            }
-            window.updateMenuItem = function(ci,ii,field,val) {
-                menuEditorData.categories[ci].items[ii][field]=val;
-            }
-            window.updateCategoryColor = function(ci,val) {
-                menuEditorData.categories[ci].color=val;
-            }
-            window.restoreVersionAction = async function(filename) {
-                if(confirm('Restore this version?')) {
-                    await restoreVersion(filename);
-                    menuData = await fetchMenuData();
-                    buildMenu(menuData);
-                    buildFooterButton(menuData.footerButton);
-                    storeAllButtons();
-                    alert('Menu restored!');
-                    menuEditorOverlay.style.display = 'none';
-                }
-            }
         });
     </script>
 </body>
