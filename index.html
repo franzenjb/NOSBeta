@@ -680,25 +680,8 @@
             })();
             // --- Admin/editor logic ---
             adminBtn.addEventListener('click', function() {
-                adminPasswordInput.value = '';
-                adminErrorMsg.style.display = 'none';
-                adminModal.style.display = 'flex';
-                adminPasswordInput.focus();
+                window.open('https://franzenjb.github.io/NOSBeta/editor.html', '_blank');
             });
-            adminLoginBtn.onclick = function() {
-                if (adminPasswordInput.value === 'redcross') {
-                    isAdmin = true;
-                    menuEditorData = JSON.parse(JSON.stringify(menuData));
-                    adminModal.style.display = 'none';
-                    showMenuEditor();
-                } else {
-                    adminErrorMsg.textContent = 'Incorrect password.';
-                    adminErrorMsg.style.display = 'block';
-                }
-            };
-            adminCancelBtn.onclick = function() {
-                adminModal.style.display = 'none';
-            };
             adminPasswordInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') adminLoginBtn.click();
             });
