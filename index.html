@@ -428,100 +428,138 @@
     #menuEditorPanel textarea { width: 100%; min-height: 60px; margin-top: 0.5rem; }
     </style>
     <script type="application/json" id="menuConfig">
-      {
-        "categories": [
-          { "id": "1-sit-summary", "title": "1 Situation Summary", "color": "purple", "items": [
-            { "title": "National", "url": "National", "searchTerm": "National" },
-            { "title": "Heat Risk", "url": "Heat-Risk", "searchTerm": "Heat Risk" },
-            { "title": "FY 25 Incidents", "url": "FY-25-Incidents", "searchTerm": "FY25 Incidents and DROs" },
-            { "title": "DCS 5 Year Plan", "url": "DCS-5-Year-Plan", "searchTerm": "DCS 5YR Plan" },
-            { "title": "DCS Narrative", "url": "DCS-Narrative", "searchTerm": "DCS Narrative" },
-            { "title": "Global Trends", "url": "Global-Trends", "searchTerm": "Global Trends" },
-            { "title": "DOCC Portal", "url": "DOCC-Portal", "searchTerm": "DOCC Portal" },
-            { "title": "Current OPS Report", "url": "Current-OPS-Report", "searchTerm": "Current OPS Rep" },
-            { "title": "Power Outages", "url": "Power-Outages", "searchTerm": "Power Outages" }
-          ]},
-          { "id": "2-weather", "title": "2 Weather", "color": "blue", "items": [
-            { "title": "Storm Prediction Center", "url": "Storm-Prediction-Center", "searchTerm": "Storm Prediction Center" },
-            { "title": "Precipitation", "url": "Precipitation", "searchTerm": "Precipitation" },
-            { "title": "Flood Prediction", "url": "Flood-Prediction", "searchTerm": "Flood Prediction" },
-            { "title": "Natl Hurricane Center", "url": "Natl-Hurricane-Center", "searchTerm": "Natl Hurricane Center" },
-            { "title": "Air Reconnaissance", "url": "Air-Reconnaissance", "searchTerm": "Air Reconnaissance" },
-            { "title": "7 DAY Fire Risk", "url": "7-DAY-Fire-Risk", "searchTerm": "7 Day Fire Risk" },
-            { "title": "California EMS", "url": "California-EMS", "searchTerm": "California EMS" },
-            { "title": "Natl Interagency FIRE", "url": "Natl-Interagency-FIRE", "searchTerm": "Natl Interagency Fire" },
-            { "title": "Weather - General", "url": "Weather-General", "searchTerm": "Weather General" },
-            { "title": "Tropical Hazards", "url": "Tropical-Hazards", "searchTerm": "Tropical Hazards" },
-            { "title": "Fire Weather", "url": "Fire-Weather", "searchTerm": "Fire Weather" }
-          ], "subcategories": [
-            { "title": "3 Sheltering", "items": [
-              { "title": "National Sheltering", "url": "National-Sheltering", "searchTerm": "National Sheltering" },
-              { "title": "Current Open Shelters", "url": "Current-Open-Shelters", "searchTerm": "Current Open Shelters" },
-              { "title": "Shelter Intake", "url": "Shelter-Intake", "searchTerm": "Shelter Intake" },
-              { "title": "SCIA Operational Dashboard", "url": "SCIA-Operational-Dashboard", "searchTerm": "SCIA Operational Dashboard" },
-              { "title": "Restricted SCIA Access Request", "url": "Restricted-SCIA-Access-Request", "searchTerm": "Restricted SCIA Access Request" }
-            ]}
-          ]},
-          { "id": "4-logistics", "title": "4 Logistics", "color": "green", "items": [
-            { "title": "Staffing", "url": "Staffing", "searchTerm": "Staffing" },
-            { "title": "Staff Capacity Building", "url": "Staff-Capacity-Building", "searchTerm": "Staff Capacity Building" },
-            { "title": "EBV - Event Volunteers", "url": "EBV-Event-Volunteers", "searchTerm": "EBV Event Volunteers" },
-            { "title": "DST - Disaster Tech", "url": "DST-Disaster-Tech", "searchTerm": "DST Disaster Tech" },
-            { "title": "IKD - InKind Donations", "url": "IKD-InKind-Donations", "searchTerm": "IKD InKind Donations" },
-            { "title": "Trailers & Assets", "url": "Trailers-Assets", "searchTerm": "Trailers Assets" },
-            { "title": "ERV - Emergency vehicles", "url": "ERV-Emergency-vehicles", "searchTerm": "ERV Emergency vehicles" },
-            { "title": "Resourcing", "url": "Resourcing", "searchTerm": "Resourcing" },
-            { "title": "Speed to Scale", "url": "Speed-to-Scale", "searchTerm": "Speed to Scale" }
-          ], "subcategories": [
-            { "title": "5 Call Center", "items": [
-              { "title": "1 800 Red Cross", "url": "1-800-Red-Cross", "searchTerm": "1 800 Red Cross" }
-            ]}
-          ]},
-          { "id": "6-sads-dro", "title": "6 SADS & DRO", "color": "orange", "items": [
-            { "title": "DOCC Current OPS", "url": "DOCC-Current-OPS", "searchTerm": "DOCC Current OPS" },
-            { "title": "NIC Teams DRO Leadership", "url": "NIC-Teams-DRO-Leadership", "searchTerm": "NIC Teams DRO Leadership" },
-            { "title": "Active DROs", "url": "Active-DROs", "searchTerm": "Active DROs" },
-            { "title": "Natl Activation Levels", "url": "Natl-Activation-Levels", "searchTerm": "Natl Activation Levels" },
-            { "title": "DRO Call Agenda", "url": "DRO-Call-Agenda", "searchTerm": "DRO Call Agenda" },
-            { "title": "Dist Partner Hub", "url": "Dist-Partner-Hub", "searchTerm": "Dist Partner Hub" },
-            { "title": "Hurricane Advance Planning", "url": "Hurricane-Advance-Planning", "searchTerm": "Hurricane Advance Planning" },
-            { "title": "DR 503-25 South Texas", "url": "DR-503-25-South-Texas", "searchTerm": "DR 503-25 South Texas" },
-            { "title": "DR 535-25 Missouri/Ark", "url": "DR-535-25-Missouri-Ark", "searchTerm": "DR 535-25 Missouri/Ark" },
-            { "title": "DR 539-25 Kentucky", "url": "DR-539-25-Kentucky", "searchTerm": "DR 539-25 Kentucky" },
-            { "title": "DR 540-25 Tennessee", "url": "DR-540-25-Tennessee", "searchTerm": "DR 540-25 Tennessee" },
-            { "title": "DR 548-25 Indiana", "url": "DR-548-25-Indiana", "searchTerm": "DR 548-25 Indiana" },
-            { "title": "DR 550-25 Illinois", "url": "DR-550-25-Illinois", "searchTerm": "DR 550-25 Illinois" },
-            { "title": "DR 515-25 Harney, Oregon", "url": "DR-515-25-Harney-Oregon", "searchTerm": "DR 515-25 Harney, Oregon" },
-            { "title": "DR 497-25 Oklahoma", "url": "DR-497-25-Oklahoma", "searchTerm": "DR 497-25 Oklahoma" },
-            { "title": "DR Comp BETA", "url": "DR-Comp-BETA", "searchTerm": "DR Comp BETA Tool" }
-          ]},
-          { "id": "7-financial-assist", "title": "7 Financial Asst DAT", "color": "red", "items": [
-            { "title": "Client Assistance", "url": "Client-Assistance", "searchTerm": "Client Assistance" },
-            { "title": "IDC Financial", "url": "IDC-Financial", "searchTerm": "IDC Financial" },
-            { "title": "Bridge", "url": "Bridge", "searchTerm": "Bridge" },
-            { "title": "DAT", "url": "DAT", "searchTerm": "DAT" },
-            { "title": "Level 1-2 Casework FA", "url": "Level-1-2-Casework-FA", "searchTerm": "Level 1-2 Casework FA" },
-            { "title": "Request Access", "url": "Request-Access", "searchTerm": "Request Access" },
-            { "title": "Disaster Current OPs Dashboard", "url": "Disaster-Current-OPs-Dashboard", "searchTerm": "Disaster Current OPs Dashboard" },
-            { "title": "Nat'l Operations - Client Assistance", "url": "Natl-Operations-Client-Assistance", "searchTerm": "Natl Operations Client Assistance" },
-            { "title": "Bridge Dashboard Historical Info", "url": "Bridge-Dashboard-Historical-Info", "searchTerm": "Bridge Dashboard Historical Info" }
-          ]},
-          { "id": "8-risk-tool", "title": "8 Regional Risk Tool", "color": "black", "items": [
-            { "title": "Regional Risk Tool", "url": "Regional-Risk-Tool", "searchTerm": "Regional Risk Tool" }
-          ]},
-          { "id": "9-community-cap", "title": "9 Community Adaptation CAP", "color": "black", "items": [
-            { "title": "CAP Website", "url": "CAP-Website", "searchTerm": "CAP Website" },
-            { "title": "Housing Resources", "url": "Housing-Resources", "searchTerm": "Housing Resources" }
-          ]}
-        ],
-        "footerButton": {
-          "title": "Contact with any Questions",
-          "url": "Contact-with-any-Questions",
-          "color": "red-dark",
-          "searchTerm": "Contact with any Questions"
-        }
-      }
-    </script>
+{
+  "categories": [
+    {
+      "id": "1-sit-summary",
+      "title": "1 Situation Summary",
+      "color": "purple",
+      "items": [
+        { "title": "National", "url": "National", "searchTerm": "National" },
+        { "title": "Heat Risk", "url": "Heat-Risk", "searchTerm": "Heat Risk" },
+        { "title": "FY 25 Incidents", "url": "FY-25-Incidents", "searchTerm": "FY25 Incidents and DROs" },
+        { "title": "DCS 5 Year Plan", "url": "DCS-5-Year-Plan", "searchTerm": "DCS 5YR Plan" },
+        { "title": "DCS Narrative", "url": "DCS-Narrative", "searchTerm": "DCS Narrative" },
+        { "title": "Global Trends", "url": "Global-Trends", "searchTerm": "Global Trends" },
+        { "title": "DOCC Portal", "url": "DOCC-Portal", "searchTerm": "DOCC Portal" },
+        { "title": "Current OPS Report", "url": "Current-OPS-Report", "searchTerm": "Current OPS Rep" },
+        { "title": "Power Outages", "url": "Power-Outages", "searchTerm": "Power Outages" }
+      ]
+    },
+    {
+      "id": "2-weather",
+      "title": "2 Weather",
+      "color": "blue",
+      "items": [
+        { "title": "Storm Prediction Center", "url": "Storm-Prediction-Center", "searchTerm": "Storm Prediction Center" },
+        { "title": "Precipitation", "url": "Precipitation", "searchTerm": "Precipitation" },
+        { "title": "Flood Prediction", "url": "Flood-Prediction", "searchTerm": "Flood Prediction" },
+        { "title": "Natl Hurricane Center", "url": "Natl-Hurricane-Center", "searchTerm": "Natl Hurricane Center" },
+        { "title": "Air Reconnaissance", "url": "Air-Reconnaissance", "searchTerm": "Air Reconnaissance" },
+        { "title": "7 DAY Fire Risk", "url": "7-DAY-Fire-Risk", "searchTerm": "7 Day Fire Risk" },
+        { "title": "California EMS", "url": "California-EMS", "searchTerm": "California EMS" },
+        { "title": "Natl Interagency FIRE", "url": "Natl-Interagency-FIRE", "searchTerm": "Natl Interagency Fire" },
+        { "title": "Weather - General", "url": "Weather-General", "searchTerm": "Weather General" },
+        { "title": "Tropical Hazards", "url": "Tropical-Hazards", "searchTerm": "Tropical Hazards" },
+        { "title": "Fire Weather", "url": "Fire-Weather", "searchTerm": "Fire Weather" }
+      ],
+      "subcategories": [
+        { "title": "3 Sheltering", "items": [
+          { "title": "National Sheltering", "url": "National-Sheltering", "searchTerm": "National Sheltering" },
+          { "title": "Current Open Shelters", "url": "Current-Open-Shelters", "searchTerm": "Current Open Shelters" },
+          { "title": "Shelter Intake", "url": "Shelter-Intake", "searchTerm": "Shelter Intake" },
+          { "title": "SCIA Operational Dashboard", "url": "SCIA-Operational-Dashboard", "searchTerm": "SCIA Operational Dashboard" },
+          { "title": "Restricted SCIA Access Request", "url": "Restricted-SCIA-Access-Request", "searchTerm": "Restricted SCIA Access Request" }
+        ]}
+      ]
+    },
+    {
+      "id": "4-logistics",
+      "title": "4 Logistics",
+      "color": "green",
+      "items": [
+        { "title": "Staffing", "url": "Staffing", "searchTerm": "Staffing" },
+        { "title": "Staff Capacity Building", "url": "Staff-Capacity-Building", "searchTerm": "Staff Capacity Building" },
+        { "title": "EBV - Event Volunteers", "url": "EBV-Event-Volunteers", "searchTerm": "EBV Event Volunteers" },
+        { "title": "DST - Disaster Tech", "url": "DST-Disaster-Tech", "searchTerm": "DST Disaster Tech" },
+        { "title": "IKD - InKind Donations", "url": "IKD-InKind-Donations", "searchTerm": "IKD InKind Donations" },
+        { "title": "Trailers & Assets", "url": "Trailers-Assets", "searchTerm": "Trailers Assets" },
+        { "title": "ERV - Emergency vehicles", "url": "ERV-Emergency-vehicles", "searchTerm": "ERV Emergency vehicles" },
+        { "title": "Resourcing", "url": "Resourcing", "searchTerm": "Resourcing" },
+        { "title": "Speed to Scale", "url": "Speed-to-Scale", "searchTerm": "Speed to Scale" }
+      ],
+      "subcategories": [
+        { "title": "5 Call Center", "items": [
+          { "title": "1 800 Red Cross", "url": "1-800-Red-Cross", "searchTerm": "1 800 Red Cross" }
+        ]}
+      ]
+    },
+    {
+      "id": "6-sads-dro",
+      "title": "6 SADS & DRO",
+      "color": "orange",
+      "items": [
+        { "title": "DOCC Current OPS", "url": "DOCC-Current-OPS", "searchTerm": "DOCC Current OPS" },
+        { "title": "NIC Teams DRO Leadership", "url": "NIC-Teams-DRO-Leadership", "searchTerm": "NIC Teams DRO Leadership" },
+        { "title": "Active DROs", "url": "Active-DROs", "searchTerm": "Active DROs" },
+        { "title": "Natl Activation Levels", "url": "Natl-Activation-Levels", "searchTerm": "Natl Activation Levels" },
+        { "title": "DRO Call Agenda", "url": "DRO-Call-Agenda", "searchTerm": "DRO Call Agenda" },
+        { "title": "Dist Partner Hub", "url": "Dist-Partner-Hub", "searchTerm": "Dist Partner Hub" },
+        { "title": "Hurricane Advance Planning", "url": "Hurricane-Advance-Planning", "searchTerm": "Hurricane Advance Planning" },
+        { "title": "DR 503-25 South Texas", "url": "DR-503-25-South-Texas", "searchTerm": "DR 503-25 South Texas" },
+        { "title": "DR 535-25 Missouri/Ark", "url": "DR-535-25-Missouri-Ark", "searchTerm": "DR 535-25 Missouri/Ark" },
+        { "title": "DR 539-25 Kentucky", "url": "DR-539-25-Kentucky", "searchTerm": "DR 539-25 Kentucky" },
+        { "title": "DR 540-25 Tennessee", "url": "DR-540-25-Tennessee", "searchTerm": "DR 540-25 Tennessee" },
+        { "title": "DR 548-25 Indiana", "url": "DR-548-25-Indiana", "searchTerm": "DR 548-25 Indiana" },
+        { "title": "DR 550-25 Illinois", "url": "DR-550-25-Illinois", "searchTerm": "DR 550-25 Illinois" },
+        { "title": "DR 515-25 Harney, Oregon", "url": "DR-515-25-Harney-Oregon", "searchTerm": "DR 515-25 Harney, Oregon" },
+        { "title": "DR 497-25 Oklahoma", "url": "DR-497-25-Oklahoma", "searchTerm": "DR 497-25 Oklahoma" },
+        { "title": "DR Comp BETA", "url": "DR-Comp-BETA", "searchTerm": "DR Comp BETA Tool" }
+      ]
+    },
+    {
+      "id": "7-financial-assist",
+      "title": "7 Financial Asst DAT",
+      "color": "red",
+      "items": [
+        { "title": "Client Assistance", "url": "Client-Assistance", "searchTerm": "Client Assistance" },
+        { "title": "IDC Financial", "url": "IDC-Financial", "searchTerm": "IDC Financial" },
+        { "title": "Bridge", "url": "Bridge", "searchTerm": "Bridge" },
+        { "title": "DAT", "url": "DAT", "searchTerm": "DAT" },
+        { "title": "Level 1-2 Casework FA", "url": "Level-1-2-Casework-FA", "searchTerm": "Level 1-2 Casework FA" },
+        { "title": "Request Access", "url": "Request-Access", "searchTerm": "Request Access" },
+        { "title": "Disaster Current OPs Dashboard", "url": "Disaster-Current-OPs-Dashboard", "searchTerm": "Disaster Current OPs Dashboard" },
+        { "title": "Nat'l Operations - Client Assistance", "url": "Natl-Operations-Client-Assistance", "searchTerm": "Natl Operations Client Assistance" },
+        { "title": "Bridge Dashboard Historical Info", "url": "Bridge-Dashboard-Historical-Info", "searchTerm": "Bridge Dashboard Historical Info" }
+      ]
+    },
+    {
+      "id": "8-risk-tool",
+      "title": "8 Regional Risk Tool",
+      "color": "black",
+      "items": [
+        { "title": "Regional Risk Tool", "url": "Regional-Risk-Tool", "searchTerm": "Regional Risk Tool" },
+        { "title": "Trucks and Trailers TEST", "url": "Trucks_Trailers", "searchTerm": "" }
+      ]
+    },
+    {
+      "id": "9-community-cap",
+      "title": "9 Community Adaptation CAP",
+      "color": "black",
+      "items": [
+        { "title": "CAP Website", "url": "CAP-Website", "searchTerm": "CAP Website" },
+        { "title": "Housing Resources", "url": "Housing-Resources", "searchTerm": "Housing Resources" }
+      ]
+    }
+  ],
+  "footerButton": {
+    "title": "Contact with any Questions",
+    "url": "Contact-with-any-Questions",
+    "color": "red-dark",
+    "searchTerm": "Contact with any Questions"
+  }
+}
+</script>
 </head>
 <body>
 
