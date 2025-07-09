@@ -427,139 +427,7 @@
     #menuEditorPanel .close-btn { float: right; background: #888; }
     #menuEditorPanel textarea { width: 100%; min-height: 60px; margin-top: 0.5rem; }
     </style>
-    <script type="application/json" id="menuConfig">
-{
-  "categories": [
-    {
-      "id": "1-sit-summary",
-      "title": "1 Situation Summary",
-      "color": "purple",
-      "items": [
-        { "title": "National", "url": "National", "searchTerm": "National" },
-        { "title": "Heat Risk", "url": "Heat-Risk", "searchTerm": "Heat Risk" },
-        { "title": "FY 25 Incidents", "url": "FY-25-Incidents", "searchTerm": "FY25 Incidents and DROs" },
-        { "title": "DCS 5 Year Plan", "url": "DCS-5-Year-Plan", "searchTerm": "DCS 5YR Plan" },
-        { "title": "DCS Narrative", "url": "DCS-Narrative", "searchTerm": "DCS Narrative" },
-        { "title": "Global Trends", "url": "Global-Trends", "searchTerm": "Global Trends" },
-        { "title": "DOCC Portal", "url": "DOCC-Portal", "searchTerm": "DOCC Portal" },
-        { "title": "Current OPS Report", "url": "Current-OPS-Report", "searchTerm": "Current OPS Rep" },
-        { "title": "Power Outages", "url": "Power-Outages", "searchTerm": "Power Outages" }
-      ]
-    },
-    {
-      "id": "2-weather",
-      "title": "2 Weather",
-      "color": "blue",
-      "items": [
-        { "title": "Storm Prediction Center", "url": "Storm-Prediction-Center", "searchTerm": "Storm Prediction Center" },
-        { "title": "Precipitation", "url": "Precipitation", "searchTerm": "Precipitation" },
-        { "title": "Flood Prediction", "url": "Flood-Prediction", "searchTerm": "Flood Prediction" },
-        { "title": "Natl Hurricane Center", "url": "Natl-Hurricane-Center", "searchTerm": "Natl Hurricane Center" },
-        { "title": "Air Reconnaissance", "url": "Air-Reconnaissance", "searchTerm": "Air Reconnaissance" },
-        { "title": "7 DAY Fire Risk", "url": "7-DAY-Fire-Risk", "searchTerm": "7 Day Fire Risk" },
-        { "title": "California EMS", "url": "California-EMS", "searchTerm": "California EMS" },
-        { "title": "Natl Interagency FIRE", "url": "Natl-Interagency-FIRE", "searchTerm": "Natl Interagency Fire" },
-        { "title": "Weather - General", "url": "Weather-General", "searchTerm": "Weather General" },
-        { "title": "Tropical Hazards", "url": "Tropical-Hazards", "searchTerm": "Tropical Hazards" },
-        { "title": "Fire Weather", "url": "Fire-Weather", "searchTerm": "Fire Weather" }
-      ],
-      "subcategories": [
-        { "title": "3 Sheltering", "items": [
-          { "title": "National Sheltering", "url": "National-Sheltering", "searchTerm": "National Sheltering" },
-          { "title": "Current Open Shelters", "url": "Current-Open-Shelters", "searchTerm": "Current Open Shelters" },
-          { "title": "Shelter Intake", "url": "Shelter-Intake", "searchTerm": "Shelter Intake" },
-          { "title": "SCIA Operational Dashboard", "url": "SCIA-Operational-Dashboard", "searchTerm": "SCIA Operational Dashboard" },
-          { "title": "Restricted SCIA Access Request", "url": "Restricted-SCIA-Access-Request", "searchTerm": "Restricted SCIA Access Request" }
-        ]}
-      ]
-    },
-    {
-      "id": "4-logistics",
-      "title": "4 Logistics",
-      "color": "green",
-      "items": [
-        { "title": "Staffing", "url": "Staffing", "searchTerm": "Staffing" },
-        { "title": "Staff Capacity Building", "url": "Staff-Capacity-Building", "searchTerm": "Staff Capacity Building" },
-        { "title": "EBV - Event Volunteers", "url": "EBV-Event-Volunteers", "searchTerm": "EBV Event Volunteers" },
-        { "title": "DST - Disaster Tech", "url": "DST-Disaster-Tech", "searchTerm": "DST Disaster Tech" },
-        { "title": "IKD - InKind Donations", "url": "IKD-InKind-Donations", "searchTerm": "IKD InKind Donations" },
-        { "title": "Trailers & Assets", "url": "Trailers-Assets", "searchTerm": "Trailers Assets" },
-        { "title": "ERV - Emergency vehicles", "url": "ERV-Emergency-vehicles", "searchTerm": "ERV Emergency vehicles" },
-        { "title": "Resourcing", "url": "Resourcing", "searchTerm": "Resourcing" },
-        { "title": "Speed to Scale", "url": "Speed-to-Scale", "searchTerm": "Speed to Scale" }
-      ],
-      "subcategories": [
-        { "title": "5 Call Center", "items": [
-          { "title": "1 800 Red Cross", "url": "1-800-Red-Cross", "searchTerm": "1 800 Red Cross" }
-        ]}
-      ]
-    },
-    {
-      "id": "6-sads-dro",
-      "title": "6 SADS & DRO",
-      "color": "orange",
-      "items": [
-        { "title": "DOCC Current OPS", "url": "DOCC-Current-OPS", "searchTerm": "DOCC Current OPS" },
-        { "title": "NIC Teams DRO Leadership", "url": "NIC-Teams-DRO-Leadership", "searchTerm": "NIC Teams DRO Leadership" },
-        { "title": "Active DROs", "url": "Active-DROs", "searchTerm": "Active DROs" },
-        { "title": "Natl Activation Levels", "url": "Natl-Activation-Levels", "searchTerm": "Natl Activation Levels" },
-        { "title": "DRO Call Agenda", "url": "DRO-Call-Agenda", "searchTerm": "DRO Call Agenda" },
-        { "title": "Dist Partner Hub", "url": "Dist-Partner-Hub", "searchTerm": "Dist Partner Hub" },
-        { "title": "Hurricane Advance Planning", "url": "Hurricane-Advance-Planning", "searchTerm": "Hurricane Advance Planning" },
-        { "title": "DR 503-25 South Texas", "url": "DR-503-25-South-Texas", "searchTerm": "DR 503-25 South Texas" },
-        { "title": "DR 535-25 Missouri/Ark", "url": "DR-535-25-Missouri-Ark", "searchTerm": "DR 535-25 Missouri/Ark" },
-        { "title": "DR 539-25 Kentucky", "url": "DR-539-25-Kentucky", "searchTerm": "DR 539-25 Kentucky" },
-        { "title": "DR 540-25 Tennessee", "url": "DR-540-25-Tennessee", "searchTerm": "DR 540-25 Tennessee" },
-        { "title": "DR 548-25 Indiana", "url": "DR-548-25-Indiana", "searchTerm": "DR 548-25 Indiana" },
-        { "title": "DR 550-25 Illinois", "url": "DR-550-25-Illinois", "searchTerm": "DR 550-25 Illinois" },
-        { "title": "DR 515-25 Harney, Oregon", "url": "DR-515-25-Harney-Oregon", "searchTerm": "DR 515-25 Harney, Oregon" },
-        { "title": "DR 497-25 Oklahoma", "url": "DR-497-25-Oklahoma", "searchTerm": "DR 497-25 Oklahoma" },
-        { "title": "DR Comp BETA", "url": "DR-Comp-BETA", "searchTerm": "DR Comp BETA Tool" }
-      ]
-    },
-    {
-      "id": "7-financial-assist",
-      "title": "7 Financial Asst DAT",
-      "color": "red",
-      "items": [
-        { "title": "Client Assistance", "url": "Client-Assistance", "searchTerm": "Client Assistance" },
-        { "title": "IDC Financial", "url": "IDC-Financial", "searchTerm": "IDC Financial" },
-        { "title": "Bridge", "url": "Bridge", "searchTerm": "Bridge" },
-        { "title": "DAT", "url": "DAT", "searchTerm": "DAT" },
-        { "title": "Level 1-2 Casework FA", "url": "Level-1-2-Casework-FA", "searchTerm": "Level 1-2 Casework FA" },
-        { "title": "Request Access", "url": "Request-Access", "searchTerm": "Request Access" },
-        { "title": "Disaster Current OPs Dashboard", "url": "Disaster-Current-OPs-Dashboard", "searchTerm": "Disaster Current OPs Dashboard" },
-        { "title": "Nat'l Operations - Client Assistance", "url": "Natl-Operations-Client-Assistance", "searchTerm": "Natl Operations Client Assistance" },
-        { "title": "Bridge Dashboard Historical Info", "url": "Bridge-Dashboard-Historical-Info", "searchTerm": "Bridge Dashboard Historical Info" }
-      ]
-    },
-    {
-      "id": "8-risk-tool",
-      "title": "8 Regional Risk Tool",
-      "color": "black",
-      "items": [
-        { "title": "Regional Risk Tool", "url": "Regional-Risk-Tool", "searchTerm": "Regional Risk Tool" },
-        { "title": "Trucks and Trailers TEST", "url": "Trucks_Trailers", "searchTerm": "" }
-      ]
-    },
-    {
-      "id": "9-community-cap",
-      "title": "9 Community Adaptation CAP",
-      "color": "black",
-      "items": [
-        { "title": "CAP Website", "url": "CAP-Website", "searchTerm": "CAP Website" },
-        { "title": "Housing Resources", "url": "Housing-Resources", "searchTerm": "Housing Resources" }
-      ]
-    }
-  ],
-  "footerButton": {
-    "title": "Contact with any Questions",
-    "url": "Contact-with-any-Questions",
-    "color": "red-dark",
-    "searchTerm": "Contact with any Questions"
-  }
-}
-</script>
+    <!-- REMOVE the embedded menuConfig JSON block -->
 </head>
 <body>
 
@@ -603,19 +471,59 @@
       </div>
     </div>
 
+    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center;">
+      <div style="background:#fff; border-radius:8px; padding:2rem; max-width:350px; width:90vw; box-shadow:0 4px 32px rgba(0,0,0,0.2); text-align:center;">
+        <h3>Admin Login</h3>
+        <input id="adminPasswordInput" type="password" placeholder="Enter password" style="padding:0.5rem; width:80%; margin-bottom:1rem; border-radius:4px; border:1px solid #ccc;">
+        <br>
+        <button id="adminLoginBtn" style="background:#3498db; color:#fff; border:none; border-radius:4px; padding:0.5rem 1.2rem; margin-right:0.5rem;">Login</button>
+        <button id="adminCancelBtn" style="background:#888; color:#fff; border:none; border-radius:4px; padding:0.5rem 1.2rem;">Cancel</button>
+        <div id="adminErrorMsg" style="color:#e74c3c; margin-top:0.5rem; display:none;"></div>
+      </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Load menu data from embedded JSON ---
-            function getMenuData() {
-                const configScript = document.getElementById('menuConfig');
-                if (!configScript) return null;
+            // --- Load menu data from backend API ---
+            async function fetchMenuData() {
                 try {
-                    return JSON.parse(configScript.textContent);
+                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu');
+                    if (!resp.ok) throw new Error('Failed to load menu');
+                    return await resp.json();
                 } catch (e) {
-                    return null;
+                    alert('Error loading menu: ' + e.message);
+                    return { categories: [], footerButton: null };
                 }
             }
-            const menuData = getMenuData();
+            async function saveMenuData(data) {
+                try {
+                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu?pw=redcross', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                    if (!resp.ok) throw new Error('Failed to save menu');
+                    return await resp.json();
+                } catch (e) {
+                    alert('Error saving menu: ' + e.message);
+                }
+            }
+            async function fetchVersions() {
+                const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/versions');
+                return resp.ok ? await resp.json() : [];
+            }
+            async function restoreVersion(filename) {
+                const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/restore?pw=redcross', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename })
+                });
+                return resp.ok;
+            }
+            // --- UI and state ---
+            let menuData = { categories: [], footerButton: null };
+            let menuEditorData = null;
+            let isAdmin = false;
             const menuContent = document.getElementById('menuContent');
             const footerButtonContainer = document.getElementById('footerButtonContainer');
             const searchInput = document.getElementById('menuSearch');
@@ -623,9 +531,14 @@
             const darkModeSwitch = document.getElementById('darkModeSwitch');
             const alphabeticalToggle = document.getElementById('alphabeticalToggle');
             const alphabeticalSwitch = document.getElementById('alphabeticalSwitch');
-            let isDarkMode = false;
-            let isAlphabetical = false;
-            let originalHTML = '';
+            const adminBtn = document.getElementById('adminBtn');
+            const menuEditorOverlay = document.getElementById('menuEditorOverlay');
+            const menuEditorContent = document.getElementById('menuEditorContent');
+            const adminModal = document.getElementById('adminModal');
+            const adminPasswordInput = document.getElementById('adminPasswordInput');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminCancelBtn = document.getElementById('adminCancelBtn');
+            const adminErrorMsg = document.getElementById('adminErrorMsg');
             let allButtons = [];
             // --- Build menu from JSON ---
             function buildMenu(data) {
@@ -756,26 +669,38 @@
                 });
             }
             // --- Initial load ---
-            buildMenu(menuData);
-            buildFooterButton(menuData.footerButton);
-            originalHTML = menuContent.innerHTML;
-            storeAllButtons();
-            loadPreferences();
-            attachEventListeners();
+            (async function() {
+                menuData = await fetchMenuData();
+                buildMenu(menuData);
+                buildFooterButton(menuData.footerButton);
+                originalHTML = menuContent.innerHTML;
+                storeAllButtons();
+                loadPreferences();
+                attachEventListeners();
+            })();
             // --- Admin/editor logic ---
-            const adminBtn = document.getElementById('adminBtn');
-            const menuEditorOverlay = document.getElementById('menuEditorOverlay');
-            const menuEditorContent = document.getElementById('menuEditorContent');
-            const exportMenuJsonBtn = document.getElementById('exportMenuJsonBtn');
-            const exportMenuJsonArea = document.getElementById('exportMenuJsonArea');
-            let menuEditorData = JSON.parse(JSON.stringify(menuData)); // Deep copy for editing
             adminBtn.addEventListener('click', function() {
-                const pw = prompt('Enter admin password:');
-                if (pw === 'redcross') {
+                adminPasswordInput.value = '';
+                adminErrorMsg.style.display = 'none';
+                adminModal.style.display = 'flex';
+                adminPasswordInput.focus();
+            });
+            adminLoginBtn.onclick = function() {
+                if (adminPasswordInput.value === 'redcross') {
+                    isAdmin = true;
+                    menuEditorData = JSON.parse(JSON.stringify(menuData));
+                    adminModal.style.display = 'none';
                     showMenuEditor();
-                } else if (pw !== null) {
-                    alert('Incorrect password.');
+                } else {
+                    adminErrorMsg.textContent = 'Incorrect password.';
+                    adminErrorMsg.style.display = 'block';
                 }
+            };
+            adminCancelBtn.onclick = function() {
+                adminModal.style.display = 'none';
+            };
+            adminPasswordInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') adminLoginBtn.click();
             });
             function showMenuEditor() {
                 menuEditorOverlay.style.display = 'flex';
@@ -798,7 +723,28 @@
                     html += `</div>`;
                 });
                 html += `<button onclick='addCategory()'>Add Category</button>`;
+                if (isAdmin) {
+                    html += `<button id='saveMenuBtn'>Save</button>`;
+                    html += `<button id='showRestoreBtn'>Restore Previous Version</button>`;
+                }
                 menuEditorContent.innerHTML = html;
+                if (isAdmin) {
+                    document.getElementById('saveMenuBtn').onclick = async function() {
+                        await saveMenuData(menuEditorData);
+                        menuData = JSON.parse(JSON.stringify(menuEditorData));
+                        buildMenu(menuData);
+                        buildFooterButton(menuData.footerButton);
+                        storeAllButtons();
+                        alert('Menu saved!');
+                        menuEditorOverlay.style.display = 'none';
+                    };
+                    document.getElementById('showRestoreBtn').onclick = async function() {
+                        const versions = await fetchVersions();
+                        let restoreHtml = '<h3>Restore Previous Version</h3>';
+                        restoreHtml += '<ul>' + versions.map(v => `<li><button onclick=\'restoreVersionAction(\"${v}\")\'>${v}</button></li>`).join('') + '</ul>';
+                        menuEditorContent.innerHTML = restoreHtml + `<button onclick='renderMenuEditor()'>Back</button>`;
+                    };
+                }
             }
             window.addCategory = function() {
                 menuEditorData.categories.push({id:'new-cat-'+Date.now(),title:'New Category',color:'purple',items:[]});
@@ -822,12 +768,19 @@
             window.updateCategoryColor = function(ci,val) {
                 menuEditorData.categories[ci].color=val;
             }
-            exportMenuJsonBtn.onclick = function() {
-                exportMenuJsonArea.value = JSON.stringify(menuEditorData,null,2);
-                exportMenuJsonArea.style.display = 'block';
+            window.restoreVersionAction = async function(filename) {
+                if(confirm('Restore this version?')) {
+                    await restoreVersion(filename);
+                    menuData = await fetchMenuData();
+                    buildMenu(menuData);
+                    buildFooterButton(menuData.footerButton);
+                    storeAllButtons();
+                    alert('Menu restored!');
+                    menuEditorOverlay.style.display = 'none';
+                }
             }
-            // Optionally, you could add a 'Save' button to update the live menu from the editor.
         });
     </script>
 </body>
 </html>
+
