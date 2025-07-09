@@ -17,10 +17,15 @@
         textarea { width: 100%; min-height: 60px; margin-top: 0.5rem; }
         #adminModal { display: flex; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:2000; align-items:center; justify-content:center; }
         #adminModalInner { background:#fff; border-radius:8px; padding:2rem; max-width:350px; width:90vw; box-shadow:0 4px 32px rgba(0,0,0,0.2); text-align:center; }
-        .info-box { background: #f5f6fa; border-left: 4px solid #c8102e; padding: 24px 32px; margin-bottom: 32px; border-radius: 8px; font-family: 'Georgia', 'Times New Roman', serif; color: #222; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .info-box strong { color: #c8102e; font-weight: 700; }
-        .info-box ul { margin: 16px 0 0 24px; padding: 0; list-style: disc; }
-        .info-box code { background: #ececec; border-radius: 4px; padding: 2px 6px; font-family: 'Menlo', 'Monaco', monospace; font-size: 0.95em; color: #c8102e; }
+        .info-box { background: #fff; border-left: 5px solid #c8102e; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); padding: 2.5rem 2.5rem 2rem 2.5rem; margin-bottom: 2.5rem; font-family: 'Georgia', 'Times New Roman', serif; color: #232323; max-width: 700px; }
+        .info-box h2 { color: #c8102e; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.7rem; letter-spacing: 0.01em; }
+        .info-box ul { margin: 1.2em 0 0 1.5em; padding: 0; list-style: disc; }
+        .info-box .highlight, .info-box code { background: #f5f6fa; color: #c8102e; font-family: 'Menlo', 'Monaco', monospace; border-radius: 4px; padding: 2px 6px; font-size: 1em; word-break: break-all; overflow-wrap: anywhere; display: inline-block; max-width: 100%; }
+        .info-box .note { display: block; margin-top: 1.5em; color: #c8102e; font-size: 1.05em; font-weight: 600; }
+        @media (max-width: 600px) {
+          .info-box { padding: 1.2rem 0.7rem 1rem 0.7rem; font-size: 1em; }
+          .info-box h2 { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
@@ -35,14 +40,19 @@
     </div>
     <div class="editor-container" id="editorContainer" style="display:none;">
         <div class="info-box">
-          <strong>Menu Setup Guidance</strong><br>
-          When you add a new menu item, remember to also create the corresponding page in your ESRI Experience Builder project.
+          <h2>Menu Setup Guidance</h2>
+          <p>When adding a new menu item, ensure you also create the corresponding page in your ESRI Experience Builder project.</p>
           <ul>
-            <li>To link a menu item, use only the part of the ESRI page URL after the main domain. For example, use <code>/experience/abc123/page1</code> or simply the page name, such as <code>trucks_trailers</code>.</li>
+            <li>Use only the part of the ESRI page URL that comes after the main domain.<br>
+              For example: <span class="highlight">/experience/abc123/page1</span> or simply <span class="highlight">trucks_trailers</span>.
+            </li>
             <li>Enter this path in the menu item’s URL field.</li>
-            <li><strong>Example:</strong> If your ESRI page URL is <code>https://experience.arcgis.com/experience/1234567890abcdef/trucks_trailers</code>, then use <code>trucks_trailers</code> as the menu item’s URL.</li>
+            <li><b>Example:</b> If your ESRI page URL is<br>
+              <span class="highlight">https://experience.arcgis.com/experience/1234567890abcdef/trucks_trailers</span><br>
+              then use <span class="highlight">trucks_trailers</span> as the menu item’s URL.
+            </li>
           </ul>
-          <p><strong>Note:</strong> Menu changes here are instantly live for all users. However, new pages must be created separately in ESRI Experience Builder.</p>
+          <span class="note"><b>Note:</b> Menu changes here are live for all users. New pages must be created separately in ESRI Experience Builder.</span>
         </div>
         <div style="display: flex; font-weight: bold; margin-bottom: 0.5em;">
             <div style="flex:1; text-align:center;">Menu Item Title</div>
