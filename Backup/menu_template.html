@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="pageTitle">Experience Builder Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Your existing CSS styles remain the same */
+        :root {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: #f7f9fc;
+            --text-primary: #2c3e50;
+            --text-secondary: #34495e;
+            --border-color: #dcdfe6;
+            --border-secondary: #d0d0d0;
+            --shadow-light: rgba(0, 0, 0, 0.06);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --input-shadow: rgba(0, 0, 0, 0.04);
+            --focus-shadow: rgba(52, 152, 219, 0.1);
+            --button-shadow: rgba(0, 0, 0, 0.06);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #363636;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #555555;
+            --border-secondary: #444444;
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --input-shadow: rgba(0, 0, 0, 0.2);
+            --focus-shadow: rgba(52, 152, 219, 0.3);
+            --button-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-container {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0.25rem auto;
+            padding: 0.75rem;
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .search-controls-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .toggle-button {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .toggle-button:hover {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .toggle-button.active {
+            background-color: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 28px;
+            height: 16px;
+            background-color: var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active {
+            background-color: #3498db;
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active::before {
+            transform: translateX(12px);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border-radius: 0.6rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 2px var(--input-shadow);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px var(--focus-shadow);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .category-grid-wrapper {
+            flex-grow: 1;
+            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.6rem;
+            align-items: start;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .category-grid.alphabetical {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .category-card {
+            background-color: var(--bg-card);
+            border-radius: 0.4rem;
+            padding: 0.6rem;
+            box-shadow: 0 1px 3px var(--shadow-light);
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: auto;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px var(--shadow-medium);
+        }
+
+        .category-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid var(--border-secondary);
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button {
+            display: block;
+            width: 100%;
+            padding: 0.3rem 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 0.3rem;
+            font-weight: 500; 
+            text-align: center;
+            text-decoration: none;
+            color: white; 
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px var(--button-shadow);
+            font-size: 0.8rem;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-0.5px);
+            box-shadow: 0 2px 4px var(--shadow-medium);
+        }
+
+        .btn-purple { background-color: #8e44ad; } 
+        .btn-purple:hover { background-color: #9b59b6; }
+        .btn-blue { background-color: #3498db; } 
+        .btn-blue:hover { background-color: #2980b9; }
+        .btn-green { background-color: #27ae60; } 
+        .btn-green:hover { background-color: #2ecc71; }
+        .btn-orange { background-color: #e67e22; } 
+        .btn-orange:hover { background-color: #f39c12; }
+        .btn-red { background-color: #e74c3c; } 
+        .btn-red:hover { background-color: #c0392b; }
+        .btn-black { background-color: #34495e; } 
+        .btn-black:hover { background-color: #2c3e50; }
+        .btn-red-dark { background-color: #7f1d1d; }
+        .btn-red-dark:hover { background-color: #9b2a2a; }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sorting {
+            opacity: 0.7;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h1 id="menuTitle" class="text-center font-bold mb-4">Your Experience Builder Menu</h1>
+
+        <div class="search-controls-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="menuSearch" class="search-input" placeholder="Search menu items...">
+            </div>
+            <div class="controls-wrapper">
+                <div class="toggle-button" id="darkModeToggle">
+                    <span>🌙</span>
+                    <span>Dark</span>
+                    <div class="toggle-switch" id="darkModeSwitch"></div>
+                </div>
+                <div class="toggle-button" id="alphabeticalToggle">
+                    <span>🔤</span>
+                    <span>A-Z</span>
+                    <div class="toggle-switch" id="alphabeticalSwitch"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-grid-wrapper">
+            <div id="menuContent" class="category-grid">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="#" id="contactButton" class="menu-button btn-red-dark inline-block w-auto px-5 py-2 rounded-full text-base">Contact</a>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURATION - UPDATE THESE VALUES FOR YOUR PROJECT
+        const CONFIG = {
+            title: "Your Experience Builder Menu",
+            baseUrl: "https://experience.arcgis.com/experience/YOUR-EXPERIENCE-ID/page/",
+            categories: [
+                {
+                    id: "category1",
+                    title: "Category 1",
+                    color: "purple",
+                    items: [
+                        { title: "Item 1", url: "page1", searchTerms: "item 1" },
+                        { title: "Item 2", url: "page2", searchTerms: "item 2" }
+                    ]
+                },
+                {
+                    id: "category2", 
+                    title: "Category 2",
+                    color: "blue",
+                    items: [
+                        { title: "Item 3", url: "page3", searchTerms: "item 3" },
+                        { title: "Item 4", url: "page4", searchTerms: "item 4" }
+                    ]
+                }
+            ],
+            contactButton: {
+                title: "Contact Us",
+                url: "contact",
+                searchTerms: "contact"
+            }
+        };
+
+        // Initialize the menu
+        
