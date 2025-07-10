@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Button Test</title>
+</head>
+<body>
+    <h1>Simple Button Test</h1>
+    
+    <button onclick="testFunction()">TEST BUTTON - Click Me</button>
+    
+    <div id="result">No clicks yet</div>
+    
+    <script>
+        function testFunction() {
+            console.log('Button clicked!');
+            document.getElementById('result').innerHTML = 'Button works! Time: ' + new Date().toLocaleTimeString();
+            alert('Button clicked successfully!');
+        }
+    </script>
+</body>
+</html> 
