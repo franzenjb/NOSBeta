@@ -533,17 +533,8 @@
                     html += `<div class="category-card">`;
                     html += `<h2 class="category-title">${category.category}</h2>`;
                     category.links.forEach(link => {
-                        // Specific buttons that cause Russian doll nesting
-                        const nestingButtons = [
-                            "Air Reconnaissance",
-                            "EBV - Event Volunteers", 
-                            "DST - Disaster Tech",
-                            "IKD - InKind Donations",
-                            "Trailers & Assets",
-                            "ERV - Emergency vehicles"
-                        ];
-                        const target = nestingButtons.includes(link.label) ? "_blank" : "_parent";
-                        html += `<a href="${link.href}" target="${target}" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
+                        // All buttons use target="_parent" for proper embed navigation
+                        html += `<a href="${link.href}" target="_parent" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
