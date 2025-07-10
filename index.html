@@ -576,6 +576,7 @@
                 searchInput.addEventListener('change', filterMenu);
             }
             function toggleDarkMode() {
+                console.log('toggleDarkMode called, current isDarkMode:', isDarkMode);
                 isDarkMode = !isDarkMode;
                 if (isDarkMode) {
                     document.documentElement.setAttribute('data-theme', 'dark');
@@ -591,6 +592,7 @@
                 setTimeout(() => document.body.classList.remove('fade-in'), 300);
             }
             function toggleAlphabetical() {
+                console.log('toggleAlphabetical called, current isAlphabetical:', isAlphabetical);
                 isAlphabetical = !isAlphabetical;
                 menuContent.classList.add('sorting');
                 setTimeout(() => {
