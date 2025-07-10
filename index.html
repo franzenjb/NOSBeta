@@ -533,8 +533,8 @@
                     html += `<div class="category-card">`;
                     html += `<h2 class="category-title">${category.category}</h2>`;
                     category.links.forEach(link => {
-                        // All buttons use target="_parent" for proper embed navigation
-                        html += `<a href="${link.href}" target="_parent" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
+                        // Use JavaScript navigation instead of href links for Experience Builder compatibility
+                        html += `<button onclick="navigateToPage('${link.href}')" class="menu-button ${category.color}" data-search-term="${link.term}" style="border:none;cursor:pointer;width:100%;text-align:left;">${link.label}</button>`;
                     });
                     html += `</div>`;
                 });
@@ -649,6 +649,31 @@
                     }
                 });
             }
+            // --- Navigation function for Experience Builder ---
+            function navigateToPage(url) {
+                console.log('Navigating to:', url);
+                // Try multiple navigation methods for Experience Builder compatibility
+                try {
+                    // Method 1: Open in same window/tab
+                    window.location.href = url;
+                } catch (e) {
+                    console.log('Method 1 failed, trying method 2');
+                    try {
+                        // Method 2: Open in new window
+                        window.open(url, '_blank');
+                    } catch (e2) {
+                        console.log('Method 2 failed, trying method 3');
+                        try {
+                            // Method 3: Parent window navigation
+                            window.parent.location.href = url;
+                        } catch (e3) {
+                            console.error('All navigation methods failed:', e3);
+                            alert('Navigation failed. URL: ' + url);
+                        }
+                    }
+                }
+            }
+            
             // --- Initial load ---
             (async function() {
                 menuData = await fetchMenuData();
