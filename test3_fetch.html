@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test 3: Fetch Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .status { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #cce7ff; color: #004085; }
+    </style>
+</head>
+<body>
+    <h1>TEST 3: Fetch/AJAX Test</h1>
+    
+    <div id="fetchStatus" class="status info">Testing fetch capabilities...</div>
+    
+    <button onclick="testFetch()">Test Fetch menu.json</button>
+    
+    <div id="fetchResult"></div>
+    
+    <script>
+        console.log('TEST 3: Starting fetch test');
+        
+        async function testFetch() {
+            const statusDiv = document.getElementById('fetchStatus');
+            const resultDiv = document.getElementById('fetchResult');
+            
+            try {
+                console.log('TEST 3: Attempting to fetch menu.json');
+                statusDiv.innerHTML = 'Fetching menu.json...';
+                statusDiv.className = 'status info';
+                
+                const response = await fetch('./menu.json');
+                console.log('TEST 3: Fetch response:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('TEST 3: Data loaded:', data.length, 'categories');
+                
+                statusDiv.innerHTML = 'SUCCESS: menu.json loaded successfully!';
+                statusDiv.className = 'status success';
+                
+                resultDiv.innerHTML = `<p>Loaded ${data.length} menu categories</p>`;
+                
+            } catch (error) {
+                console.error('TEST 3: Fetch failed:', error);
+                statusDiv.innerHTML = `ERROR: ${error.message}`;
+                statusDiv.className = 'status error';
+                resultDiv.innerHTML = '<p>Fetch failed - this might be the issue!</p>';
+            }
+        }
+        
+        // Auto-run test
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TEST 3: DOM loaded, running auto-test');
+            testFetch();
+        });
+    </script>
+</body>
+</html> 

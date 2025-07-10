@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test 2: JavaScript Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-button { 
+            display: block; 
+            margin: 10px 0; 
+            padding: 15px; 
+            background: #e74c3c; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px;
+            text-align: center;
+        }
+        .toggle-button {
+            padding: 10px 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>TEST 2: JavaScript Test</h1>
+    
+    <button class="toggle-button" onclick="testFunction()">
+        Test JavaScript Function
+    </button>
+    
+    <div id="testResult">Click button to test JavaScript</div>
+    
+    <a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/National" 
+       target="_parent" 
+       class="test-button"
+       onclick="console.log('Button clicked:', this.href)">
+       Test Button with Logging
+    </a>
+    
+    <script>
+        console.log('TEST 2: JavaScript loaded successfully');
+        
+        function testFunction() {
+            console.log('TEST 2: Function called');
+            document.getElementById('testResult').innerHTML = 'JavaScript works! Time: ' + new Date().toLocaleTimeString();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TEST 2: DOM loaded');
+        });
+    </script>
+</body>
+</html> 
