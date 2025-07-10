@@ -523,6 +523,9 @@
             const menuEditorOverlay = document.getElementById('menuEditorOverlay');
             const menuEditorContent = document.getElementById('menuEditorContent');
             let allButtons = [];
+            let isDarkMode = false;
+            let isAlphabetical = false;
+
             // --- Build menu from JSON ---
             function buildMenu(data) {
                 let html = '';
