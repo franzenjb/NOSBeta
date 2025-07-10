@@ -534,12 +534,12 @@
                     html += `<div class="category-card card-${category.id}">`;
                     html += `<h2 class="category-title">${category.title}</h2>`;
                     (category.items || []).forEach(item => {
-                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" target="_parent" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
                     });
                     (category.subcategories || []).forEach(subcat => {
                         html += `<h2 class="category-title">${subcat.title}</h2>`;
                         (subcat.items || []).forEach(item => {
-                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" target="_parent" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
                         });
                     });
                     html += `</div>`;
@@ -548,7 +548,7 @@
             }
             function buildFooterButton(footer) {
                 if (!footer) return;
-                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
+                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" target="_parent" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
             }
             // --- Feature logic (search, dark mode, alphabetical, etc.) ---
             function storeAllButtons() {
@@ -577,7 +577,6 @@
                 searchInput.addEventListener('change', filterMenu);
             }
             function toggleDarkMode() {
-                console.log('toggleDarkMode called, current isDarkMode:', isDarkMode);
                 isDarkMode = !isDarkMode;
                 if (isDarkMode) {
                     document.documentElement.setAttribute('data-theme', 'dark');
@@ -593,7 +592,6 @@
                 setTimeout(() => document.body.classList.remove('fade-in'), 300);
             }
             function toggleAlphabetical() {
-                console.log('toggleAlphabetical called, current isAlphabetical:', isAlphabetical);
                 isAlphabetical = !isAlphabetical;
                 menuContent.classList.add('sorting');
                 setTimeout(() => {
