@@ -547,7 +547,7 @@
                     html += `<h2 class="category-title">${category.category}</h2>`;
                     category.links.forEach(link => {
                         // Simple HTML links - should just work!
-                        html += `<a href="${link.href}" class="menu-button ${category.color}" data-search-term="${link.term}" target="_parent">${link.label}</a>`;
+                        html += `<a href="${link.href}" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
@@ -555,7 +555,7 @@
             }
             function buildFooterButton(footer) {
                 if (!footer) return;
-                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}" target="_parent">${footer.title}</a>`;
+                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
             }
             // --- Feature logic (search, dark mode, alphabetical, etc.) ---
             function storeAllButtons() {
