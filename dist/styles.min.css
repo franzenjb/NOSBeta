@@ -1,0 +1,29 @@
+/* Critical CSS - Above the fold styles */
+            :root {
+                --bg-primary: #f0f4f8;
+                --bg-secondary: #ffffff;
+                --text-primary: #2c3e50;
+                --border-color: #dcdfe6;
+            }
+            
+            [data-theme="dark"] {
+                --bg-primary: #1a1a1a;
+                --bg-secondary: #2d2d2d;
+                --text-primary: #e0e0e0;
+                --border-color: #555555;
+            }
+            
+            *,*::before,*::after{box-sizing:border-box}
+            html,body{height:100%;margin:0;padding:0;font-family:system-ui,-apple-system,sans-serif;background-color:var(--bg-primary);overflow:hidden}
+            .menu-container{flex-grow:1;max-width:1600px;margin:.25rem auto;padding:.75rem;background-color:var(--bg-secondary);border-radius:.5rem;display:flex;flex-direction:column}
+            .search-input{width:100%;padding:.6rem 1rem;border-radius:.6rem;border:1px solid var(--border-color);font-size:1rem;background-color:var(--bg-secondary);color:var(--text-primary)}
+            .category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.6rem;width:100%}
+            .category-card{background-color:var(--bg-card);border-radius:.4rem;padding:.6rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+            .menu-button{display:block;width:100%;padding:.3rem .5rem;margin-bottom:.25rem;border-radius:.3rem;font-weight:500;text-align:center;text-decoration:none;color:white;font-size:.8rem}
+            .btn-purple{background-color:#8e44ad}
+            .btn-blue{background-color:#3498db}
+            .btn-green{background-color:#27ae60}
+            .btn-orange{background-color:#e67e22}
+            .btn-red{background-color:#e74c3c}
+            .btn-black{background-color:#34495e}
+            @media(max-width:768px){.category-grid{grid-template-columns:1fr}}

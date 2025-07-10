@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>National Operations Summary (NOSBeta)</title>
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="dns-prefetch" href="//menu-jfranzen.pythonanywhere.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    
+    <!-- Critical CSS Inlined -->
+    <style>
+        /* CSS Variables for theming */
+        :root {
+            --bg-primary: #f0f4f8;
+            --bg-secondary: #ffffff;
+            --bg-card: #f7f9fc;
+            --text-primary: #2c3e50;
+            --text-secondary: #34495e;
+            --border-color: #dcdfe6;
+            --border-secondary: #d0d0d0;
+            --shadow-light: rgba(0, 0, 0, 0.06);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --input-shadow: rgba(0, 0, 0, 0.04);
+            --focus-shadow: rgba(52, 152, 219, 0.1);
+            --button-shadow: rgba(0, 0, 0, 0.06);
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #363636;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #555555;
+            --border-secondary: #444444;
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --input-shadow: rgba(0, 0, 0, 0.2);
+            --focus-shadow: rgba(52, 152, 219, 0.3);
+            --button-shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Base styles */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            line-height: 1.1;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Essential utility classes (replacing Tailwind) */
+        .text-center { text-align: center; }
+        .font-bold { font-weight: 700; }
+        .mb-4 { margin-bottom: 1rem; }
+
+        .menu-container {
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0.25rem auto;
+            padding: 0.75rem;
+            background-color: var(--bg-secondary);
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            box-sizing: border-box; 
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        /* Search and Controls Container */
+        .search-controls-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input-wrapper { flex: 1; }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border-radius: 0.6rem;
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            box-shadow: inset 0 1px 2px var(--input-shadow);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px var(--focus-shadow);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        .category-grid-wrapper {
+            flex-grow: 1;
+            overflow: hidden;
+            box-sizing: border-box;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.6rem;
+            align-items: start;
+            width: 100%;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .category-card {
+            background-color: var(--bg-card);
+            border-radius: 0.4rem;
+            padding: 0.6rem;
+            box-shadow: 0 1px 3px var(--shadow-light);
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: auto;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            will-change: transform;
+        }
+
+        .category-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px var(--shadow-medium);
+        }
+
+        .category-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid var(--border-secondary);
+            width: 100%;
+            transition: color 0.3s ease;
+        }
+
+        .menu-button {
+            display: block;
+            width: 100%;
+            padding: 0.3rem 0.5rem;
+            margin-bottom: 0.25rem;
+            border-radius: 0.3rem;
+            font-weight: 500; 
+            text-align: center;
+            text-decoration: none;
+            color: white; 
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px var(--button-shadow);
+            font-size: 0.8rem;
+            will-change: transform;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-0.5px);
+            box-shadow: 0 2px 4px var(--shadow-medium);
+        }
+
+        /* Button colors */
+        .btn-purple { background-color: #8e44ad; } 
+        .btn-blue { background-color: #3498db; } 
+        .btn-green { background-color: #27ae60; } 
+        .btn-orange { background-color: #e67e22; } 
+        .btn-red { background-color: #e74c3c; } 
+        .btn-black { background-color: #34495e; }
+
+        /* Toggle styles */
+        .toggle-button {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 0.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .toggle-button:hover {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .toggle-button.active {
+            background-color: #3498db;
+            border-color: #3498db;
+            color: white;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 28px;
+            height: 16px;
+            background-color: var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active { background-color: #3498db; }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active::before {
+            transform: translateX(12px);
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .search-controls-container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+            
+            .controls-wrapper {
+                justify-content: center;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    
+    <!-- Non-critical CSS loaded asynchronously -->
+    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head>
+<body>
+    <div class="menu-container">
+        <h1 class="text-center font-bold mb-4">National Operations Summary</h1>
+
+        <div class="search-controls-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="menuSearch" class="search-input" placeholder="Search menu items..." autocomplete="off">
+            </div>
+            <div class="controls-wrapper">
+                <div class="toggle-button" id="darkModeToggle">
+                    <span>🌙</span>
+                    <span>Dark</span>
+                    <div class="toggle-switch" id="darkModeSwitch"></div>
+                </div>
+                <div class="toggle-button" id="alphabeticalToggle">
+                    <span>🔤</span>
+                    <span>A-Z</span>
+                    <div class="toggle-switch" id="alphabeticalSwitch"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-grid-wrapper">
+            <div id="menuContent" class="category-grid"></div>
+        </div>
+    </div>
+
+    <!-- Optimized JavaScript with performance improvements -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Performance optimizations
+            const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+            const DEBOUNCE_DELAY = 300;
+            
+            // Utility functions
+            function debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Cached API functions
+            async function fetchMenuDataWithCache() {
+                const cached = localStorage.getItem('menu-cache');
+                const cacheTime = localStorage.getItem('menu-cache-time');
+                
+                if (cached && cacheTime && Date.now() - parseInt(cacheTime) < CACHE_DURATION) {
+                    try {
+                        return JSON.parse(cached);
+                    } catch (e) {
+                        console.warn('Cache parse error:', e);
+                    }
+                }
+                
+                try {
+                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu');
+                    if (!resp.ok) throw new Error('Failed to load menu');
+                    const data = await resp.json();
+                    
+                    // Cache the successful response
+                    localStorage.setItem('menu-cache', JSON.stringify(data));
+                    localStorage.setItem('menu-cache-time', Date.now().toString());
+                    
+                    return data;
+                } catch (e) {
+                    console.error('API error:', e);
+                    // Return cached data as fallback
+                    if (cached) {
+                        try {
+                            return JSON.parse(cached);
+                        } catch (parseError) {
+                            console.error('Cache fallback failed:', parseError);
+                        }
+                    }
+                    return { categories: [] };
+                }
+            }
+
+            // Application state
+            let menuData = { categories: [] };
+            let allButtons = [];
+            let isDarkMode = false;
+            let isAlphabetical = false;
+
+            // DOM references
+            const menuContent = document.getElementById('menuContent');
+            const searchInput = document.getElementById('menuSearch');
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            const alphabeticalToggle = document.getElementById('alphabeticalToggle');
+            const alphabeticalSwitch = document.getElementById('alphabeticalSwitch');
+
+            // Optimized menu building with DocumentFragment
+            function buildMenu(data) {
+                const fragment = document.createDocumentFragment();
+                
+                (data.categories || []).forEach(category => {
+                    const card = document.createElement('div');
+                    card.className = 'category-card';
+                    
+                    const title = document.createElement('h2');
+                    title.className = 'category-title';
+                    title.textContent = category.title;
+                    card.appendChild(title);
+                    
+                    (category.items || []).forEach(item => {
+                        const button = document.createElement('a');
+                        button.href = `https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}`;
+                        button.className = `menu-button btn-${category.color}`;
+                        button.setAttribute('data-search-term', item.searchTerm || '');
+                        button.textContent = item.title;
+                        card.appendChild(button);
+                    });
+                    
+                    fragment.appendChild(card);
+                });
+                
+                menuContent.innerHTML = '';
+                menuContent.appendChild(fragment);
+            }
+
+            // Optimized search with virtual scrolling concepts
+            function filterMenu() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const cards = menuContent.querySelectorAll('.category-card');
+                
+                if (!searchTerm) {
+                    cards.forEach(card => card.style.display = 'flex');
+                    card.querySelectorAll('.menu-button').forEach(btn => btn.style.display = 'block');
+                    return;
+                }
+
+                requestAnimationFrame(() => {
+                    cards.forEach(card => {
+                        const buttons = card.querySelectorAll('.menu-button');
+                        let hasVisibleButtons = false;
+                        
+                        buttons.forEach(button => {
+                            const buttonText = button.textContent.toLowerCase();
+                            const searchData = button.getAttribute('data-search-term')?.toLowerCase() || '';
+                            
+                            if (buttonText.includes(searchTerm) || searchData.includes(searchTerm)) {
+                                button.style.display = 'block';
+                                hasVisibleButtons = true;
+                            } else {
+                                button.style.display = 'none';
+                            }
+                        });
+                        
+                        card.style.display = hasVisibleButtons ? 'flex' : 'none';
+                    });
+                });
+            }
+
+            // Theme management
+            function toggleDarkMode() {
+                isDarkMode = !isDarkMode;
+                if (isDarkMode) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    darkModeSwitch.classList.add('active');
+                    darkModeToggle.classList.add('active');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    darkModeSwitch.classList.remove('active');
+                    darkModeToggle.classList.remove('active');
+                }
+                localStorage.setItem('nosb-dark-mode', isDarkMode);
+            }
+
+            function loadPreferences() {
+                const savedDarkMode = localStorage.getItem('nosb-dark-mode') === 'true';
+                if (savedDarkMode) {
+                    isDarkMode = true;
+                    toggleDarkMode();
+                }
+            }
+
+            // Debounced search
+            const debouncedSearch = debounce(filterMenu, DEBOUNCE_DELAY);
+
+            // Event listeners
+            function attachEventListeners() {
+                darkModeToggle.addEventListener('click', toggleDarkMode);
+                searchInput.addEventListener('input', debouncedSearch);
+                
+                // Prevent form submission on enter
+                searchInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+            // Initialize application
+            async function init() {
+                try {
+                    menuContent.classList.add('loading');
+                    menuData = await fetchMenuDataWithCache();
+                    buildMenu(menuData);
+                    loadPreferences();
+                    attachEventListeners();
+                } catch (error) {
+                    console.error('Initialization error:', error);
+                    menuContent.innerHTML = '<div class="category-card"><h2 class="category-title">Error loading menu</h2></div>';
+                } finally {
+                    menuContent.classList.remove('loading');
+                }
+            }
+
+            // Start the application when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
+</body>
+</html>
