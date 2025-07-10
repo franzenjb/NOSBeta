@@ -473,15 +473,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Load menu data from backend API ---
+            // --- Load menu data from local JSON file ---
             async function fetchMenuData() {
                 try {
-                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu');
+                    const resp = await fetch('./menu.json');
                     if (!resp.ok) throw new Error('Failed to load menu');
                     return await resp.json();
                 } catch (e) {
                     alert('Error loading menu: ' + e.message);
-                    return { categories: [], footerButton: null };
+                    return [];
                 }
             }
             async function saveMenuData(data) {
@@ -510,8 +510,11 @@
                 return resp.ok;
             }
             // --- UI and state ---
-            let menuData = { categories: [], footerButton: null };
+            let menuData = [];
             let menuEditorData = null;
+            let isDarkMode = false;
+            let isAlphabetical = false;
+            let originalHTML = '';
             const menuContent = document.getElementById('menuContent');
             const footerButtonContainer = document.getElementById('footerButtonContainer');
             const searchInput = document.getElementById('menuSearch');
@@ -526,17 +529,13 @@
             // --- Build menu from JSON ---
             function buildMenu(data) {
                 let html = '';
-                (data.categories || []).forEach(category => {
-                    html += `<div class="category-card card-${category.id}">`;
-                    html += `<h2 class="category-title">${category.title}</h2>`;
-                    (category.items || []).forEach(item => {
-                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
-                    });
-                    (category.subcategories || []).forEach(subcat => {
-                        html += `<h2 class="category-title">${subcat.title}</h2>`;
-                        (subcat.items || []).forEach(item => {
-                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
-                        });
+                data.forEach(category => {
+                    html += `<div class="category-card">`;
+                    html += `<h2 class="category-title">${category.category}</h2>`;
+                    category.links.forEach(link => {
+                        // Use target="_blank" for Section 4 to avoid Russian doll effect
+                        const target = category.category === "4 Logistics" ? "_blank" : "_parent";
+                        html += `<a href="${link.href}" target="${target}" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
@@ -655,7 +654,7 @@
             (async function() {
                 menuData = await fetchMenuData();
                 buildMenu(menuData);
-                buildFooterButton(menuData.footerButton);
+                // buildFooterButton(menuData.footerButton); // Footer button not used in original format
                 originalHTML = menuContent.innerHTML;
                 storeAllButtons();
                 loadPreferences();
