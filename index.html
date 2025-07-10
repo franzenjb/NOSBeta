@@ -473,15 +473,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Load menu data from local JSON file ---
+            // --- Load menu data from backend API ---
             async function fetchMenuData() {
                 try {
-                    const resp = await fetch('./menu.json');
+                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu');
                     if (!resp.ok) throw new Error('Failed to load menu');
                     return await resp.json();
                 } catch (e) {
                     alert('Error loading menu: ' + e.message);
-                    return [];
+                    return { categories: [], footerButton: null };
                 }
             }
             async function saveMenuData(data) {
@@ -510,6 +510,8 @@
                 return resp.ok;
             }
             // --- UI and state ---
+            let menuData = { categories: [], footerButton: null };
+            let menuEditorData = null;
             const menuContent = document.getElementById('menuContent');
             const footerButtonContainer = document.getElementById('footerButtonContainer');
             const searchInput = document.getElementById('menuSearch');
@@ -521,20 +523,20 @@
             const menuEditorOverlay = document.getElementById('menuEditorOverlay');
             const menuEditorContent = document.getElementById('menuEditorContent');
             let allButtons = [];
-            let isDarkMode = false;
-            let isAlphabetical = false;
-            let menuData = [];
-            let menuEditorData = null;
-            let originalHTML = '';
-
             // --- Build menu from JSON ---
             function buildMenu(data) {
                 let html = '';
-                data.forEach(category => {
-                    html += `<div class="category-card">`;
-                    html += `<h2 class="category-title">${category.category}</h2>`;
-                    category.links.forEach(link => {
-                        html += `<a href="${link.href}" target="_parent" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
+                (data.categories || []).forEach(category => {
+                    html += `<div class="category-card card-${category.id}">`;
+                    html += `<h2 class="category-title">${category.title}</h2>`;
+                    (category.items || []).forEach(item => {
+                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                    });
+                    (category.subcategories || []).forEach(subcat => {
+                        html += `<h2 class="category-title">${subcat.title}</h2>`;
+                        (subcat.items || []).forEach(item => {
+                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                        });
                     });
                     html += `</div>`;
                 });
@@ -542,7 +544,7 @@
             }
             function buildFooterButton(footer) {
                 if (!footer) return;
-                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" target="_parent" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
+                footerButtonContainer.innerHTML = `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${footer.url}" class="menu-button btn-${footer.color} inline-block w-auto px-5 py-2 rounded-full text-base" data-search-term="${footer.searchTerm}">${footer.title}</a>`;
             }
             // --- Feature logic (search, dark mode, alphabetical, etc.) ---
             function storeAllButtons() {
@@ -653,7 +655,7 @@
             (async function() {
                 menuData = await fetchMenuData();
                 buildMenu(menuData);
-                // buildFooterButton(menuData.footerButton); // Footer button not used in original format
+                buildFooterButton(menuData.footerButton);
                 originalHTML = menuContent.innerHTML;
                 storeAllButtons();
                 loadPreferences();
