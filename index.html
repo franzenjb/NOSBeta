@@ -473,10 +473,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- Load menu data from backend API ---
+            // --- Load menu data from local JSON file ---
             async function fetchMenuData() {
                 try {
-                    const resp = await fetch('https://menu-jfranzen.pythonanywhere.com/menu');
+                    const resp = await fetch('./menu.json');
                     if (!resp.ok) throw new Error('Failed to load menu');
                     return await resp.json();
                 } catch (e) {
