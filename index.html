@@ -481,7 +481,7 @@
                     return await resp.json();
                 } catch (e) {
                     alert('Error loading menu: ' + e.message);
-                    return { categories: [], footerButton: null };
+                    return [];
                 }
             }
             async function saveMenuData(data) {
@@ -523,23 +523,43 @@
             let allButtons = [];
             let isDarkMode = false;
             let isAlphabetical = false;
-            let menuData = { categories: [], footerButton: null };
+            let menuData = [];
             let menuEditorData = null;
             let originalHTML = '';
 
             // --- Build menu from JSON ---
             function buildMenu(data) {
                 let html = '';
-                (data.categories || []).forEach(category => {
-                    html += `<div class="category-card card-${category.id}">`;
-                    html += `<h2 class="category-title">${category.title}</h2>`;
-                    (category.items || []).forEach(item => {
-                        html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" target="_parent" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                // Handle both old format (array directly) and new format (data.categories)
+                const categories = Array.isArray(data) ? data : (data.categories || []);
+                
+                categories.forEach(category => {
+                    const categoryId = category.id || category.category.replace(/\s+/g, '-').toLowerCase();
+                    const categoryTitle = category.title || category.category;
+                    const categoryColor = category.color || 'btn-gray';
+                    
+                    html += `<div class="category-card card-${categoryId}">`;
+                    html += `<h2 class="category-title">${categoryTitle}</h2>`;
+                    
+                    // Handle both formats: links (old) and items (new)
+                    const items = category.links || category.items || [];
+                    items.forEach(item => {
+                        const itemTitle = item.label || item.title;
+                        const itemUrl = item.href || `https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}`;
+                        const searchTerm = item.term || item.searchTerm || '';
+                        
+                        html += `<a href="${itemUrl}" target="_parent" class="menu-button ${categoryColor}" data-search-term="${searchTerm}">${itemTitle}</a>`;
                     });
+                    
+                    // Handle subcategories if they exist
                     (category.subcategories || []).forEach(subcat => {
                         html += `<h2 class="category-title">${subcat.title}</h2>`;
                         (subcat.items || []).forEach(item => {
-                            html += `<a href="https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}" target="_parent" class="menu-button btn-${category.color}" data-search-term="${item.searchTerm}">${item.title}</a>`;
+                            const itemTitle = item.label || item.title;
+                            const itemUrl = item.href || `https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}`;
+                            const searchTerm = item.term || item.searchTerm || '';
+                            
+                            html += `<a href="${itemUrl}" target="_parent" class="menu-button ${categoryColor}" data-search-term="${searchTerm}">${itemTitle}</a>`;
                         });
                     });
                     html += `</div>`;
@@ -659,7 +679,7 @@
             (async function() {
                 menuData = await fetchMenuData();
                 buildMenu(menuData);
-                buildFooterButton(menuData.footerButton);
+                // buildFooterButton(menuData.footerButton); // Footer button not used in original format
                 originalHTML = menuContent.innerHTML;
                 storeAllButtons();
                 loadPreferences();
