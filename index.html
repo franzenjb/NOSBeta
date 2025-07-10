@@ -546,8 +546,8 @@
                     html += `<div class="category-card">`;
                     html += `<h2 class="category-title">${category.category}</h2>`;
                     category.links.forEach(link => {
-                        // Use JavaScript navigation instead of href links for Experience Builder compatibility
-                        html += `<button onclick="navigateToPage('${link.href}')" class="menu-button ${category.color}" data-search-term="${link.term}" style="border:none;cursor:pointer;width:100%;text-align:left;">${link.label}</button>`;
+                        // Simple HTML links - should just work!
+                        html += `<a href="${link.href}" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
