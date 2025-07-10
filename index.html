@@ -510,8 +510,6 @@
                 return resp.ok;
             }
             // --- UI and state ---
-            let menuData = { categories: [], footerButton: null };
-            let menuEditorData = null;
             const menuContent = document.getElementById('menuContent');
             const footerButtonContainer = document.getElementById('footerButtonContainer');
             const searchInput = document.getElementById('menuSearch');
@@ -525,6 +523,9 @@
             let allButtons = [];
             let isDarkMode = false;
             let isAlphabetical = false;
+            let menuData = { categories: [], footerButton: null };
+            let menuEditorData = null;
+            let originalHTML = '';
 
             // --- Build menu from JSON ---
             function buildMenu(data) {
