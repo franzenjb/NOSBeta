@@ -472,29 +472,11 @@
     </div>
 
     <script>
-        // --- Global navigation function for Experience Builder ---
+        // --- Global navigation function - Jump to other Experience Builder ---
         function navigateToPage(url) {
-            console.log('Navigating to:', url);
-            // Try multiple navigation methods for Experience Builder compatibility
-            try {
-                // Method 1: Open in same window/tab
-                window.location.href = url;
-            } catch (e) {
-                console.log('Method 1 failed, trying method 2');
-                try {
-                    // Method 2: Open in new window
-                    window.open(url, '_blank');
-                } catch (e2) {
-                    console.log('Method 2 failed, trying method 3');
-                    try {
-                        // Method 3: Parent window navigation
-                        window.parent.location.href = url;
-                    } catch (e3) {
-                        console.error('All navigation methods failed:', e3);
-                        alert('Navigation failed. URL: ' + url);
-                    }
-                }
-            }
+            console.log('Jumping to other Experience Builder:', url);
+            // Navigate to the other Experience Builder in same tab
+            window.location.href = url;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
