@@ -547,7 +547,7 @@
                     html += `<h2 class="category-title">${category.category}</h2>`;
                     category.links.forEach(link => {
                         // Simple HTML links - should just work!
-                        html += `<a href="${link.href}" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
+                        html += `<a href="${link.href}" target="_parent" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
