@@ -530,37 +530,11 @@
             // --- Build menu from JSON ---
             function buildMenu(data) {
                 let html = '';
-                // Handle both old format (array directly) and new format (data.categories)
-                const categories = Array.isArray(data) ? data : (data.categories || []);
-                
-                categories.forEach(category => {
-                    const categoryId = category.id || category.category.replace(/\s+/g, '-').toLowerCase();
-                    const categoryTitle = category.title || category.category;
-                    const categoryColor = category.color || 'btn-gray';
-                    
-                    html += `<div class="category-card card-${categoryId}">`;
-                    html += `<h2 class="category-title">${categoryTitle}</h2>`;
-                    
-                    // Handle both formats: links (old) and items (new)
-                    const items = category.links || category.items || [];
-                    items.forEach(item => {
-                        const itemTitle = item.label || item.title;
-                        const itemUrl = item.href || `https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}`;
-                        const searchTerm = item.term || item.searchTerm || '';
-                        
-                        html += `<a href="${itemUrl}" target="_parent" class="menu-button ${categoryColor}" data-search-term="${searchTerm}">${itemTitle}</a>`;
-                    });
-                    
-                    // Handle subcategories if they exist
-                    (category.subcategories || []).forEach(subcat => {
-                        html += `<h2 class="category-title">${subcat.title}</h2>`;
-                        (subcat.items || []).forEach(item => {
-                            const itemTitle = item.label || item.title;
-                            const itemUrl = item.href || `https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f/page/${item.url}`;
-                            const searchTerm = item.term || item.searchTerm || '';
-                            
-                            html += `<a href="${itemUrl}" target="_parent" class="menu-button ${categoryColor}" data-search-term="${searchTerm}">${itemTitle}</a>`;
-                        });
+                data.forEach(category => {
+                    html += `<div class="category-card">`;
+                    html += `<h2 class="category-title">${category.category}</h2>`;
+                    category.links.forEach(link => {
+                        html += `<a href="${link.href}" target="_parent" class="menu-button ${category.color}" data-search-term="${link.term}">${link.label}</a>`;
                     });
                     html += `</div>`;
                 });
