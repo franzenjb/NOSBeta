@@ -1,0 +1,206 @@
+{
+  "experienceTitle": "FLROS Operations Menu",
+  "description": "Experience Builder-based menu system for operational dashboards",
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "type": "landing",
+      "widgets": ["menu", "featured-buttons"],
+      "hideFromMenu": false
+    },
+    {
+      "id": "situation-summary",
+      "title": "Situation Summary",
+      "type": "category",
+      "color": "purple",
+      "hideFromMenu": false,
+      "subPages": [
+        {
+          "id": "national",
+          "title": "National",
+          "url": "/page/National",
+          "searchTerms": ["National"]
+        },
+        {
+          "id": "heat-risk",
+          "title": "Heat Risk",
+          "url": "/page/Heat-Risk",
+          "searchTerms": ["Heat Risk"]
+        },
+        {
+          "id": "fy25-incidents",
+          "title": "FY 25 Incidents",
+          "url": "/page/FY-25-Incidents",
+          "searchTerms": ["FY25 Incidents", "DROs"]
+        },
+        {
+          "id": "dcs-5-year-plan",
+          "title": "DCS 5 Year Plan",
+          "url": "/page/DCS-5-Year-Plan",
+          "searchTerms": ["DCS 5YR Plan"]
+        }
+      ]
+    },
+    {
+      "id": "weather",
+      "title": "Weather",
+      "type": "category",
+      "color": "blue",
+      "hideFromMenu": false,
+      "subPages": [
+        {
+          "id": "storm-prediction",
+          "title": "Storm Prediction Center",
+          "url": "/page/Storm-Prediction-Center",
+          "searchTerms": ["Storm Prediction Center"]
+        },
+        {
+          "id": "precipitation",
+          "title": "Precipitation",
+          "url": "/page/Precipitation",
+          "searchTerms": ["Precipitation"]
+        },
+        {
+          "id": "flood-prediction",
+          "title": "Flood Prediction",
+          "url": "/page/Flood-Prediction",
+          "searchTerms": ["Flood Prediction"]
+        },
+        {
+          "id": "hurricane-center",
+          "title": "Natl Hurricane Center",
+          "url": "/page/Natl-Hurricane-Center",
+          "searchTerms": ["National Hurricane Center"]
+        }
+      ]
+    },
+    {
+      "id": "logistics",
+      "title": "Logistics",
+      "type": "category",
+      "color": "green",
+      "hideFromMenu": false,
+      "subPages": [
+        {
+          "id": "staffing",
+          "title": "Staffing",
+          "url": "/page/Staffing",
+          "searchTerms": ["Staffing"]
+        },
+        {
+          "id": "staff-capacity",
+          "title": "Staff Capacity Building",
+          "url": "/page/Staff-Capacity-Building",
+          "searchTerms": ["Staff Capacity Building"]
+        },
+        {
+          "id": "event-volunteers",
+          "title": "EBV - Event Volunteers",
+          "url": "/page/EBV-Event-Volunteers",
+          "searchTerms": ["EBV Event Volunteers"]
+        },
+        {
+          "id": "disaster-tech",
+          "title": "DST - Disaster Tech",
+          "url": "/page/DST-Disaster-Tech",
+          "searchTerms": ["DST Disaster Tech"]
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "title": "Operations",
+      "type": "category",
+      "color": "orange",
+      "hideFromMenu": false,
+      "subPages": [
+        {
+          "id": "docc-ops",
+          "title": "DOCC Current OPS",
+          "url": "/page/DOCC-Current-OPS",
+          "searchTerms": ["DOCC Current OPS"]
+        },
+        {
+          "id": "active-dros",
+          "title": "Active DROs",
+          "url": "/page/Active-DROs",
+          "searchTerms": ["Active DROs"]
+        },
+        {
+          "id": "activation-levels",
+          "title": "Natl Activation Levels",
+          "url": "/page/Natl-Activation-Levels",
+          "searchTerms": ["National Activation Levels"]
+        }
+      ]
+    },
+    {
+      "id": "client-assistance",
+      "title": "Client Assistance",
+      "type": "category",
+      "color": "red",
+      "hideFromMenu": false,
+      "subPages": [
+        {
+          "id": "client-assistance-main",
+          "title": "Client Assistance",
+          "url": "/page/Client-Assistance",
+          "searchTerms": ["Client Assistance"]
+        },
+        {
+          "id": "idc-financial",
+          "title": "IDC Financial",
+          "url": "/page/IDC-Financial",
+          "searchTerms": ["IDC Financial"]
+        },
+        {
+          "id": "bridge",
+          "title": "Bridge",
+          "url": "/page/Bridge",
+          "searchTerms": ["Bridge"]
+        },
+        {
+          "id": "dat",
+          "title": "DAT",
+          "url": "/page/DAT",
+          "searchTerms": ["DAT"]
+        }
+      ]
+    }
+  ],
+  "menuConfiguration": {
+    "type": "horizontal",
+    "style": "pills",
+    "spacing": 10,
+    "alignment": "center",
+    "showIcon": true,
+    "submenuExpandMode": "foldable"
+  },
+  "buttonConfiguration": {
+    "featuredButtons": [
+      {
+        "title": "National Dashboard",
+        "targetPage": "national",
+        "style": "primary",
+        "icon": "dashboard",
+        "color": "purple"
+      },
+      {
+        "title": "Weather Center",
+        "targetPage": "weather",
+        "style": "secondary",
+        "icon": "weather",
+        "color": "blue"
+      },
+      {
+        "title": "Operations Hub",
+        "targetPage": "operations",
+        "style": "secondary",
+        "icon": "operations",
+        "color": "orange"
+      }
+    ]
+  },
+  "baseExperienceUrl": "https://experience.arcgis.com/experience/ce0b7dc7574c49a8a82f36443fee494f"
+} 
